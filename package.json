@@ -1,7 +1,7 @@
 {
 	"name": "rdf-ext",
-	"version": "0.1.0",
-	"description": "Implements the RDF-Ext spec plus parsers (JSON-LD, RDF-XML, Turtle), serializers (JSON-LD, N-Triples) and stores (in memory, LDP, SPARQL)",
+	"version": "0.1.1",
+	"description": "Implements the RDF-Ext spec plus parsers (JSON-LD, RDF/XML, Turtle), serializers (JSON-LD, N-Triples) and stores (in memory, LDP, SPARQL)",
 	"main": "rdf-ext.js",
 	"scripts": {
 		"test": "node_modules/.bin/mocha"
