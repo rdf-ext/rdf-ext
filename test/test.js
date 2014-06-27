@@ -43,8 +43,7 @@ describe('rdf-ext', function() {
     it('RDF/XML parser should parse card.xml', function(done) {
       var
         card = fs.readFileSync(__dirname + '/support/card.xml').toString(),
-        parseXml = function (toparse) { return (new xmldom.DOMParser().parseFromString(toparse));},
-        parser = new rdf.RdfXmlParser({parseXml: parseXml});
+        parser = new rdf.RdfXmlParser();
 
         parser.parse(card, function(graph) {
           utils.p.assertGraphEqual(graph, cardGraph).then(function() { done(); });
