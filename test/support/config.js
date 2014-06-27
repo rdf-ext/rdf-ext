@@ -6,7 +6,6 @@ var config = {};
 config.rdf = require('rdf-interfaces');
 
 // RDF Interfaces for node.js https://github.com/Acubed/node-rdf
-// Doesn't support the complete RDF Interfaces API
 //config.rdf = require('rdf').environment;
 
 // Standalone RDF Interfaces from rdfstore https://github.com/antoniogarrote/rdfstore-js
