@@ -5,7 +5,10 @@
 	},
 	"@id": "#me",
 	"@type": "foaf:Person",
-	"foaf:name": "John Smith",
+	"foaf:name": {
+      "@language": "en",
+      "@value": "John Smith"
+    },
 	"cert:key": {
 		"@type": "cert:RSAPublicKey",
 		"cert:exponent": {

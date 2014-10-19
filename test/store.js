@@ -28,7 +28,7 @@ describe('rdf-ext', function() {
 		it('match', function(done) {
 			var s = 'https://www.example.com/john/card#me';
 			var p = 'http://xmlns.com/foaf/0.1/name';
-			var o = 'John Smith';
+			var o = null;
 
 			store.add('https://www.example.com/john/card2', cardGraph, function(added) {
 				store.match('https://www.example.com/john/card2', s, p, o, function(graph) {
@@ -103,13 +103,13 @@ describe('rdf-ext', function() {
 		it('removeMatches', function(done) {
 			var s = 'https://www.example.com/john/card#me';
 			var p = 'http://xmlns.com/foaf/0.1/name';
-			var o = 'John Smith';
+			var o = null;
 			var toRemove = rdf.createGraph();
 
 			toRemove.add(rdf.createTriple(
 				rdf.createNamedNode('https://www.example.com/john/card#me'),
 				rdf.createNamedNode('http://xmlns.com/foaf/0.1/name'),
-				rdf.createLiteral('John Smith')));
+				rdf.createLiteral('John Smith', 'en')));
 
 			var final = rdf.Graph.difference(cardGraph, toRemove);
 

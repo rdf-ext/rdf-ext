@@ -11,7 +11,7 @@ var cardGraph = function(rdf) {
 	graph.add(rdf.createTriple(
 		cardNode,
 		rdf.createNamedNode('http://xmlns.com/foaf/0.1/name'),
-		rdf.createLiteral('John Smith')));
+		rdf.createLiteral('John Smith', 'en')));
 
 	var keyNode = rdf.createBlankNode();
 
