@@ -50,4 +50,18 @@ describe('rdf-ext', function() {
         }, 'https://www.example.com/john/card');
     });
   });
+
+  describe('serializers', function () {
+    it('JSON-LD serializer should generate parseable card', function(done) {
+      var
+        serializer = new rdf.JsonLdSerializer();
+        parser = new rdf.JsonLdParser();
+
+      serializer.serialize(cardGraph, function(cardJsonLd) {
+        parser.parse(cardJsonLd, function(graph) {
+          utils.p.assertGraphEqual(graph, cardGraph).then(function() { done(); });
+        }, 'https://www.example.com/john/card');
+      });
+    });
+  });
 });
