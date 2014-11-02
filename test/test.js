@@ -11,12 +11,18 @@ var
 
 
 describe('rdf-ext', function() {
-  var cardGraph = null;
+  var
+    cardGraph,
+    person1Graph;
 
   before(function(done) {
     cardGraph = require(__dirname + '/support/card-graph')(rdf);
 
-    done();
+    rdf.parseJsonLd(fs.readFileSync(__dirname + '/support/person1.json').toString(), function (graph) {
+      person1Graph = graph;
+
+      done();
+    }, 'http://schema.example.com/person1');
   });
 
   describe('parsers', function() {
@@ -48,6 +54,16 @@ describe('rdf-ext', function() {
         parser.parse(card, function(graph) {
           utils.p.assertGraphEqual(graph, cardGraph).then(function() { done(); });
         }, 'https://www.example.com/john/card');
+    });
+
+    it('Microdata parser should parse person.md.html', function(done) {
+      var
+        person = fs.readFileSync(__dirname + '/support/person1.micro.html').toString(),
+        parser = new rdf.MicrodataParser();
+
+      parser.parse(person, function(graph) {
+        utils.p.assertGraphEqual(graph, person1Graph).then(function() { done(); });
+      }, 'http://schema.example.com/person1');
     });
   });
 
