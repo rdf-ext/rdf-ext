@@ -1,0 +1,8 @@
+@prefix md: <http://www.w3.org/ns/md#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+<0067.html> md:item (
+  [ <0067.html#refers-to> _:amanda]
+  [ <0067.html#refers-to> _:amanda]) .
+
+_:amanda <0067.html#name> "Amanda" .

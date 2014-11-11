@@ -1,0 +1,5 @@
+@prefix md: <http://www.w3.org/ns/md#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+<0002.html> md:item (
+ [ <0002.html#name> "Gregg", "Kellogg"]) .

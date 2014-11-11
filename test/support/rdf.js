@@ -1,0 +1,1 @@
+../../node_modules/rdf-interfaces/rdfi.js

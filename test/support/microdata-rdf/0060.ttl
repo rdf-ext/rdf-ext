@@ -1,0 +1,7 @@
+@prefix md: <http://www.w3.org/ns/md#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema: <http://schema.org/> .
+
+<0060.html> md:item (
+  [ a schema:Person;
+    schema:name "Amanda"]) .

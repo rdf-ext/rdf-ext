@@ -1,0 +1,12 @@
+@prefix md: <http://www.w3.org/ns/md#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfa: <http://www.w3.org/ns/rdfa#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<0073.html> md:item (
+  [ a <http://expansion/MainType>, <http://expansion/AdditionalType>;
+    <http://expansion/subPropertyOf> <http://expansion/AdditionalType>
+  ]);
+  rdfa:usesVocabulary <http://expansion/> .
+
+<http://expansion/subPropertyOf> rdfs:subPropertyOf rdf:type .

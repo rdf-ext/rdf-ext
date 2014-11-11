@@ -1,0 +1,6 @@
+@prefix md: <http://www.w3.org/ns/md#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+<0069.html> md:item (
+  [ a <http://foo#bar>;
+    <http://foo#baz> "FooBar"]) .

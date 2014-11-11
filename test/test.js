@@ -1,83 +1,166 @@
-var
-  config = require(__dirname + '/support/config'),
-  rdf = config.rdf,
-  store = config.store;
+(function (root, factory) {
+  if (typeof module !== 'undefined' && module.exports) {
+    global.Promise = require('es6-promise').Promise;
 
-var
-  assert = require('assert'),
-  fs = require('fs'),
-  utils = require('rdf-test-utils')(rdf),
-  xmldom = require('xmldom');
+    var
+      assert = require('assert'),
+      fs = require('fs'),
+      path = require('path'),
+      rdf = require('rdf-interfaces'),
+      utils = require('rdf-test-utils')(rdf);
 
+    require('../rdf-ext.js')(rdf);
 
-describe('rdf-ext', function() {
-  var
-    cardGraph,
-    person1Graph;
+    var readFile = function (filename) {
+      return new Promise(function (resolve) {
+        resolve(fs.readFileSync(path.join(__dirname, filename)).toString());
+      });
+    };
 
-  before(function(done) {
-    cardGraph = require(__dirname + '/support/card-graph')(rdf);
+    module.exports = factory(assert, jsonld, rdf, readFile, utils);
+  } else {
+    var readFile = function (filename) {
+      return new Promise(function (resolve) {
+        root.rdf.defaultRequest('GET', filename, {}, null, function (status, headers, content) {
+          resolve(content);
+        });
+      });
+    };
 
-    rdf.parseJsonLd(fs.readFileSync(__dirname + '/support/person1.json').toString(), function (graph) {
-      person1Graph = graph;
+    factory(root.assert, root.jsonld, root.rdf, readFile, root.rdf.testUtils(root.rdf));
+  }
+})(this, function (assert, jsonld, rdf, readFile, utils) {
+
+  describe('rdf-ext', function() {
+    var
+      cardGraph;
+
+    var buildCardGraph = function() {
+      var graph = rdf.createGraph();
+
+      var cardNode = rdf.createNamedNode('https://www.example.com/john/card#me');
+
+      graph.add(rdf.createTriple(
+        cardNode,
+        rdf.createNamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
+        rdf.createNamedNode('http://xmlns.com/foaf/0.1/Person')));
+
+      graph.add(rdf.createTriple(
+        cardNode,
+        rdf.createNamedNode('http://xmlns.com/foaf/0.1/name'),
+        rdf.createLiteral('John Smith', 'en')));
+
+      var keyNode = rdf.createBlankNode();
+
+      graph.add(rdf.createTriple(
+        cardNode,
+        rdf.createNamedNode('http://www.w3.org/ns/auth/cert#key'),
+        keyNode));
+
+      graph.add(rdf.createTriple(
+        keyNode,
+        rdf.createNamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
+        rdf.createNamedNode('http://www.w3.org/ns/auth/cert#RSAPublicKey')));
+
+      graph.add(rdf.createTriple(
+        keyNode,
+        rdf.createNamedNode('http://www.w3.org/ns/auth/cert#exponent'),
+        rdf.createLiteral('65537', null, rdf.createNamedNode('http://www.w3.org/2001/XMLSchema#integer'))));
+
+      graph.add(rdf.createTriple(
+        keyNode,
+        rdf.createNamedNode('http://www.w3.org/ns/auth/cert#modulus'),
+        rdf.createLiteral('abcdef', null, rdf.createNamedNode('http://www.w3.org/2001/XMLSchema#hexBinary'))));
+
+      return graph;
+    };
+
+    before(function(done) {
+      cardGraph = buildCardGraph();
 
       done();
-    }, 'http://schema.example.com/person1');
-  });
-
-  describe('parsers', function() {
-    it('Turtle parser should parse card.ttl', function(done) {
-      var
-        card = fs.readFileSync(__dirname + '/support/card.ttl').toString(),
-        parser = new rdf.TurtleParser();
-
-      parser.parse(card, function(graph) {
-        utils.p.assertGraphEqual(graph, cardGraph).then(function() { done(); });
-      }, 'https://www.example.com/john/card');
     });
 
-    it('JSON-LD parser should parse card.json', function(done) {
-      var
-        card = JSON.parse(fs.readFileSync(__dirname + '/support/card.json').toString()),
-        parser = new rdf.JsonLdParser();
+    describe('parsers', function() {
+      it('Turtle parser should parse card.ttl', function(done) {
+        var parser = new rdf.promise.Parser(new rdf.TurtleParser());
 
-      parser.parse(card, function(graph) {
-        utils.p.assertGraphEqual(graph, cardGraph).then(function() { done(); });
-      }, 'https://www.example.com/john/card');
-    });
-
-    it('RDF/XML parser should parse card.xml', function(done) {
-      var
-        card = fs.readFileSync(__dirname + '/support/card.xml').toString(),
-        parser = new rdf.RdfXmlParser();
-
-        parser.parse(card, function(graph) {
-          utils.p.assertGraphEqual(graph, cardGraph).then(function() { done(); });
-        }, 'https://www.example.com/john/card');
-    });
-
-    it('Microdata parser should parse person.md.html', function(done) {
-      var
-        person = fs.readFileSync(__dirname + '/support/person1.micro.html').toString(),
-        parser = new rdf.MicrodataParser();
-
-      parser.parse(person, function(graph) {
-        utils.p.assertGraphEqual(graph, person1Graph).then(function() { done(); });
-      }, 'http://schema.example.com/person1');
-    });
-  });
-
-  describe('serializers', function () {
-    it('JSON-LD serializer should generate parseable card', function(done) {
-      var
-        serializer = new rdf.JsonLdSerializer();
-        parser = new rdf.JsonLdParser();
-
-      serializer.serialize(cardGraph, function(cardJsonLd) {
-        parser.parse(cardJsonLd, function(graph) {
-          utils.p.assertGraphEqual(graph, cardGraph).then(function() { done(); });
-        }, 'https://www.example.com/john/card');
+        readFile('support/card.ttl')
+          .then(function (card) { return parser.parse(card, 'https://www.example.com/john/card') })
+          .then(function (graph) { return  utils.p.assertGraphEqual(graph, cardGraph); })
+          .then(function () { done() })
+          .catch(function (error) { done(error); });
       });
+
+      it('JSON-LD parser should parse card.json', function(done) {
+        var parser = new rdf.promise.Parser(new rdf.JsonLdParser());
+
+        readFile('support/card.json')
+          .then(function (card) { return parser.parse(card, 'https://www.example.com/john/card') })
+          .then(function (graph) { return  utils.p.assertGraphEqual(graph, cardGraph); })
+          .then(function () { done() })
+          .catch(function (error) { done(error); });
+      });
+
+      it('RDF/XML parser should parse card.xml', function(done) {
+        var parser = new rdf.promise.Parser(new rdf.RdfXmlParser());
+
+        readFile('support/card.xml')
+          .then(function (card) { return parser.parse(card, 'https://www.example.com/john/card') })
+          .then(function (graph) { return  utils.p.assertGraphEqual(graph, cardGraph); })
+          .then(function () { done() })
+          .catch(function (error) { done(error); });
+      });
+    });
+
+    describe('serializers', function () {
+      it('JSON-LD serializer should generate parseable card', function(done) {
+        var
+          serializer = new rdf.promise.Serializer(new rdf.JsonLdSerializer())
+          parser = new rdf.promise.Parser(new rdf.JsonLdParser());
+
+        serializer.serialize(cardGraph)
+          .then(function (card) { return parser.parse(card, 'https://www.example.com/john/card'); })
+          .then(function (graph) { return  utils.p.assertGraphEqual(graph, cardGraph); })
+          .then(function () { done() })
+          .catch(function (error) { done(error); });
+      });
+    });
+
+    describe('microdata-rdf test suite', function () {
+      var
+        tests = [
+          '0001', '0002', '0003', '0004', '0005', '0006', '0007', '0008', '0009', '0010', '0011', '0012', '0013',
+          '0014', '0015', '0046', '0047', '0048', '0049', '0050', '0051', '0052', '0053', '0054', '0055', '0056',
+          '0057', '0058', '0059', '0060', '0061', '0062', '0063', '0064', '0065', '0066', '0067', '0068', '0069',
+          '0070', '0071', '0072', '0073', '0074' ],
+        microdataParser = new rdf.promise.Parser(new rdf.MicrodataParser()),
+        turtleParser = new rdf.promise.Parser(new rdf.TurtleParser());
+
+      var runTest = function (number) {
+        it('should pass test ' + number, function (done) {
+
+          Promise.all([
+            readFile('support/microdata-rdf/' + number + '.html'),
+            readFile('support/microdata-rdf/' + number + '.ttl')
+          ]).then(function (contents) {
+            return Promise.all([
+              microdataParser.parse(contents[0], 'http://example.com/'),
+              turtleParser.parse(contents[1], 'http://example.com/')
+            ])
+          }).then(function (graphs) {
+            return utils.p.assertGraphEqual(graphs[0], graphs[1]);
+          }).then(function () {
+            done()
+          }).catch(function (error) {
+            done(error);
+          })
+        });
+      };
+
+      tests.forEach(function (number) {
+        runTest(number);
+      })
     });
   });
 });
