@@ -8,6 +8,7 @@ var files = [
   '/lib/jsonld-parser.js',
   '/lib/jsonld-serializer.js',
   '/lib/ldp-store.js',
+  '/lib/microdata-parser.js',
   '/lib/ntriples-serializer.js',
   '/lib/promise.js',
   '/lib/rdfstore-store.js',
