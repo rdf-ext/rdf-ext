@@ -1,8 +1,6 @@
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
-@prefix md: <http://www.w3.org/ns/md#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix schema: <http://schema.org/> .
 
-<0064.html> md:item (
-  [ a foaf:Person; foaf:name "Amanda"]
-  [ a schema:Person; schema:name "Amanda"]) .
+[ a foaf:Person; foaf:name "Amanda"] .
+[ a schema:Person; schema:name "Amanda"] .

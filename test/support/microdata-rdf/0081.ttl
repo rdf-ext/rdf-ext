@@ -2,5 +2,7 @@
 @prefix schema: <http://schema.org/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-[ a schema:Thing;
-  schema:time "00:00:00Z"^^xsd:time] .
+<http://www.freebase.com/m/0yq9mqd> schema:creator [
+   a schema:Person;
+   schema:name "William Shakespeare"
+ ] .

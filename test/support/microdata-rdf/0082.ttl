@@ -1,0 +1,19 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[
+  a schema:Bakery;
+  schema:containedIn _:mall;
+  schema:name "Ramanathan Guha's Meta Content Framework Bakery"
+] .
+
+[
+  a schema:Restaurant;
+  schema:containedIn _:mall;
+  schema:name "Dan Brickley's Data Restaurant"
+] .
+
+_:mall a schema:ShoppingCenter;
+  schema:description "The ACME Shopping Mall is your one-stop paradise for all data-related shopping needs, from schemas to instance data";
+  schema:name "The ACME Shopping Mall on Structured Data Avenue" .

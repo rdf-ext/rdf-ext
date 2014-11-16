@@ -1,4 +1,3 @@
-@prefix md: <http://www.w3.org/ns/md#> .
 @prefix schema: <http://schema.org/> .
 
-<0010.html> md:item ([ a schema:Thing; schema:track <foo>]) .
+[ a schema:Thing; schema:track <foo>] .

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test 0082</title>
+  </head>
+  <body>
+    <div itemscope itemtype="http://schema.org/ShoppingCenter">
+      <span itemprop="name">The ACME Shopping Mall on Structured Data Avenue</span>
+      <span itemprop="description">The ACME Shopping Mall is your one-stop paradise for all data-related shopping needs, from schemas to instance data</span>
+      <p>Here is a list of shops inside:</p>
+      <div itemprop-reverse="containedIn" itemscope itemtype="http://schema.org/Restaurant">
+        <span itemprop="name">Dan Brickley's Data Restaurant</span>
+      </div>
+      <div itemprop-reverse="containedIn" itemscope itemtype="http://schema.org/Bakery">
+        <span itemprop="name">Ramanathan Guha's Meta Content Framework Bakery</span>
+      </div>
+    </div>
+  </body>
+</html>

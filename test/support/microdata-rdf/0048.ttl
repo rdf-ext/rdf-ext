@@ -1,7 +1,5 @@
-@prefix md: <http://www.w3.org/ns/md#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix schema: <http://schema.org/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<0048.html> md:item ([ a schema:Thing;
-       schema:time "P2011Y06M28DT00H00M00S"^^xsd:duration]) .
+[ a schema:Thing; schema:time "P2011Y06M28DT00H00M00S"^^xsd:duration] .
