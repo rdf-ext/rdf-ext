@@ -90,23 +90,16 @@ var mixin = function (rdf, options) {
 		rdf.Graph = {};
   }
 
-  rdf.Graph.toString = function (a) {
-    var s = '';
+  rdf.Graph.difference = function (a, b) {
+    var d = rdf.createGraph();
 
-    a.forEach(function (t) {
-      s += t.toString() + '\n';
+    a.forEach(function (at) {
+      if (!b.some(function (bt) { return at.equals(bt); })) {
+        d.add(at);
+      }
     });
 
-    return s;
-  };
-
-  rdf.Graph.merge = function (a, b) {
-    var m = rdf.createGraph();
-
-    m.addAll(a);
-    m.addAll(b);
-
-    return m;
+    return d;
   };
 
   rdf.Graph.intersection = function (a, b) {
@@ -121,16 +114,33 @@ var mixin = function (rdf, options) {
     return i;
   };
 
-  rdf.Graph.difference = function (a, b) {
-    var d = rdf.createGraph();
+  rdf.Graph.map = function (graph, callback) {
+    var result = [];
 
-    a.forEach(function (at) {
-      if (!b.some(function (bt) { return at.equals(bt); })) {
-        d.add(at);
-      }
+    graph.forEach(function (triple) {
+      result.push(callback(triple));
     });
 
-    return d;
+    return result;
+  };
+
+  rdf.Graph.merge = function (a, b) {
+    var m = rdf.createGraph();
+
+    m.addAll(a);
+    m.addAll(b);
+
+    return m;
+  };
+
+  rdf.Graph.toString = function (a) {
+    var s = '';
+
+    a.forEach(function (t) {
+      s += t.toString() + '\n';
+    });
+
+    return s;
   };
 
   var wrappedCreateGraph = rdf.createGraph.bind(rdf);
@@ -138,11 +148,13 @@ var mixin = function (rdf, options) {
   rdf.createGraphExt = function (triples) {
     var graph = wrappedCreateGraph(triples);
 
-    graph.toString = rdf.Graph.toString.bind(graph, graph);
+    graph.difference = rdf.Graph.difference.bind(graph, graph);
 
     graph.intersection = rdf.Graph.intersection.bind(graph, graph);
 
-    graph.difference = rdf.Graph.difference.bind(graph, graph);
+    graph.map = rdf.Graph.map.bind(graph, graph);
+
+    graph.toString = rdf.Graph.toString.bind(graph, graph);
 
     if ('replaceMerge' in options && options.replaceMerge) {
       graph.merge = rdf.Graph.merge.bind(graph, graph);
