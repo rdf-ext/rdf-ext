@@ -4,37 +4,37 @@
   "description": "Implements the RDF-Ext spec plus parsers (JSON-LD, RDF/XML, Turtle), serializers (JSON-LD, N-Triples) and stores (in memory, LDP, SPARQL)",
   "main": "rdf-ext.js",
   "scripts": {
-	"install": "node build.js",
-	"test": "node_modules/.bin/mocha"
+    "install": "node build.js",
+    "test": "node_modules/.bin/mocha"
   },
   "repository": {
-	"type": "git",
-	"url": "git://github.com/bergos/rdf-ext.git"
+    "type": "git",
+    "url": "git://github.com/zazukoians/rdf-ext.git"
   },
   "keywords": [
-	"RDF",
-	"RDF Interfaces",
-	"JSON-LD",
-	"Turtle",
-	"NTriples",
-	"SPARQL"
+    "RDF",
+    "RDF Interfaces",
+    "JSON-LD",
+    "Turtle",
+    "NTriples",
+    "SPARQL"
   ],
   "author": "Thomas Bergwinkl",
   "license": "MIT",
   "bugs": {
-	"url": "https://github.com/bergos/rdf-ext/issues"
+    "url": "https://github.com/zazukoians/rdf-ext/issues"
   },
-  "homepage": "https://github.com/bergos/rdf-ext",
+  "homepage": "https://github.com/zazukoians/rdf-ext",
   "dependencies": {
-	"jsonld": "=0.2.*",
-	"es6-promise": "=1.*",
-	"n3": "=0.2.*",
-	"xmldom": "=0.1.*"
+    "jsonld": "=0.3.*",
+    "es6-promise": "=1.*",
+    "n3": "=0.2.*",
+    "xmldom": "=0.1.*"
   },
   "devDependencies": {
-	"mocha": "=1.*",
-	"rdf-interfaces": "=0.1.*",
-	"rdf-test-utils": "=0.1.*"
+    "mocha": "=1.*",
+    "rdf-interfaces": "=0.1.*",
+    "rdf-test-utils": "=0.1.*"
   },
   "readmeFilename": "README.md"
 }
