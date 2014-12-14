@@ -28,7 +28,7 @@
   "dependencies": {
     "jsonld": "=0.3.*",
     "es6-promise": "=1.*",
-    "n3": "=0.2.*",
+    "n3": "=0.3.*",
     "xmldom": "=0.1.*"
   },
   "devDependencies": {
