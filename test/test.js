@@ -116,7 +116,7 @@
     describe('serializers', function () {
       it('JSON-LD serializer should generate parseable card', function(done) {
         var
-          serializer = new rdf.promise.Serializer(new rdf.JsonLdSerializer())
+          serializer = new rdf.promise.Serializer(new rdf.JsonLdSerializer()),
           parser = new rdf.promise.Parser(new rdf.JsonLdParser());
 
         serializer.serialize(cardGraph)
@@ -145,8 +145,8 @@
             readFile('support/microdata-rdf/' + number + '.ttl')
           ]).then(function (contents) {
             return Promise.all([
-              microdataParser.parse(contents[0], 'http://example.com/'),
-              turtleParser.parse(contents[1], 'http://example.com/')
+              microdataParser.parse(contents[0], 'http://example.com/' + number + '.html'),
+              turtleParser.parse(contents[1], 'http://example.com/' + number + '.html')
             ])
           }).then(function (graphs) {
             return utils.p.assertGraphEqual(graphs[0], graphs[1]);
