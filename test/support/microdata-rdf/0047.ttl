@@ -2,4 +2,4 @@
 @prefix schema: <http://schema.org/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-[ a schema:Thing; schema:time "2011-06-28T00:00:00Z"^^xsd:dateTime ] .
+[ a schema:Thing; schema:time "2011-06-28T00:00:00Z"^^xsd:dateTime] .
