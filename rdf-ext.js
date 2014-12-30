@@ -182,13 +182,16 @@ if (isNode) {
     require('./lib/jsonld-parser.js')(rdf);
     require('./lib/jsonld-serializer.js')(rdf);
     require('./lib/ldp-store.js')(rdf);
-    require('./lib/microdata-parser.js')(rdf);
     require('./lib/ntriples-serializer.js')(rdf);
     require('./lib/promise.js')(rdf);
     require('./lib/rdfstore-store.js')(rdf);
     require('./lib/rdfxml-parser.js')(rdf);
     require('./lib/sparql-store.js')(rdf);
     require('./lib/turtle-parser.js')(rdf);
+    require('./lib/turtle-serializer.js')(rdf);
+
+    //require('./lib/uri-resolver.js')(rdf);
+    //require('./lib/microdata-parser.js')(rdf);
   };
 } else {
   if (typeof rdf === 'undefined') {
