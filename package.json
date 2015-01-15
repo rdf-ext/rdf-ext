@@ -1,6 +1,6 @@
 {
   "name": "rdf-ext",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Implements the RDF-Ext spec plus parsers (JSON-LD, RDF/XML, Turtle), serializers (JSON-LD, N-Triples) and stores (in memory, LDP, SPARQL)",
   "main": "rdf-ext.js",
   "scripts": {
@@ -28,7 +28,7 @@
   "dependencies": {
     "jsonld": "=0.3.*",
     "es6-promise": "=1.*",
-    "n3": "=0.3.*",
+    "n3": "=0.4.*",
     "xmldom": "=0.1.*"
   },
   "devDependencies": {
