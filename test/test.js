@@ -92,6 +92,15 @@
           .catch(function (error) { done(error); });
       });
 
+      it('Turtle parser should forward error', function(done) {
+        rdf.parseTurtle('this is not a Turtle string', function (graph, error) {
+          assert.equal(graph, null);
+          assert.notEqual(error, null);
+
+          done();
+        });
+      });
+
       it('JSON-LD parser should parse card.json', function(done) {
         var parser = new rdf.promise.Parser(new rdf.JsonLdParser());
 
@@ -102,6 +111,15 @@
           .catch(function (error) { done(error); });
       });
 
+      it('JSON-LD parser should forward error', function(done) {
+        rdf.parseTurtle('this is not a JSON-LD string', function (graph, error) {
+          assert.equal(graph, null);
+          assert.notEqual(error, null);
+
+          done();
+        });
+      });
+
       it('RDF/XML parser should parse card.xml', function(done) {
         var parser = new rdf.promise.Parser(new rdf.RdfXmlParser());
 
@@ -110,6 +128,15 @@
           .then(function (graph) { return  utils.p.assertGraphEqual(graph, cardGraph); })
           .then(function () { done() })
           .catch(function (error) { done(error); });
+      });
+
+      it('RDF/XML parser should forward error', function(done) {
+        rdf.parseTurtle('this is not a RDF/XML string', function (graph, error) {
+          assert.equal(graph, null);
+          assert.notEqual(error, null);
+
+          done();
+        });
       });
     });
 
