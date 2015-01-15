@@ -2,8 +2,15 @@
 
 This module implements [RDF-Ext] (http://bergos.github.com/rdf-ext-spec/),
 parsers (JSON-LD, RDF-XML, Turtle),
-serializers (JSON-LD, N-Triples) and
+serializers (JSON-LD, N-Triples, Turtle) and
 stores (in memory, LDP, SPARQL).
+
+RDF-Ext requires a library which implements the RDF-Interfaces API.
+Here is a list of known working implementations:
+
+* [reference implementation] (https://github.com/bergos/rdf-interfaces)
+* [rdf] (https://github.com/Acubed/node-rdf)
+* [rdfstore-js] (https://github.com/antoniogarrote/rdfstore-js)
 
 ## Usage
 
