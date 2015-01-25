@@ -46,6 +46,34 @@ Now you can import RDF-Ext:
 	<script src="/js/rdf-ext.js"></script>
 
 
+## Examples
+
+Use the global turtle parser instance to parse a triple from turtle data string and print the number of triples:
+
+	var data = '<http://example.org/#s> <http://example.org/#p> <http://example.org/#o>.';
+
+	rdf.parseTurtle(data, function (graph) {
+	  console.log(graph.length);
+	});
+
+
+Use a `LdpStore` instance to read the http://dbpedia.org/resource/RDF graph from the turtle resource on DBpedia and
+print the first rdfs:label object value:
+
+	var store = new rdf.LdpStore();
+
+	store.match(
+	  'http://dbpedia.org/data/RDF.ttl',
+	  'http://dbpedia.org/resource/RDF',
+	  'http://www.w3.org/2000/01/rdf-schema#label',
+	  null,
+	  function (graph) {
+	    console.log(graph.toArray()[0].object.toString());
+	  }
+	);
+
+
+
 ## Implementations
 
 ### InMemoryStore
