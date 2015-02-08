@@ -112,7 +112,7 @@
       });
 
       it('JSON-LD parser should forward error', function(done) {
-        rdf.parseTurtle('this is not a JSON-LD string', function (graph, error) {
+        rdf.parseJsonLd('{"@context": "urn:test"}', function (graph, error) {
           assert.equal(graph, null);
           assert.notEqual(error, null);
 
@@ -147,7 +147,7 @@
           parser = new rdf.promise.Parser(new rdf.TurtleParser());
 
         serializer.serialize(cardGraph)
-          .then(function (card) { console.log(card); return parser.parse(card, 'https://www.example.com/john/card'); })
+          .then(function (card) { return parser.parse(card, 'https://www.example.com/john/card'); })
           .then(function (graph) { return  utils.p.assertGraphEqual(graph, cardGraph); })
           .then(function () { done() })
           .catch(function (error) { done(error); });
