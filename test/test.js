@@ -33,7 +33,8 @@
 
   describe('rdf-ext', function() {
     var
-      cardGraph;
+      cardGraph,
+      listGraph;
 
     var buildCardGraph = function() {
       var graph = rdf.createGraph();
@@ -76,9 +77,17 @@
     };
 
     before(function(done) {
+      var parser = new rdf.promise.Parser(new rdf.TurtleParser());
+
       cardGraph = buildCardGraph();
 
-      done();
+      readFile('support/list.nt')
+        .then(function (list) { return parser.parse(list, 'https://example.com/list'); })
+        .then(function (graph) {
+          listGraph = graph;
+
+        })
+        .then(function () { done(); });
     });
 
     describe('parsers', function() {
@@ -118,6 +127,16 @@
 
           done();
         });
+      });
+
+      it('JSON-LD parser should parse list.json', function(done) {
+        var parser = new rdf.promise.Parser(new rdf.JsonLdParser());
+
+        readFile('support/list.json')
+          .then(function (list) { return parser.parse(list, 'https://www.example.com/list') })
+          .then(function (graph) { return  utils.p.assertGraphEqual(graph, listGraph); })
+          .then(function () { done() })
+          .catch(function (error) { done(error); });
       });
 
       it('RDF/XML parser should parse card.xml', function(done) {

@@ -1,0 +1,7 @@
+_:b0 <http://example.org/orderedItems> _:b3 .
+_:b1 <http://example.org/text> "1" .
+_:b2 <http://example.org/text> "2" .
+_:b3 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b1 .
+_:b3 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b4 .
+_:b4 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b2 .
+_:b4 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .

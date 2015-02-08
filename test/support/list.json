@@ -1,0 +1,16 @@
+{
+  "@context": {
+    "@vocab": "http://example.org/",
+    "orderedItems": {
+      "@container": "@list"
+    }
+  },
+  "orderedItems": [
+    {
+      "text": "1"
+    },
+    {
+      "text": "2"
+    }
+  ]
+}
