@@ -5,7 +5,7 @@ parsers (JSON-LD, RDF-XML, Turtle),
 serializers (JSON-LD, N-Triples, Turtle) and
 stores (in memory, LDP, SPARQL).
 
-RDF-Ext requires a library which implements the RDF-Interfaces API.
+RDF-Ext requires a library which implements the W3C [RDF Interfaces](http://www.w3.org/TR/rdf-interfaces/) API.
 Here is a list of known working implementations:
 
 * [reference implementation] (https://github.com/bergos/rdf-interfaces)
@@ -16,11 +16,19 @@ Here is a list of known working implementations:
 
 ### node.js
 
-Import your favourite RDF Interfaces library:
+RDF-Ext is available on `npm`, to install it run:
+
+	npm install rdf-ext
+
+followed by your favourite RDF Interfaces library. If you don't want to chose your own simply run:
+
+	npm install rdf-interfaces
+
+In the code, import the RDF Interfaces library:
 
 	var rdf = require('rdf-interfaces');
 
-Mixin RDF Interfaces Extension to the RDF Environment:
+And mixin the RDF Interfaces Extension to the RDF Environment:
 
 	require('rdf-ext')(rdf);
 
