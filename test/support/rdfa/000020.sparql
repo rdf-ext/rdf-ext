@@ -1,0 +1,5 @@
+ASK WHERE {
+	?x0 <http://xmlns.com/foaf/0.1/mbox> <mailto:libby.miller@bristol.ac.uk> .
+	?x1 <http://xmlns.com/foaf/0.1/knows> ?x0 .
+	?x1 <http://xmlns.com/foaf/0.1/mbox> <mailto:daniel.brickley@bristol.ac.uk> .
+}

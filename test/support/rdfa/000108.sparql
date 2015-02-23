@@ -1,0 +1,5 @@
+ASK WHERE {
+	<http://www.w3.org/2006/07/SWD/RDFa/testsuite/testcases/000108.html> <http://purl.org/dc/elements/1.1/creator> <http://www.w3.org/2006/07/SWD/RDFa/testsuite/testcases/000108.ttl#me> .
+	<http://www.w3.org/2006/07/SWD/RDFa/testsuite/testcases/000108.ttl#me> <http://xmlns.com/foaf/0.1/mbox> <mailto:ben@adida.net> .
+	<http://www.w3.org/2006/07/SWD/RDFa/testsuite/testcases/000108.ttl#me> <http://xmlns.com/foaf/0.1/name> "Ben Adida" .
+}

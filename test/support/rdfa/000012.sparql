@@ -1,0 +1,4 @@
+ASK WHERE {
+	<http://example.org/Person1> <http://xmlns.com/foaf/0.1/knows> <http://example.org/Person2> .
+	<http://example.org/Person2> <http://xmlns.com/foaf/0.1/knows> <http://example.org/Person1> .
+}

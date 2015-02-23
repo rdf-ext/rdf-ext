@@ -1,0 +1,3 @@
+_:b0 <http://xmlns.com/foaf/0.1/mbox> <mailto:libby.miller@bristol.ac.uk> .
+_:b1 <http://xmlns.com/foaf/0.1/knows> _:b0 .
+_:b1 <http://xmlns.com/foaf/0.1/mbox> <mailto:daniel.brickley@bristol.ac.uk> .
