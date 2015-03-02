@@ -187,64 +187,64 @@
     });
 
     describe('RDFa test suite', function () {
-      var
-        base = 'http://www.w3.org/2006/07/SWD/RDFa/testsuite/testcases/',
-        tests = [
-          '000002',
-          '000003',
-          //'000004',
-          //'000005',
-          //'000006',
-          '000007',
-          '000008',
-          '000010',
-          //'000011',
-          '000012',
-          //'000013',
-          //'000014',
-          //'000015',
-          '000016',
-          //'000017',
-          '000019',
-          //'000020',
-          '000101',
-          '000102',
-          '000103',
-          //'000104',
-          //'000105',
-          //'000106',
-          '000107',
-          //'000108',
-          '000109',
-          '000110',
-          //'000112',
-          '000113'
-        ],
-        rdfaParser = new rdf.promise.Parser(new rdf.RdfaParser()),
-        turtleParser = new rdf.promise.Parser(new rdf.TurtleParser());
-
-      var runTest = function (number) {
-        it('should pass test ' + number, function (done) {
-
-          Promise.all([
-            readFile('support/rdfa/' + number + '.html'),
-            readFile('support/rdfa/' + number + '.ttl')
-          ]).then(function (contents) {
-            return Promise.all([
-              rdfaParser.parse(contents[0], base + number + '.html'),
-              turtleParser.parse(contents[1], base + number + '.html')
-            ])
-          }).then(function (graphs) {
-            return utils.p.assertGraphEqual(graphs[0], graphs[1]);
-          }).then(function () {
-            done()
-          }).catch(function (error) {
-            done(error);
-          })
-        });
-      };
-
       if (isNode) {
+        var
+          base = 'http://www.w3.org/2006/07/SWD/RDFa/testsuite/testcases/',
+          tests = [
+            '000002',
+            '000003',
+            //'000004',
+            //'000005',
+            //'000006',
+            '000007',
+            '000008',
+            '000010',
+            //'000011',
+            '000012',
+            //'000013',
+            //'000014',
+            //'000015',
+            '000016',
+            //'000017',
+            '000019',
+            //'000020',
+            '000101',
+            '000102',
+            '000103',
+            //'000104',
+            //'000105',
+            //'000106',
+            '000107',
+            //'000108',
+            '000109',
+            '000110',
+            //'000112',
+            '000113'
+          ],
+          rdfaParser = new rdf.promise.Parser(new rdf.RdfaParser()),
+          turtleParser = new rdf.promise.Parser(new rdf.TurtleParser());
+
+        var runTest = function (number) {
+          it('should pass test ' + number, function (done) {
+
+            Promise.all([
+              readFile('support/rdfa/' + number + '.html'),
+              readFile('support/rdfa/' + number + '.ttl')
+            ]).then(function (contents) {
+              return Promise.all([
+                rdfaParser.parse(contents[0], base + number + '.html'),
+                turtleParser.parse(contents[1], base + number + '.html')
+              ])
+            }).then(function (graphs) {
+              return utils.p.assertGraphEqual(graphs[0], graphs[1]);
+            }).then(function () {
+              done()
+            }).catch(function (error) {
+              done(error);
+            })
+          });
+        };
+
         tests.forEach(function (number) {
           runTest(number);
         })
@@ -286,5 +286,89 @@
         runTest(number);
       })
     });*/
+
+    describe('InMemoryStore', function () {
+      it('should return only data of the given named graph', function (done) {
+        var
+          store = new rdf.promise.Store(new rdf.InMemoryStore()),
+          graphA = rdf.createGraph(),
+          graphB = rdf.createGraph();
+
+        graphA.add(rdf.createTriple(
+          rdf.createNamedNode('http://example.org/test#s-a'),
+          rdf.createNamedNode('http://example.org/test#p'),
+          rdf.createNamedNode('http://example.org/test#o')));
+
+        graphB.add(rdf.createTriple(
+          rdf.createNamedNode('http://example.org/test#s-b'),
+          rdf.createNamedNode('http://example.org/test#p'),
+          rdf.createNamedNode('http://example.org/test#o')));
+
+        store.add('http://example.org/test-a', graphA)
+          .then(function () { return store.add('http://example.org/test-b', graphB); })
+          .then(function () { return store.graph('http://example.org/test-b'); })
+          .then(function (graph) {
+            assert.equal(graph.length, 1);
+            assert(graph.some(function (t) { return t.subject.equals('http://example.org/test#s-b') }));
+          })
+          .then(function () { done() })
+          .catch(function (error) { done(error); });
+      });
+
+      it('should return data of all graphs', function (done) {
+        var
+          store = new rdf.promise.Store(new rdf.InMemoryStore()),
+          graphA = rdf.createGraph(),
+          graphB = rdf.createGraph();
+
+        graphA.add(rdf.createTriple(
+          rdf.createNamedNode('http://example.org/test#s-a'),
+          rdf.createNamedNode('http://example.org/test#p'),
+          rdf.createNamedNode('http://example.org/test#o')));
+
+        graphB.add(rdf.createTriple(
+          rdf.createNamedNode('http://example.org/test#s-b'),
+          rdf.createNamedNode('http://example.org/test#p'),
+          rdf.createNamedNode('http://example.org/test#o')));
+
+        store.add('http://example.org/test-a', graphA)
+          .then(function () { return store.add('http://example.org/test-b', graphB); })
+          .then(function () { return store.graph(undefined); })
+          .then(function (graph) {
+            assert.equal(graph.length, 2);
+            assert(graph.some(function (t) { return t.subject.equals('http://example.org/test#s-a') }));
+            assert(graph.some(function (t) { return t.subject.equals('http://example.org/test#s-b') }));
+          })
+          .then(function () { done() })
+          .catch(function (error) { done(error); });
+      });
+
+      it('should run match over all graphs', function (done) {
+        var
+          store = new rdf.promise.Store(new rdf.InMemoryStore()),
+          graphA = rdf.createGraph(),
+          graphB = rdf.createGraph();
+
+        graphA.add(rdf.createTriple(
+          rdf.createNamedNode('http://example.org/test#s-a'),
+          rdf.createNamedNode('http://example.org/test#p'),
+          rdf.createNamedNode('http://example.org/test#o')));
+
+        graphB.add(rdf.createTriple(
+          rdf.createNamedNode('http://example.org/test#s-b'),
+          rdf.createNamedNode('http://example.org/test#p'),
+          rdf.createNamedNode('http://example.org/test#o')));
+
+        store.add('http://example.org/test-a', graphA)
+          .then(function () { return store.add('http://example.org/test-b', graphB); })
+          .then(function () { return store.match(undefined, 'http://example.org/test#s-b'); })
+          .then(function (graph) {
+            assert.equal(graph.length, 1);
+            assert(graph.some(function (t) { return t.subject.equals('http://example.org/test#s-b') }));
+          })
+          .then(function () { done() })
+          .catch(function (error) { done(error); });
+      });
+    });
   });
 });
