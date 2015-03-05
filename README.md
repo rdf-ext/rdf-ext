@@ -120,14 +120,24 @@ Pull requests are very welcome.
 #### InMemoryStore
 
 A simple in-memory triple store implementation.
+Cross graph read operations are supported by using `undefined` as graph IRI.
+In that case `.graph` returns all graphs merged into a single graph and `.match` operates on that single merged graph.
+Because there is nothing to configure, the constructor doesn't require any parameters.
 
 #### LdpStore
 
 Store implementation to access graphs via a RESTful [LDP](http://www.w3.org/TR/ldp/) interface.
+The constructor accepts a single `options` parameters.
+
+The `options` object can have the following properties:
+
+* `request` Replaces the default request function.
+  See the utils sections for implementations provided by RDF-Ext.
 
 #### RdfstoreStore
 
-Store based on [rdfstore-js](https://github.com/antoniogarrote/rdfstore-js). 
+Store based on [rdfstore-js](https://github.com/antoniogarrote/rdfstore-js).
+The constructor requires a rdfstore-js object parameter that will be wrapped.
 
 #### SingleGraphStore
 
@@ -138,11 +148,33 @@ Sometimes usefull for testing.
 
 Store implementation to access graphs via [SPARQL 1.1 Graph Store HTTP Protocol](http://www.w3.org/TR/sparql11-http-rdf-update/) interface. This requires an external triple store.
 
+The constructor accepts a single `options` parameters.
+
+The `options` object can have the following properties:
+
+* `endpointUrl` The URL of the SPARQL endpoint.
+  This is a required property.
+* `updateUrl` Use a different URL for write operations.
+  By default the `endpointUrl` is used.
+* `mimeType` Graph data is read using CONSTRUCT queries.
+  This parameter defines the requested mime type.
+  The default value is `text/turtle`.
+* `serialize` Replaces the serialize function that is used to build the INSERT statements.
+  The serialize function must generate valid SPARQL data!
+  `rdf.serializeNTriples` is used by default.
+* `parse` Replaces the function used to parse the CONSTRUCT query output.
+  The parser must be able to parse data in the format defined in the `mimeType` property.
+  `rdf.parseTurtle` is used by default.
+* `request` Replaces the default request function.
+  See the utils sections for implementations provided by RDF-Ext.
+
 ### Parser
 
 #### JsonLdParser
 
-Parser for JSON-LD using the standard [JSON-LD library](https://github.com/digitalbazaar/jsonld.js). 
+Parser for JSON-LD using the standard [JSON-LD library](https://github.com/digitalbazaar/jsonld.js).
+The standard library is used for preprocessing.
+So any document form (expanded, compacted or flattened) is supported.
 
 #### RdfXmlParser
 
@@ -152,12 +184,52 @@ Parser for RDF/XML data using a fork of the [rdflib.js](https://github.com/linke
 
 Turtle parser using [N3.js](https://github.com/RubenVerborgh/N3.js).
 
+The constructor accepts a single `options` parameters.
+
+The `options` object can have the following properties:
+
+* `importPrefixMap` If this property is set to `true`, the prefix map provided by N3.js will be imported into the
+  RDF-Interfaces environment.
+
 ### Serializer
 
 #### JsonLdSerializer
 
-JSON-LD serializer exports expanded JSON-LD data. 
+JSON-LD serializer exports expanded JSON-LD data.
 
 #### NTriplesSerializer
 
 N-Triples serializer using the RDF-Ext `Graph.toString()` function.
+
+### Utils
+
+#### defaultRequest
+
+Uses the standard http/https modules on a Node.js environment.
+In the browser the request is performed based on `XMLHttpRequest`.
+If you want to implement your own request function you have to use the following function signature:
+
+* `method` HTTP method
+* `requestUrl` Requested URL
+* `headers` HTTP request headers as key/value object
+* `content` Content for POST/PUT requests
+* `callback` Callback function
+ * `statuseCode` HTTP response status code
+ * `headers` HTTP response headers as key/value object
+ * `content` HTTP response content
+ * `error` Error message or null on success
+
+#### corsProxyRequest
+
+Still many server on the web don't send [CORS](http://www.w3.org/TR/cors/) headers.
+Using a proxy is the only workaround to bypass the cross origin policy.
+This function supports transparent requests using a proxy.
+The proxy URL is the first parameter of the function.
+
+`.bind` must be used to create a function with the default request function signature:
+
+	rdf.corsProxyRequest.bind(rdf, proxyUrl);
+
+Now the request are translation using the following code:
+
+	proxyUrl + '?url=' + encodeURIComponent(requestUrl);
