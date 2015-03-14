@@ -190,8 +190,8 @@ if (isNode) {
     require('./lib/turtle-parser.js')(rdf);
     require('./lib/turtle-serializer.js')(rdf);
 
-    //require('./lib/uri-resolver.js')(rdf);
-    //require('./lib/microdata-parser.js')(rdf);
+    require('./lib/uri-resolver.js')(rdf);
+    require('./lib/microdata-parser.js')(rdf);
   };
 } else {
   if (typeof rdf === 'undefined') {
