@@ -158,6 +158,19 @@
           done();
         });
       });
+
+      /* currently no language support in RDFa parser
+      if (isNode) {
+        it('RDFa parser should parse card.xml', function(done) {
+          var parser = new rdf.promise.Parser(new rdf.RdfaParser());
+
+          readFile('support/card.rdfa.html')
+            .then(function (card) { return parser.parse(card, 'https://www.example.com/john/card') })
+            .then(function (graph) { return  utils.p.assertGraphEqual(graph, cardGraph); })
+            .then(function () { done() })
+            .catch(function (error) { done(error); });
+        });
+      }*/
     });
 
     describe('serializers', function () {
@@ -251,13 +264,62 @@
       }
     });
 
-    /*describe('microdata-rdf test suite', function () {
+    describe('microdata-rdf test suite', function () {
       var
         tests = [
-          '0001', '0002', '0003', '0004', '0005', '0006', '0007', '0008', '0009', '0010', '0011', '0012', '0013',
-          '0014', '0015', '0046', '0047', '0048', '0049', '0050', '0051', '0052', '0053', '0054', '0055', '0056',
-          '0057', '0058', '0059', '0060', '0061', '0062', '0063', '0064', '0065', '0066', '0067', '0068', '0069',
-          '0070', '0073', '0074', '0075', '0076', '0077', '0078', '0079', '0080', '0081', '0082', '0083', '0084' ],
+          '0001',
+          '0002',
+          '0003',
+          '0004',
+          '0005',
+          '0006',
+          '0007',
+          '0008',
+          '0009',
+          '0010',
+          '0011',
+          '0012',
+          '0013',
+          '0014',
+          '0015',
+          '0046',
+          '0047',
+          '0048',
+          '0049',
+          '0050',
+          '0051',
+          '0052',
+          '0053',
+          '0054',
+          '0055',
+          '0056',
+          '0057',
+          '0058',
+          '0059',
+          '0060',
+          '0061',
+          '0062',
+          '0063',
+          '0064',
+          //'0065',
+          //'0066',
+          //'0067',
+          '0068',
+          '0069',
+          '0070',
+          //'0073',
+          //'0074',
+          '0075',
+          '0076',
+          '0077',
+          '0078',
+          '0079',
+          '0080',
+          //'0081',
+          //'0082',
+          '0083',
+          //'0084'
+      ],
         microdataParser = new rdf.promise.Parser(new rdf.MicrodataParser()),
         turtleParser = new rdf.promise.Parser(new rdf.TurtleParser());
 
@@ -285,7 +347,7 @@
       tests.forEach(function (number) {
         runTest(number);
       })
-    });*/
+    });
 
     describe('InMemoryStore', function () {
       it('should return only data of the given named graph', function (done) {
