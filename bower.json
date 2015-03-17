@@ -1,0 +1,23 @@
+{
+  "name": "rdf-ext",
+  "version": "0.2.0",
+  "description": "Implements the RDF-Ext spec plus parsers (JSON-LD, RDF/XML, Turtle), serializers (JSON-LD, N-Triples) and stores (in memory, LDP, SPARQL)",
+  "main": "dist/rdf-ext.js",
+  "homepage": "https://github.com/zazukoians/rdf-ext",
+  "moduleType": [
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "RDF",
+    "RDF Interfaces",
+    "JSON-LD",
+    "Turtle",
+    "NTriples",
+    "SPARQL"
+  ],
+  "authors": [
+    "bergi <bergi@axolotlfarm.org>"
+  ],
+  "license": "MIT"
+}
