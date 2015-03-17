@@ -3,9 +3,9 @@
 
 var isNode = (typeof process !== 'undefined' && process.versions && process.versions.node);
 
+var rdf = require('rdf-interfaces');
 var defaultRequest = null;
 var corsProxyRequest = null;
-
 
 if (isNode) {
   var http = require('http');
@@ -77,7 +77,7 @@ if (isNode) {
 }
 
 
-var mixin = function (rdf, options) {
+var mixin = function (options) {
   if (options == null) {
 		options = {};
   }
@@ -167,36 +167,30 @@ var mixin = function (rdf, options) {
 
   rdf.defaultRequest = defaultRequest;
   rdf.corsProxyRequest = corsProxyRequest;
+
+  require('./lib/inmemory-store.js')(rdf);
+  require('./lib/jsonld-parser.js')(rdf);
+  require('./lib/jsonld-serializer.js')(rdf);
+  require('./lib/ldp-store.js')(rdf);
+  require('./lib/microdata-parser.js')(rdf);
+  require('./lib/ntriples-serializer.js')(rdf);
+  require('./lib/promise.js')(rdf);
+  require('./lib/rdfstore-store.js')(rdf);
+  require('./lib/rdfxml-parser.js')(rdf);
+  require('./lib/sparql-store.js')(rdf);
+  require('./lib/turtle-parser.js')(rdf);
+  require('./lib/turtle-serializer.js')(rdf);
 };
 
 
 if (isNode) {
-  module.exports = function (rdf, options) {
-    if (options == null) {
-      options = {};
-    }
+  module.exports = function (options) {
+    mixin(options);
 
-    mixin(rdf, options);
-
-    require('./lib/inmemory-store.js')(rdf);
-    require('./lib/jsonld-parser.js')(rdf);
-    require('./lib/jsonld-serializer.js')(rdf);
-    require('./lib/ldp-store.js')(rdf);
-    require('./lib/ntriples-serializer.js')(rdf);
-    require('./lib/promise.js')(rdf);
-    require('./lib/rdfstore-store.js')(rdf);
-    require('./lib/rdfxml-parser.js')(rdf);
-    require('./lib/sparql-store.js')(rdf);
-    require('./lib/turtle-parser.js')(rdf);
-    require('./lib/turtle-serializer.js')(rdf);
-
-    require('./lib/uri-resolver.js')(rdf);
-    require('./lib/microdata-parser.js')(rdf);
+    return rdf;
   };
 } else {
-  if (typeof rdf === 'undefined') {
-    rdf = {};
-  }
+  window.rdf = rdf;
 
-  mixin(rdf);
+  mixin();
 }

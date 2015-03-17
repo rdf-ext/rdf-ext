@@ -6,10 +6,8 @@
       assert = require('assert'),
       fs = require('fs'),
       path = require('path'),
-      rdf = require('rdf-interfaces'),
+      rdf = require('../rdf-ext')(),
       utils = require('rdf-test-utils')(rdf);
-
-    require('../rdf-ext.js')(rdf);
 
     var readFile = function (filename) {
       return new Promise(function (resolve) {
@@ -17,7 +15,7 @@
       });
     };
 
-    module.exports = factory(assert, jsonld, rdf, readFile, utils);
+    module.exports = factory(assert, rdf, readFile, utils);
   } else {
     var readFile = function (filename) {
       return new Promise(function (resolve) {
@@ -27,9 +25,9 @@
       });
     };
 
-    factory(root.assert, root.jsonld, root.rdf, readFile, root.rdf.testUtils(root.rdf));
+    factory(root.assert, root.rdf, readFile, root.rdf.testUtils(root.rdf));
   }
-})(this, function (assert, jsonld, rdf, readFile, utils) {
+})(this, function (assert, rdf, readFile, utils) {
   var isNode = (typeof process !== 'undefined' && process.versions && process.versions.node);
 
   describe('rdf-ext', function() {

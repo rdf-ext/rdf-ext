@@ -1,10 +1,10 @@
 {
   "name": "rdf-ext",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "description": "Implements the RDF-Ext spec plus parsers (JSON-LD, RDF/XML, Turtle), serializers (JSON-LD, N-Triples) and stores (in memory, LDP, SPARQL)",
   "main": "rdf-ext.js",
   "scripts": {
-    "install": "node build.js",
+    "prepublish": "node prepublish.js",
     "test": "node_modules/.bin/mocha"
   },
   "repository": {
@@ -26,15 +26,17 @@
   },
   "homepage": "https://github.com/zazukoians/rdf-ext",
   "dependencies": {
-    "jsonld": "=0.3.*",
-    "es6-promise": "=1.*",
-    "n3": "=0.4.*",
-    "xmldom": "=0.1.*"
+    "jsonld": "0.3.*",
+    "es6-promise": "2.*",
+    "n3": "0.4.*",
+    "rdf-interfaces": "0.1.*",
+    "xmldom": "0.1.*"
   },
   "devDependencies": {
-    "mocha": "=1.*",
-    "rdf-interfaces": "=0.1.*",
-    "rdf-test-utils": "=0.1.*"
+    "browserify": "9.*",
+    "mocha": "2.*",
+    "rdf-test-utils": "0.1.*",
+    "uglify-js": "2.*"
   },
   "readmeFilename": "README.md"
 }

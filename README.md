@@ -48,39 +48,21 @@ RDF-Ext is available on `npm`, to install it run:
 
 	npm install rdf-ext
 
-followed by your favorite RDF Interfaces library. If you don't want to chose your own simply run:
+In the code, import RDF-Ext:
 
-	npm install rdf-interfaces
-
-In the code, import the RDF Interfaces library:
-
-	var rdf = require('rdf-interfaces');
-
-And mixin the RDF Interfaces Extension to the RDF Environment:
-
-	require('rdf-ext')(rdf);
-
+	var rdf = require('rdf-ext')();
 
 ### Browser
 
-Import your favorite RDF Interfaces library:
+Just import RDF-Ext:
 
-	<script src="/js/rdf.js"></script>
+	<script src="/js/rdf-ext.js"></script>
 
-If you want to use the Turtle or JSON-LD parser:
-
-	<script src="/js/n3-browser.js"></script>
-	<script src="/js/jsonld.js"></script>
-
+If you want to use rdfstore-js it must be imported first.
 Because rdfstore-js comes with an outdated version of JSON-LD it must be deleted afterwards:
 
 	<script src="/js/rdfstore.js"></script>
 	<script>delete jsonld;</script>
-
-Now you can import RDF-Ext:
-
-	<script src="/js/rdf-ext.js"></script>
-
 
 ## Examples
 
