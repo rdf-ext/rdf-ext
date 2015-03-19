@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "browserify": "9.*",
+    "exorcist": "0.1.*",
     "mocha": "2.*",
     "rdf-test-utils": "0.1.*",
     "uglify-js": "2.*"

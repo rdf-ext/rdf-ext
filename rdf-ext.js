@@ -1,80 +1,12 @@
 /* global rdf:true */
 'use strict';
 
-var isNode = (typeof process !== 'undefined' && process.versions && process.versions.node);
 
-var rdf = require('rdf-interfaces');
-var defaultRequest = null;
-var corsProxyRequest = null;
+var
+  rdf = require('rdf-interfaces');
 
-if (isNode) {
-  var http = require('http');
-  var https = require('https');
-  var url = require('url');
 
-  defaultRequest = function (method, requestUrl, headers, content, callback) {
-    var
-      options = url.parse(requestUrl),
-      client = http;
-
-    options.hash = null;
-    options.method = method;
-    options.headers = headers;
-
-    if (options.protocol === 'https:') {
-      client = https;
-    }
-
-    var req = client.request(options, function (res) {
-      var resContent = '';
-
-      res.setEncoding('utf8');
-      res.on('data', function (chunk) { resContent += chunk; });
-      res.on('end', function () { callback(res.statusCode, res.headers, resContent); });
-    });
-
-    req.on('error', function (error) { callback(null, null, null, error); });
-
-    if (content != null) {
-      req.write(content);
-    }
-
-    req.end();
-  };
-} else {
-  defaultRequest = function (method, requestUrl, headers, content, callback) {
-    var xhr = new XMLHttpRequest();
-
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === xhr.DONE) {
-        var
-          headerLines = xhr.getAllResponseHeaders().split('\r\n'),
-          resHeaders = {};
-
-        for (var i = 0; i < headerLines.length; i++) {
-          var headerLine = headerLines[i].split(': ', 2);
-          resHeaders[headerLine[0].toLowerCase()] = headerLine[1];
-        }
-
-        callback(xhr.status, resHeaders, xhr.responseText);
-      }
-    };
-
-    xhr.open(method, requestUrl, true);
-
-    for (var header in headers) {
-      xhr.setRequestHeader(header, headers[header]);
-    }
-
-    xhr.send(content);
-  };
-
-  corsProxyRequest = function (proxyUrl, method, requestUrl, headers, content, callback) {
-    var url = proxyUrl + '?url=' + encodeURIComponent(requestUrl);
-
-    defaultRequest(method, url, headers, content, callback);
-  };
-}
+rdf.isNode = (typeof process !== 'undefined' && process.versions && process.versions.node);
 
 
 var mixin = function (options) {
@@ -82,12 +14,30 @@ var mixin = function (options) {
 		options = {};
   }
 
+  if (typeof window !== 'undefined') {
+    window.rdf = rdf;
+  }
+
+  if (typeof Promise !== 'undefined') {
+    rdf.Promise = Promise;
+  } else {
+    rdf.Promise = null;
+  }
+
+  rdf.defaultRequest = null;
+  rdf.corsProxyRequest = null;
   rdf.ns = {
     type: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'
   };
 
+  if (rdf.isNode) {
+    require('./lib/utils-node')(rdf);
+  } else {
+    require('./lib/utils-browser')(rdf);
+  }
+
   if (typeof rdf.Graph === 'undefined') {
-		rdf.Graph = {};
+    rdf.Graph = {};
   }
 
   rdf.Graph.difference = function (a, b) {
@@ -165,9 +115,6 @@ var mixin = function (options) {
 
   Object.defineProperty(rdf, 'createGraph', { value: rdf.createGraphExt });
 
-  rdf.defaultRequest = defaultRequest;
-  rdf.corsProxyRequest = corsProxyRequest;
-
   require('./lib/inmemory-store.js')(rdf);
   require('./lib/jsonld-parser.js')(rdf);
   require('./lib/jsonld-serializer.js')(rdf);
@@ -180,17 +127,14 @@ var mixin = function (options) {
   require('./lib/sparql-store.js')(rdf);
   require('./lib/turtle-parser.js')(rdf);
   require('./lib/turtle-serializer.js')(rdf);
+
+  return rdf;
 };
 
 
-if (isNode) {
-  module.exports = function (options) {
-    mixin(options);
-
-    return rdf;
-  };
-} else {
-  window.rdf = rdf;
-
+if (!rdf.isNode) {
   mixin();
 }
+
+
+module.exports = mixin;
