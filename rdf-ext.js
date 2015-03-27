@@ -115,6 +115,7 @@ var mixin = function (options) {
 
   Object.defineProperty(rdf, 'createGraph', { value: rdf.createGraphExt });
 
+  require('./lib/clownface.js')(rdf);
   require('./lib/inmemory-store.js')(rdf);
   require('./lib/jsonld-parser.js')(rdf);
   require('./lib/jsonld-serializer.js')(rdf);
