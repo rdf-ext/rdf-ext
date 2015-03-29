@@ -30,6 +30,8 @@ var mixin = function (options) {
     type: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'
   };
 
+  require('./lib/utils')(rdf);
+
   if (rdf.isNode) {
     require('./lib/utils-node')(rdf);
   } else {

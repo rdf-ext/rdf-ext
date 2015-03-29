@@ -33,9 +33,10 @@
   describe('rdf-ext', function() {
     var
       cardGraph,
-      listGraph;
+      listGraph,
+      tbbtGraph;
 
-    var buildCardGraph = function() {
+    var buildCardGraph = function () {
       var graph = rdf.createGraph();
 
       var cardNode = rdf.createNamedNode('https://www.example.com/john/card#me');
@@ -75,32 +76,55 @@
       return graph;
     };
 
-    before(function(done) {
+    before(function (done) {
       var parser = new rdf.promise.Parser(new rdf.TurtleParser());
 
       cardGraph = buildCardGraph();
 
       readFile('support/list.nt')
-        .then(function (list) { return parser.parse(list, 'https://example.com/list'); })
+        .then(function (list) {
+          return parser.parse(list, 'https://example.com/list');
+        })
         .then(function (graph) {
           listGraph = graph;
-
         })
-        .then(function () { done(); });
+        .then(function () {
+          return readFile('support/tbbt.nt');
+        })
+        .then(function (tbbt) {
+          return parser.parse(tbbt)
+        })
+        .then(function (graph) {
+          tbbtGraph = graph;
+        })
+        .then(function () {
+          done();
+        })
+        .catch(function (error) {
+          done(error);
+        });
     });
 
-    describe('parsers', function() {
-      it('Turtle parser should parse card.ttl', function(done) {
+    describe('parsers', function () {
+      it('Turtle parser should parse card.ttl', function (done) {
         var parser = new rdf.promise.Parser(new rdf.TurtleParser());
 
         readFile('support/card.ttl')
-          .then(function (card) { return parser.parse(card, 'https://www.example.com/john/card') })
-          .then(function (graph) { return  utils.p.assertGraphEqual(graph, cardGraph); })
-          .then(function () { done() })
-          .catch(function (error) { done(error); });
+          .then(function (card) {
+            return parser.parse(card, 'https://www.example.com/john/card')
+          })
+          .then(function (graph) {
+            return utils.p.assertGraphEqual(graph, cardGraph);
+          })
+          .then(function () {
+            done()
+          })
+          .catch(function (error) {
+            done(error);
+          });
       });
 
-      it('Turtle parser should forward error', function(done) {
+      it('Turtle parser should forward error', function (done) {
         rdf.parseTurtle('this is not a Turtle string', function (graph, error) {
           assert.equal(graph, null);
           assert.notEqual(error, null);
@@ -109,17 +133,25 @@
         });
       });
 
-      it('JSON-LD parser should parse card.json', function(done) {
+      it('JSON-LD parser should parse card.json', function (done) {
         var parser = new rdf.promise.Parser(new rdf.JsonLdParser());
 
         readFile('support/card.json')
-          .then(function (card) { return parser.parse(card, 'https://www.example.com/john/card') })
-          .then(function (graph) { return  utils.p.assertGraphEqual(graph, cardGraph); })
-          .then(function () { done() })
-          .catch(function (error) { done(error); });
+          .then(function (card) {
+            return parser.parse(card, 'https://www.example.com/john/card')
+          })
+          .then(function (graph) {
+            return utils.p.assertGraphEqual(graph, cardGraph);
+          })
+          .then(function () {
+            done()
+          })
+          .catch(function (error) {
+            done(error);
+          });
       });
 
-      it('JSON-LD parser should forward error', function(done) {
+      it('JSON-LD parser should forward error', function (done) {
         rdf.parseJsonLd('{"@context": "urn:test"}', function (graph, error) {
           assert.equal(graph, null);
           assert.notEqual(error, null);
@@ -128,27 +160,43 @@
         });
       });
 
-      it('JSON-LD parser should parse list.json', function(done) {
+      it('JSON-LD parser should parse list.json', function (done) {
         var parser = new rdf.promise.Parser(new rdf.JsonLdParser());
 
         readFile('support/list.json')
-          .then(function (list) { return parser.parse(list, 'https://www.example.com/list') })
-          .then(function (graph) { return  utils.p.assertGraphEqual(graph, listGraph); })
-          .then(function () { done() })
-          .catch(function (error) { done(error); });
+          .then(function (list) {
+            return parser.parse(list, 'https://www.example.com/list')
+          })
+          .then(function (graph) {
+            return utils.p.assertGraphEqual(graph, listGraph);
+          })
+          .then(function () {
+            done()
+          })
+          .catch(function (error) {
+            done(error);
+          });
       });
 
-      it('RDF/XML parser should parse card.xml', function(done) {
+      it('RDF/XML parser should parse card.xml', function (done) {
         var parser = new rdf.promise.Parser(new rdf.RdfXmlParser());
 
         readFile('support/card.xml')
-          .then(function (card) { return parser.parse(card, 'https://www.example.com/john/card') })
-          .then(function (graph) { return  utils.p.assertGraphEqual(graph, cardGraph); })
-          .then(function () { done() })
-          .catch(function (error) { done(error); });
+          .then(function (card) {
+            return parser.parse(card, 'https://www.example.com/john/card')
+          })
+          .then(function (graph) {
+            return utils.p.assertGraphEqual(graph, cardGraph);
+          })
+          .then(function () {
+            done()
+          })
+          .catch(function (error) {
+            done(error);
+          });
       });
 
-      it('RDF/XML parser should forward error', function(done) {
+      it('RDF/XML parser should forward error', function (done) {
         rdf.parseTurtle('this is not a RDF/XML string', function (graph, error) {
           assert.equal(graph, null);
           assert.notEqual(error, null);
@@ -158,17 +206,17 @@
       });
 
       /* currently no language support in RDFa parser
-      if (isNode) {
-        it('RDFa parser should parse card.xml', function(done) {
-          var parser = new rdf.promise.Parser(new rdf.RdfaParser());
+       if (isNode) {
+       it('RDFa parser should parse card.xml', function(done) {
+       var parser = new rdf.promise.Parser(new rdf.RdfaParser());
 
-          readFile('support/card.rdfa.html')
-            .then(function (card) { return parser.parse(card, 'https://www.example.com/john/card') })
-            .then(function (graph) { return  utils.p.assertGraphEqual(graph, cardGraph); })
-            .then(function () { done() })
-            .catch(function (error) { done(error); });
-        });
-      }*/
+       readFile('support/card.rdfa.html')
+       .then(function (card) { return parser.parse(card, 'https://www.example.com/john/card') })
+       .then(function (graph) { return  utils.p.assertGraphEqual(graph, cardGraph); })
+       .then(function () { done() })
+       .catch(function (error) { done(error); });
+       });
+       }*/
     });
 
     describe('serializers', function () {
@@ -178,22 +226,38 @@
           parser = new rdf.promise.Parser(new rdf.TurtleParser());
 
         serializer.serialize(cardGraph)
-          .then(function (card) { return parser.parse(card, 'https://www.example.com/john/card'); })
-          .then(function (graph) { return  utils.p.assertGraphEqual(graph, cardGraph); })
-          .then(function () { done() })
-          .catch(function (error) { done(error); });
+          .then(function (card) {
+            return parser.parse(card, 'https://www.example.com/john/card');
+          })
+          .then(function (graph) {
+            return utils.p.assertGraphEqual(graph, cardGraph);
+          })
+          .then(function () {
+            done()
+          })
+          .catch(function (error) {
+            done(error);
+          });
       });
 
-      it('JSON-LD serializer should generate parseable card', function(done) {
+      it('JSON-LD serializer should generate parseable card', function (done) {
         var
           serializer = new rdf.promise.Serializer(new rdf.JsonLdSerializer()),
           parser = new rdf.promise.Parser(new rdf.JsonLdParser());
 
         serializer.serialize(cardGraph)
-          .then(function (card) { return parser.parse(card, 'https://www.example.com/john/card'); })
-          .then(function (graph) { return  utils.p.assertGraphEqual(graph, cardGraph); })
-          .then(function () { done() })
-          .catch(function (error) { done(error); });
+          .then(function (card) {
+            return parser.parse(card, 'https://www.example.com/john/card');
+          })
+          .then(function (graph) {
+            return utils.p.assertGraphEqual(graph, cardGraph);
+          })
+          .then(function () {
+            done()
+          })
+          .catch(function (error) {
+            done(error);
+          });
       });
     });
 
@@ -317,7 +381,7 @@
           //'0082',
           '0083',
           //'0084'
-      ],
+        ],
         microdataParser = new rdf.promise.Parser(new rdf.MicrodataParser()),
         turtleParser = new rdf.promise.Parser(new rdf.TurtleParser());
 
@@ -365,14 +429,24 @@
           rdf.createNamedNode('http://example.org/test#o')));
 
         store.add('http://example.org/test-a', graphA)
-          .then(function () { return store.add('http://example.org/test-b', graphB); })
-          .then(function () { return store.graph('http://example.org/test-b'); })
+          .then(function () {
+            return store.add('http://example.org/test-b', graphB);
+          })
+          .then(function () {
+            return store.graph('http://example.org/test-b');
+          })
           .then(function (graph) {
             assert.equal(graph.length, 1);
-            assert(graph.some(function (t) { return t.subject.equals('http://example.org/test#s-b') }));
+            assert(graph.some(function (t) {
+              return t.subject.equals('http://example.org/test#s-b')
+            }));
           })
-          .then(function () { done() })
-          .catch(function (error) { done(error); });
+          .then(function () {
+            done()
+          })
+          .catch(function (error) {
+            done(error);
+          });
       });
 
       it('should return data of all graphs', function (done) {
@@ -392,15 +466,27 @@
           rdf.createNamedNode('http://example.org/test#o')));
 
         store.add('http://example.org/test-a', graphA)
-          .then(function () { return store.add('http://example.org/test-b', graphB); })
-          .then(function () { return store.graph(undefined); })
+          .then(function () {
+            return store.add('http://example.org/test-b', graphB);
+          })
+          .then(function () {
+            return store.graph(undefined);
+          })
           .then(function (graph) {
             assert.equal(graph.length, 2);
-            assert(graph.some(function (t) { return t.subject.equals('http://example.org/test#s-a') }));
-            assert(graph.some(function (t) { return t.subject.equals('http://example.org/test#s-b') }));
+            assert(graph.some(function (t) {
+              return t.subject.equals('http://example.org/test#s-a')
+            }));
+            assert(graph.some(function (t) {
+              return t.subject.equals('http://example.org/test#s-b')
+            }));
           })
-          .then(function () { done() })
-          .catch(function (error) { done(error); });
+          .then(function () {
+            done()
+          })
+          .catch(function (error) {
+            done(error);
+          });
       });
 
       it('should run match over all graphs', function (done) {
@@ -420,184 +506,335 @@
           rdf.createNamedNode('http://example.org/test#o')));
 
         store.add('http://example.org/test-a', graphA)
-          .then(function () { return store.add('http://example.org/test-b', graphB); })
-          .then(function () { return store.match(undefined, 'http://example.org/test#s-b'); })
+          .then(function () {
+            return store.add('http://example.org/test-b', graphB);
+          })
+          .then(function () {
+            return store.match(undefined, 'http://example.org/test#s-b');
+          })
           .then(function (graph) {
             assert.equal(graph.length, 1);
-            assert(graph.some(function (t) { return t.subject.equals('http://example.org/test#s-b') }));
+            assert(graph.some(function (t) {
+              return t.subject.equals('http://example.org/test#s-b')
+            }));
           })
-          .then(function () { done() })
-          .catch(function (error) { done(error); });
+          .then(function () {
+            done()
+          })
+          .catch(function (error) {
+            done(error);
+          });
       });
     });
-  });
 
-  describe('clownface', function () {
-    describe('Graph', function () {
-      var
-        tbbtGraph;
+    describe('utils', function () {
+      describe('filter', function () {
+        it('namedNode should filter NamedNode nodes', function () {
+          assert.equal(rdf.utils.filter.namedNode(rdf.createNamedNode('http://example.org')), true);
+          assert.equal(rdf.utils.filter.namedNode(rdf.createBlankNode()), false);
+          assert.equal(rdf.utils.filter.namedNode(rdf.createLiteral('test')), false);
+        });
 
-      before(function (done) {
-        var parser = new rdf.promise.Parser(new rdf.TurtleParser());
+        it('blankNode should filter BlankNode nodes', function () {
+          assert.equal(rdf.utils.filter.blankNode(rdf.createNamedNode('http://example.org')), false);
+          assert.equal(rdf.utils.filter.blankNode(rdf.createBlankNode()), true);
+          assert.equal(rdf.utils.filter.blankNode(rdf.createLiteral('test')), false);
+        });
 
-        readFile('support/tbbt.nt')
-          .then(function (tbbt) { return parser.parse(tbbt) })
-          .then(function (graph) { tbbtGraph = graph; })
-          .then(function () { done() })
-          .catch(function (error) { done(error); });
+        it('literal should filter Literal nodes', function () {
+          assert.equal(rdf.utils.filter.literal(rdf.createNamedNode('http://example.org')), false);
+          assert.equal(rdf.utils.filter.literal(rdf.createBlankNode()), false);
+          assert.equal(rdf.utils.filter.literal(rdf.createLiteral('test')), true);
+        });
+
+        it('namedNodeSubject should exclude NamedNodes with different subject', function () {
+          var blankNodeTriple = rdf.createTriple(
+            rdf.createBlankNode(),
+            rdf.createNamedNode('http://example.org'),
+            rdf.createLiteral('test'));
+
+          var subject = rdf.createNamedNode('http://example.org/subject');
+
+          var sameSubjectTriple = rdf.createTriple(
+            subject,
+            rdf.createNamedNode('http://example.org'),
+            rdf.createLiteral('test'));
+
+          var otherSubjectTriple = rdf.createTriple(
+            rdf.createNamedNode('http://example.org/otherSubject'),
+            rdf.createNamedNode('http://example.org'),
+            rdf.createLiteral('test'));
+
+          assert.equal(rdf.utils.filter.namedNodeSubject(subject)(blankNodeTriple), true);
+          assert.equal(rdf.utils.filter.namedNodeSubject(subject)(sameSubjectTriple), true);
+          assert.equal(rdf.utils.filter.namedNodeSubject(subject)(otherSubjectTriple), false);
+        });
       });
 
-      it('should create a Graph object with constructor', function () {
-        var cf = new rdf.cf.Graph(tbbtGraph);
+      describe('list', function () {
+        it('should list subjects', function () {
+          var subject = rdf.createNamedNode('http://localhost:8080/data/person/amy-farrah-fowler');
+          var subjects = rdf.utils.list.subjects(tbbtGraph.match(subject));
 
-        assert.equal(typeof cf.node, 'function');
-        assert.equal(typeof cf.in, 'function');
-        assert.equal(typeof cf.out, 'function');
-        assert.equal(typeof cf.literal, 'function');
+          assert.equal(subjects.length, 1);
+          assert.equal(subjects[0].toString(), subject.toString());
+        });
+
+        it('should list subjects with filter', function () {
+          var subject = rdf.createNamedNode('http://localhost:8080/data/person/amy-farrah-fowler');
+          var subjects = rdf.utils.list.subjects(tbbtGraph, function (node) { return node.equals(subject); });
+
+          assert.equal(subjects.length, 1);
+          assert.equal(subjects[0].toString(), subject.toString());
+        });
+
+        it('should list predicates', function () {
+          var predicate = rdf.createNamedNode('http://schema.org/knows');
+          var predicates = rdf.utils.list.predicates(tbbtGraph.match(null, predicate));
+
+          assert.equal(predicates.length, 1);
+          assert.equal(predicates[0].toString(), predicate.toString());
+        });
+
+        it('should list predicates with filter', function () {
+          var predicate = rdf.createNamedNode('http://schema.org/knows');
+          var predicates = rdf.utils.list.predicates(tbbtGraph, function (node) { return node.equals(predicate); });
+
+          assert.equal(predicates.length, 1);
+          assert.equal(predicates[0].toString(), predicate.toString());
+        });
+
+        it('should list objects', function () {
+          var object = rdf.createLiteral('microbiologist');
+          var objects = rdf.utils.list.objects(tbbtGraph.match(null, null, object));
+
+          assert.equal(objects.length, 1);
+          assert.equal(objects[0].toString(), object.toString());
+        });
+
+        it('should list objects with filter', function () {
+          var object = rdf.createLiteral('microbiologist');
+          var objects = rdf.utils.list.objects(tbbtGraph, function (node) { return node.equals(object); });
+
+          assert.equal(objects.length, 1);
+          assert.equal(objects[0].toString(), object.toString());
+        });
       });
 
-      it('should create a Graph object with function call', function () {
-        var cf = rdf.cf.Graph(tbbtGraph);
+      describe('subgraph', function () {
+        it('should create a subgraph', function () {
+          var tbbtGraphNg = rdf.createGraph();
 
-        assert.equal(typeof cf.node, 'function');
-        assert.equal(typeof cf.in, 'function');
-        assert.equal(typeof cf.out, 'function');
-        assert.equal(typeof cf.literal, 'function');
+          // create a copy of tbbt + a not linked triple
+          tbbtGraphNg.addAll(tbbtGraph);
+          tbbtGraphNg.add(rdf.createTriple(
+            rdf.createNamedNode('http://example.org/subject'),
+            rdf.createNamedNode('http://example.org/predicate'),
+            rdf.createLiteral('object')));
+
+          var subgraph = rdf.utils.createSubGraph(
+            tbbtGraphNg,
+            rdf.createNamedNode('http://localhost:8080/data/person/amy-farrah-fowler'));
+
+          assert.equal(subgraph.length, tbbtGraph.length);
+        });
+
+        it('should create a subgraph with filter', function () {
+          var subject = rdf.createNamedNode('http://localhost:8080/data/person/amy-farrah-fowler');
+
+          var subgraph = rdf.utils.createSubGraph(tbbtGraph, subject, function (triple) {
+            return triple.predicate.equals(rdf.createNamedNode('http://schema.org/knows'));
+          });
+
+          assert.equal(subgraph.length, 61);
+          assert.equal(rdf.utils.list.predicates(subgraph).length, 1);
+        });
+
+        it('should create a subgraph by NamedNode subject', function () {
+          var subgraph = rdf.utils.createSubGraphByNamedNodeSubject(
+            tbbtGraph,
+            rdf.createNamedNode('http://localhost:8080/data/person/amy-farrah-fowler'));
+
+          assert.equal(subgraph.length, 12);
+        });
+
+        it('should split a graph by NamedNode subject into a store', function (done) {
+          rdf.utils.splitGraphByNamedNodeSubject(tbbtGraph)
+            .then(function (store) {
+              var graphCount = 0;
+
+              store.store().forEach(function (graph) {
+                graphCount++;
+              });
+
+              assert.equal(graphCount, 9);
+            })
+            .then(function () {
+              done();
+            })
+            .catch(function (error) {
+              done(error);
+            });
+        });
       });
+    });
 
-      it('should create context from existing node object', function () {
-        var cf = rdf.cf.Graph(tbbtGraph);
+    describe('clownface', function () {
+      describe('Graph', function () {
 
-        var result = cf.node(rdf.createNamedNode('http://localhost:8080/data/person/stuart-bloom')).nodes();
 
-        assert.equal(result.length, 1);
-        assert.equal(result[0].interfaceName, 'NamedNode');
-        assert.equal(result[0].toString(), 'http://localhost:8080/data/person/stuart-bloom');
-      });
+        it('should create a Graph object with constructor', function () {
+          var cf = new rdf.cf.Graph(tbbtGraph);
 
-      it('should create named node context', function () {
-        var cf = rdf.cf.Graph(tbbtGraph);
+          assert.equal(typeof cf.node, 'function');
+          assert.equal(typeof cf.in, 'function');
+          assert.equal(typeof cf.out, 'function');
+          assert.equal(typeof cf.literal, 'function');
+        });
 
-        var result = cf.node('http://localhost:8080/data/person/stuart-bloom').nodes();
+        it('should create a Graph object with function call', function () {
+          var cf = rdf.cf.Graph(tbbtGraph);
 
-        assert.equal(result.length, 1);
-        assert.equal(result[0].interfaceName, 'NamedNode');
-        assert.equal(result[0].toString(), 'http://localhost:8080/data/person/stuart-bloom');
-      });
+          assert.equal(typeof cf.node, 'function');
+          assert.equal(typeof cf.in, 'function');
+          assert.equal(typeof cf.out, 'function');
+          assert.equal(typeof cf.literal, 'function');
+        });
 
-      it('should create literal node context', function () {
-        var cf = rdf.cf.Graph(tbbtGraph);
+        it('should create context from existing node object', function () {
+          var cf = rdf.cf.Graph(tbbtGraph);
 
-        var result = cf.node('2311 North Los Robles Avenue, Aparment 4A').nodes();
+          var result = cf.node(rdf.createNamedNode('http://localhost:8080/data/person/stuart-bloom')).nodes();
 
-        assert.equal(result.length, 1);
-        assert.equal(result[0].interfaceName, 'Literal');
-        assert.equal(result[0].toString(), '2311 North Los Robles Avenue, Aparment 4A');
-      });
+          assert.equal(result.length, 1);
+          assert.equal(result[0].interfaceName, 'NamedNode');
+          assert.equal(result[0].toString(), 'http://localhost:8080/data/person/stuart-bloom');
+        });
 
-      it('should create literal node context from number', function () {
-        var cf = rdf.cf.Graph(tbbtGraph);
+        it('should create named node context', function () {
+          var cf = rdf.cf.Graph(tbbtGraph);
 
-        var result = cf.node(123).nodes();
+          var result = cf.node('http://localhost:8080/data/person/stuart-bloom').nodes();
 
-        assert.equal(result.length, 1);
-        assert.equal(result[0].interfaceName, 'Literal');
-        assert.equal(result[0].toString(), '123');
-      });
+          assert.equal(result.length, 1);
+          assert.equal(result[0].interfaceName, 'NamedNode');
+          assert.equal(result[0].toString(), 'http://localhost:8080/data/person/stuart-bloom');
+        });
 
-      it('should throw an error on unknown type', function () {
-        var
-          cf = rdf.cf.Graph(tbbtGraph),
-          result,
-          catched = false;
+        it('should create literal node context', function () {
+          var cf = rdf.cf.Graph(tbbtGraph);
 
-        try {
-          result = cf.node(/.*/).nodes();
-        } catch (e) {
-          catched = true;
-        }
+          var result = cf.node('2311 North Los Robles Avenue, Aparment 4A').nodes();
 
-        assert.equal(catched, true);
-        assert.equal(result, undefined);
-      });
+          assert.equal(result.length, 1);
+          assert.equal(result[0].interfaceName, 'Literal');
+          assert.equal(result[0].toString(), '2311 North Los Robles Avenue, Aparment 4A');
+        });
 
-      it('should create multiple nodes from array', function () {
-        var cf = rdf.cf.Graph(tbbtGraph);
+        it('should create literal node context from number', function () {
+          var cf = rdf.cf.Graph(tbbtGraph);
 
-        var result = cf.node(['1', '2']).nodes();
+          var result = cf.node(123).nodes();
 
-        assert.equal(result.length, 2);
-        assert.equal(result[0].interfaceName, 'Literal');
-        assert.equal(result[1].interfaceName, 'Literal');
-      });
+          assert.equal(result.length, 1);
+          assert.equal(result[0].interfaceName, 'Literal');
+          assert.equal(result[0].toString(), '123');
+        });
 
-      it('.in should search object->subject', function () {
-        var cf = rdf.cf.Graph(tbbtGraph);
+        it('should throw an error on unknown type', function () {
+          var
+            cf = rdf.cf.Graph(tbbtGraph),
+            result,
+            catched = false;
 
-        var result = cf.node('2311 North Los Robles Avenue, Aparment 4A')
-          .in('http://schema.org/streetAddress')
-          .nodes();
+          try {
+            result = cf.node(/.*/).nodes();
+          } catch (e) {
+            catched = true;
+          }
 
-        assert.equal(result.length, 2);
-        assert.equal(result[0].interfaceName, 'BlankNode');
-      });
+          assert.equal(catched, true);
+          assert.equal(result, undefined);
+        });
 
-      it('.in should search object->subject with multiple predicate values', function () {
-        var cf = rdf.cf.Graph(tbbtGraph);
+        it('should create multiple nodes from array', function () {
+          var cf = rdf.cf.Graph(tbbtGraph);
 
-        var result = cf.node('http://localhost:8080/data/person/bernadette-rostenkowski')
-          .in(['http://schema.org/spouse', 'http://schema.org/knows'])
-          .nodes();
+          var result = cf.node(['1', '2']).nodes();
 
-        assert.equal(result.length, 8);
-      });
+          assert.equal(result.length, 2);
+          assert.equal(result[0].interfaceName, 'Literal');
+          assert.equal(result[1].interfaceName, 'Literal');
+        });
 
-      it('.out should search subject->object', function () {
-        var cf = rdf.cf.Graph(tbbtGraph);
+        it('.in should search object->subject', function () {
+          var cf = rdf.cf.Graph(tbbtGraph);
 
-        var result = cf.node('http://localhost:8080/data/person/amy-farrah-fowler')
-          .out('http://schema.org/jobTitle')
-          .nodes();
+          var result = cf.node('2311 North Los Robles Avenue, Aparment 4A')
+            .in('http://schema.org/streetAddress')
+            .nodes();
 
-        assert.equal(result.length, 1);
-        assert.equal(result[0].interfaceName, 'Literal');
-        assert.equal(result[0].toString(), 'neurobiologist');
-      });
+          assert.equal(result.length, 2);
+          assert.equal(result[0].interfaceName, 'BlankNode');
+        });
 
-      it('.out should search subject->object with multiple predicate values', function () {
-        var cf = rdf.cf.Graph(tbbtGraph);
+        it('.in should search object->subject with multiple predicate values', function () {
+          var cf = rdf.cf.Graph(tbbtGraph);
 
-        var result = cf.node('http://localhost:8080/data/person/bernadette-rostenkowski')
-          .out(['http://schema.org/familyName', 'http://schema.org/givenName'])
-          .nodes();
+          var result = cf.node('http://localhost:8080/data/person/bernadette-rostenkowski')
+            .in(['http://schema.org/spouse', 'http://schema.org/knows'])
+            .nodes();
 
-        assert.equal(result.length, 2);
-      });
+          assert.equal(result.length, 8);
+        });
 
-      it('.literal should return literal nodes as string', function () {
-        var cf = rdf.cf.Graph(tbbtGraph);
+        it('.out should search subject->object', function () {
+          var cf = rdf.cf.Graph(tbbtGraph);
 
-        var result = cf.node('1').literal();
+          var result = cf.node('http://localhost:8080/data/person/amy-farrah-fowler')
+            .out('http://schema.org/jobTitle')
+            .nodes();
 
-        assert.equal(result.length, 1);
-        assert.equal(result[0], '1');
-      });
+          assert.equal(result.length, 1);
+          assert.equal(result[0].interfaceName, 'Literal');
+          assert.equal(result[0].toString(), 'neurobiologist');
+        });
 
-      it('.literal should return named nodes as string', function () {
-        var cf = rdf.cf.Graph(tbbtGraph);
+        it('.out should search subject->object with multiple predicate values', function () {
+          var cf = rdf.cf.Graph(tbbtGraph);
 
-        var result = cf.node('http://localhost:8080/data/person/bernadette-rostenkowski').literal();
+          var result = cf.node('http://localhost:8080/data/person/bernadette-rostenkowski')
+            .out(['http://schema.org/familyName', 'http://schema.org/givenName'])
+            .nodes();
 
-        assert.equal(result.length, 1);
-        assert.equal(result[0], 'http://localhost:8080/data/person/bernadette-rostenkowski');
-      });
+          assert.equal(result.length, 2);
+        });
 
-      it('.literal should return null if nodes wasn\t set', function () {
-        var cf = rdf.cf.Graph(tbbtGraph);
+        it('.literal should return literal nodes as string', function () {
+          var cf = rdf.cf.Graph(tbbtGraph);
 
-        var result = cf.literal();
+          var result = cf.node('1').literal();
 
-        assert.equal(result, null);
+          assert.equal(result.length, 1);
+          assert.equal(result[0], '1');
+        });
+
+        it('.literal should return named nodes as string', function () {
+          var cf = rdf.cf.Graph(tbbtGraph);
+
+          var result = cf.node('http://localhost:8080/data/person/bernadette-rostenkowski').literal();
+
+          assert.equal(result.length, 1);
+          assert.equal(result[0], 'http://localhost:8080/data/person/bernadette-rostenkowski');
+        });
+
+        it('.literal should return null if nodes wasn\t set', function () {
+          var cf = rdf.cf.Graph(tbbtGraph);
+
+          var result = cf.literal();
+
+          assert.equal(result, null);
+        });
       });
     });
   });
