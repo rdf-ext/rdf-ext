@@ -85,6 +85,28 @@
   //TODO:
   //ctx.listGraph = buildListGraph();
 
+  ctx.nodes = {
+    blank1: rdf.createBlankNode(),
+    blank2: rdf.createBlankNode(),
+    blank3: rdf.createBlankNode(),
+    blank4: rdf.createBlankNode(),
+    literal1: rdf.createLiteral('example1'),
+    literal2: rdf.createLiteral('example2'),
+    literal3: rdf.createLiteral('example3'),
+    literal4: rdf.createLiteral('example4'),
+    named1: rdf.createNamedNode('http://example.org/1'),
+    named2: rdf.createNamedNode('http://example.org/2'),
+    named3: rdf.createNamedNode('http://example.org/3'),
+    named4: rdf.createNamedNode('http://example.org/4')
+  };
+
+  ctx.triples = {
+    t1: rdf.createTriple(ctx.nodes.named1, ctx.nodes.named3, ctx.nodes.named2),
+    t2: rdf.createTriple(ctx.nodes.named2, ctx.nodes.named4, ctx.nodes.blank1),
+    t3: rdf.createTriple(ctx.nodes.blank1, ctx.nodes.named3, ctx.nodes.blank2),
+    t4: rdf.createTriple(ctx.nodes.blank2, ctx.nodes.named4, ctx.nodes.named1)
+  };
+
   describe('core', function () {
     tests.graph(assert, rdf, readFile, utils, ctx);
     tests.store(assert, rdf, readFile, utils, ctx);
