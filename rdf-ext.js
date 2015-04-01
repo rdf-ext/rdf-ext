@@ -1,4 +1,4 @@
-/* global rdf:true */
+/* global window */
 'use strict';
 
 
@@ -10,9 +10,7 @@ rdf.isNode = (typeof process !== 'undefined' && process.versions && process.vers
 
 
 var mixin = function (options) {
-  if (options == null) {
-		options = {};
-  }
+  options = options || {};
 
   if (typeof window !== 'undefined') {
     window.rdf = rdf;
