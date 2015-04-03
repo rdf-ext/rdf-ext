@@ -590,8 +590,9 @@
               assert.equal(req.method, 'PATCH');
             }),
             serializers: {
-              'application/sparql-update': createSerializer()
-            }
+              '1': createSerializer()
+            },
+            defaultSerializer: '1'
           };
 
           var store = new rdf.LdpStore(options);
@@ -604,11 +605,12 @@
         it('should use SPARQL Update content type', function (done) {
           var options = {
             request: createClient(function (req) {
-              assert.equal(req.headers['Content-Type'], 'application/sparql-update');
+              assert.equal(req.headers['Content-Type'], '1');
             }),
             serializers: {
-              'application/sparql-update': createSerializer()
-            }
+              '1': createSerializer()
+            },
+            defaultSerializer: '1'
           };
 
           var store = new rdf.LdpStore(options);
@@ -624,7 +626,7 @@
               assert.equal(req.headers['If-Match'], 'test');
             }),
             serializers: {
-              'application/sparql-update': createSerializer()
+              '1': createSerializer()
             },
             defaultSerializer: '1'
           };
@@ -642,8 +644,9 @@
               assert.equal(req.headers['If-Match'], 'test');
             }),
             serializers: {
-              'application/sparql-update': createSerializer()
-            }
+              '1': createSerializer()
+            },
+            defaultSerializer: '1'
           };
 
           var store = new rdf.LdpStore(options);
@@ -659,8 +662,9 @@
               assert.notEqual(req.headers['If-Match'], 'test');
             }),
             serializers: {
-              'application/sparql-update': createSerializer()
-            }
+              '1': createSerializer()
+            },
+            defaultSerializer: '1'
           };
 
           var store = new rdf.LdpStore(options);
@@ -674,10 +678,11 @@
           var options = {
             request: createClient(),
             serializers: {
-              'application/sparql-update': createSerializer(function () {
+              '1': createSerializer(function () {
                 return {error: 'error'};
               })
-            }
+            },
+            defaultSerializer: '1'
           };
 
           var store = new rdf.LdpStore(options);
@@ -696,8 +701,9 @@
               return {error: 'error'};
             }),
             serializers: {
-              'application/sparql-update': createSerializer()
-            }
+              '1': createSerializer()
+            },
+            defaultSerializer: '1'
           };
 
           var store = new rdf.LdpStore(options);
@@ -716,7 +722,7 @@
               return {statusCode: 500};
             }),
             serializers: {
-              'application/sparql-update': createSerializer()
+              '1': createSerializer()
             },
             defaultSerializer: '1'
           };
@@ -735,8 +741,9 @@
           var options = {
             request: createClient(),
             serializers: {
-              'application/sparql-update': createSerializer()
-            }
+              '1': createSerializer()
+            },
+            defaultSerializer: '1'
           };
 
           var store = new rdf.LdpStore(options);
