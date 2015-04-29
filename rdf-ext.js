@@ -125,6 +125,7 @@ var mixin = function (options) {
   require('./lib/promise.js')(rdf);
   require('./lib/rdfstore-store.js')(rdf);
   require('./lib/rdfxml-parser.js')(rdf);
+  equire('./lib/singlegraph-store.js')(rdf);
   require('./lib/sparql-store.js')(rdf);
   require('./lib/turtle-parser.js')(rdf);
   require('./lib/turtle-serializer.js')(rdf);
