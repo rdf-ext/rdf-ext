@@ -27,6 +27,15 @@
           assert.equal(typeof cf.literal, 'function');
         });
 
+        it('should create an empty node context', function () {
+          var cf = rdf.cf.Graph(ctx.tbbtGraph);
+
+          var result = cf.nodes();
+
+          assert(Array.isArray(result));
+          assert.equal(result.length, 0);
+        });
+
         it('should create context from existing node object', function () {
           var cf = rdf.cf.Graph(ctx.tbbtGraph);
 
@@ -166,6 +175,61 @@
           var result = cf.literal();
 
           assert.equal(result, null);
+        });
+
+        it('.removeIn should remove triples based on the object value', function () {
+          var cf = rdf.cf.Graph(ctx.tbbtGraph.merge(rdf.createGraph()));
+
+          cf.node('http://localhost:8080/data/person/bernadette-rostenkowski')
+            .removeIn();
+
+          assert.equal(cf.graph().length, 118);
+        });
+
+        it('.removeIn should remove triples based on the object value and predicate', function () {
+          var cf = rdf.cf.Graph(ctx.tbbtGraph.merge(rdf.createGraph()));
+
+          cf.node('http://localhost:8080/data/person/bernadette-rostenkowski')
+            .removeIn('http://schema.org/knows');
+
+          assert.equal(cf.graph().length, 119);
+        });
+
+        it('.removeIn should remove triples based on the object value and multiple predicates', function () {
+          var cf = rdf.cf.Graph(ctx.tbbtGraph.merge(rdf.createGraph()));
+
+          cf.node('http://localhost:8080/data/person/bernadette-rostenkowski')
+            .removeIn(['http://schema.org/knows', 'http://schema.org/spouse']);
+
+          assert.equal(cf.graph().length, 118);
+        });
+
+
+        it('.removeOut should remove triples based on the object value', function () {
+          var cf = rdf.cf.Graph(ctx.tbbtGraph.merge(rdf.createGraph()));
+
+          cf.node('http://localhost:8080/data/person/bernadette-rostenkowski')
+            .removeOut();
+
+          assert.equal(cf.graph().length, 113);
+        });
+
+        it('.removeOut should remove triples based on the object value and predicate', function () {
+          var cf = rdf.cf.Graph(ctx.tbbtGraph.merge(rdf.createGraph()));
+
+          cf.node('http://localhost:8080/data/person/bernadette-rostenkowski')
+            .removeOut('http://schema.org/knows');
+
+          assert.equal(cf.graph().length, 119);
+        });
+
+        it('.removeOut should remove triples based on the object value and multiple predicates', function () {
+          var cf = rdf.cf.Graph(ctx.tbbtGraph.merge(rdf.createGraph()));
+
+          cf.node('http://localhost:8080/data/person/bernadette-rostenkowski')
+            .removeOut(['http://schema.org/knows', 'http://schema.org/spouse']);
+
+          assert.equal(cf.graph().length, 118);
         });
 
         it('.toArray should return an empty array if no node was selected', function () {
