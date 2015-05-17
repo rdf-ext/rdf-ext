@@ -93,6 +93,12 @@
           assert.equal(result[1].interfaceName, 'Literal');
         });
 
+        it('.graph should return the graph object', function () {
+          var cf = rdf.cf.Graph(ctx.tbbtGraph);
+
+          assert.equal(cf.graph(), ctx.tbbtGraph);
+        }),
+
         it('.in should search object->subject', function () {
           var cf = rdf.cf.Graph(ctx.tbbtGraph);
 
@@ -160,6 +166,80 @@
           var result = cf.literal();
 
           assert.equal(result, null);
+        });
+
+        it('.toArray should return an empty array if no node was selected', function () {
+          var cf = rdf.cf.Graph(ctx.tbbtGraph);
+
+          var result = cf.toArray();
+
+          assert.deepEqual(result, []);
+        });
+
+        it('.toArray should return every single node wrapped in a cf.Graph object array', function () {
+          var cf = rdf.cf.Graph(ctx.tbbtGraph);
+
+          var result = cf.node('http://localhost:8080/data/person/bernadette-rostenkowski')
+            .in('http://schema.org/knows')
+            .toArray();
+
+          assert(Array.isArray(result));
+          assert.equal(result.length, 7);
+          assert(result[0] instanceof rdf.cf.Graph);
+        });
+
+        it('.forEach should iterate over all nodes', function () {
+          var cf = rdf.cf.Graph(ctx.tbbtGraph);
+
+          var count = 0;
+
+          cf.node('http://localhost:8080/data/person/bernadette-rostenkowski')
+            .in('http://schema.org/knows')
+            .forEach(function (item) {
+              assert(item instanceof rdf.cf.Graph);
+              count++;
+            });
+
+          assert.equal(count, 7);
+        });
+
+        it('.map should iterate over all nodes and return an array of the callback return value', function () {
+          var cf = rdf.cf.Graph(ctx.tbbtGraph);
+
+          var knows = cf.node('http://localhost:8080/data/person/bernadette-rostenkowski')
+            .in('http://schema.org/knows');
+
+          var result = knows
+            .map(function (item, index) {
+              assert(item instanceof rdf.cf.Graph);
+
+              return index;
+            });
+
+          assert.deepEqual(result, [0, 1, 2, 3, 4, 5, 6]);
+        });
+
+        it('.toString should return the .literal string of a single node', function () {
+          var cf = rdf.cf.Graph(ctx.tbbtGraph);
+
+          var givenName = cf.node('http://localhost:8080/data/person/bernadette-rostenkowski')
+            .out('http://schema.org/givenName')
+            .toString();
+
+          assert.equal(givenName, 'Bernadette');
+        });
+
+        it('.toString should return a comma separated string of .literal strings', function () {
+          var cf = rdf.cf.Graph(ctx.tbbtGraph);
+
+          var givenName = cf.node([
+            'http://localhost:8080/data/person/bernadette-rostenkowski',
+            'http://localhost:8080/data/person/howard-wolowitz'
+          ])
+            .out('http://schema.org/givenName')
+            .toString();
+
+          assert.equal(givenName, 'Bernadette,Howard');
         });
       });
     });
