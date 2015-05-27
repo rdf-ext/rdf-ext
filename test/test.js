@@ -119,19 +119,24 @@
 
       readFile('support/list.nt')
         .then(function (list) {
-          return parser.parse(list, 'https://example.com/list');
-        })
-        .then(function (graph) {
-          ctx.listGraph = graph;
+          return parser.parse(list, 'https://example.com/list')
+            .then(function (graph) {
+              ctx.listGraph = graph;
+            });
         })
         .then(function () {
-          return readFile('support/tbbt.nt');
-        })
-        .then(function (tbbt) {
-          return parser.parse(tbbt)
-        })
-        .then(function (graph) {
-          ctx.tbbtGraph = graph;
+          return readFile('support/tbbt.nt')
+            .then(function (tbbt) {
+              return parser.parse(tbbt)
+            })
+            .then(function (graph) {
+              ctx.tbbtGraph = graph;
+
+              return rdf.utils.splitGraphByNamedNodeSubject(graph)
+                .then(function (store) {
+                  ctx.tbbtStore = store;
+                });
+            });
         })
         .then(function () {
           done();
