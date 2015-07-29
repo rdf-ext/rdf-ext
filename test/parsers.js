@@ -11,12 +11,24 @@
       it('Turtle parser should parse card.ttl', function (done) {
         var parser = new rdf.promise.Parser(new rdf.TurtleParser());
 
+        if (rdf.prefixes.cert) {
+          delete rdf.prefixes.cert;
+        }
+
+        if (rdf.prefixes.foaf) {
+          delete rdf.prefixes.foaf;
+        }
+
         readFile('support/card.ttl')
           .then(function (card) {
             return parser.parse(card, 'https://www.example.com/john/card')
           })
           .then(function (graph) {
             return utils.p.assertGraphEqual(graph, ctx.cardGraph);
+          })
+          .then(function () {
+            assert.equal(rdf.prefixes.cert, 'http://www.w3.org/ns/auth/cert#');
+            assert.equal(rdf.prefixes.foaf, 'http://xmlns.com/foaf/0.1/');
           })
           .then(function () {
             done()
@@ -38,12 +50,24 @@
       it('JSON-LD parser should parse card.json', function (done) {
         var parser = new rdf.promise.Parser(new rdf.JsonLdParser());
 
+        if (rdf.prefixes.cert) {
+          delete rdf.prefixes.cert;
+        }
+
+        if (rdf.prefixes.foaf) {
+          delete rdf.prefixes.foaf;
+        }
+
         readFile('support/card.json')
           .then(function (card) {
             return parser.parse(card, 'https://www.example.com/john/card')
           })
           .then(function (graph) {
             return utils.p.assertGraphEqual(graph, ctx.cardGraph);
+          })
+          .then(function () {
+            assert.equal(rdf.prefixes.cert, 'http://www.w3.org/ns/auth/cert#');
+            assert.equal(rdf.prefixes.foaf, 'http://xmlns.com/foaf/0.1/');
           })
           .then(function () {
             done()
