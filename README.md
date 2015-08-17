@@ -89,6 +89,10 @@ print the first rdfs:label object value:
 	  }
 	);
 
+### RDFJS Primer
+
+See [RDFJS Primer](https://github.com/zazukoians/rdfjs-primer) for more examples. 
+
 ## Support
 
 Issues & feature requests should be reported on Github.
