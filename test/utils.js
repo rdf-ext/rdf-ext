@@ -157,6 +157,31 @@
             });
         });
       });
+
+      describe('mimeType', function () {
+        it('should find a parser by mime type and use it to parse data', function (done) {
+          rdf.utils.parse('application/n-triples', ctx.tbbtGraph.toString())
+            .then(function (graph) {
+              assert.equal(graph.length, 126);
+            })
+            .then(function () {
+              done();
+            })
+            .catch(function (error) {
+              done(error);
+            });
+        });
+
+        it('should throw an error if the mime type is not in the map', function () {
+          rdf.utils.parse('image/jpeg', '')
+            .then(function (graph) {
+              done('no error thrown');
+            })
+            .catch(function (error) {
+              done();
+            });
+        });
+      });
     });
   };
 });
