@@ -172,7 +172,7 @@
             });
         });
 
-        it('should throw an error if the mime type is not in the map', function () {
+        it('should throw an error if the mime type is not in the parser map', function () {
           rdf.utils.parse('image/jpeg', '')
             .then(function (graph) {
               done('no error thrown');
@@ -180,6 +180,29 @@
             .catch(function (error) {
               done();
             });
+        });
+
+        it('should find a serializer by mime type and use it to serialize data', function (done) {
+          rdf.utils.serialize('application/n-triples', ctx.tbbtGraph)
+              .then(function (output) {
+                assert.equal(output, ctx.tbbtGraph.toString());
+              })
+              .then(function () {
+                done();
+              })
+              .catch(function (error) {
+                done(error);
+              });
+        });
+
+        it('should throw an error if the mime type is not in the serializer map', function () {
+          rdf.utils.serialize('image/jpeg', rdf.createGraph())
+              .then(function (output) {
+                done('no error thrown');
+              })
+              .catch(function (error) {
+                done();
+              });
         });
       });
     });
