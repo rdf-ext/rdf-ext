@@ -172,7 +172,7 @@
             });
         });
 
-        it('should throw an error if the mime type is not in the parser map', function () {
+        it('should throw an error if the mime type is not in the parser map', function (done) {
           rdf.utils.parse('image/jpeg', '')
             .then(function (graph) {
               done('no error thrown');
@@ -195,7 +195,7 @@
               });
         });
 
-        it('should throw an error if the mime type is not in the serializer map', function () {
+        it('should throw an error if the mime type is not in the serializer map', function (done) {
           rdf.utils.serialize('image/jpeg', rdf.createGraph())
               .then(function (output) {
                 done('no error thrown');
