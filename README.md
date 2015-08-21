@@ -74,10 +74,12 @@ Use the global turtle parser instance to parse a triple from turtle data string 
 	  console.log(graph.length);
 	});
 
-Use a `LdpStore` instance to read the http://dbpedia.org/resource/RDF graph from the turtle resource on DBpedia and
+Use a [`LdpStore`](http://npm.im/rdf-store-ldp) instance to read the http://dbpedia.org/resource/RDF graph from the turtle resource on DBpedia and
 print the first rdfs:label object value:
 
-	var store = new rdf.LdpStore();
+
+        var LdpStore = require('rdf-store-ldp');
+	var store = new LdpStore(rdf);
 
 	store.match(
 	  'http://dbpedia.org/data/RDF.ttl',
@@ -102,17 +104,6 @@ Pull requests are very welcome.
 ## Implementations
 
 ### Store
-
-There are several implementation of the store online. This is for example how to use an [LdpStore](http://npm.im/rdf-store-ldp)
-
-```javascript
-var rdf = require('rdf-ext')
-var LdpStore = require('rdf-store-ldp')
-var store = new LdpStore(rdf)
-store.graph(iri, function() {
-  // and so on
-})
-```
 
 #### InMemoryStore
 
