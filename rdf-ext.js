@@ -129,19 +129,19 @@ var mixin = function (options) {
   // Use InMemoryStore as default store
   rdf.createStore = function (options) {
     return new InMemoryStore(rdf, options);
-  }
+  };
 
   // Deprecated Store files
   function deprecatedError(name, pkg) {
     return function () {
       throw new Error(name + " is now deprecated, please see: http://npm.im/" + pkg)
-    }
+    };
   }
 
-  rdf.LdpStore = deprecatedError('LdpStore', 'rdf-store-ldp')
-  rdf.RdfstoreStore = deprecatedError('RdfstoreStore', 'rdf-store-rdfstore-js')
-  rdf.SingleGraphStore = deprecatedError('SingleGraphStore', 'rdf-store-singlegraph')
-  rdf.SparqlStore = deprecatedError('SparqlStore', 'rdf-store-sparql')
+  rdf.LdpStore = deprecatedError('LdpStore', 'rdf-store-ldp');
+  rdf.RdfstoreStore = deprecatedError('RdfstoreStore', 'rdf-store-rdfstore-js');
+  rdf.SingleGraphStore = deprecatedError('SingleGraphStore', 'rdf-store-singlegraph');
+  rdf.SparqlStore = deprecatedError('SparqlStore', 'rdf-store-sparql');
 
   return rdf;
 };
