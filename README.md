@@ -103,7 +103,20 @@ Pull requests are very welcome.
 
 ### Store
 
+There are several implementation of the store online. This is for example how to use an [LdpStore](http://npm.im/rdf-store-ldp)
+
+```javascript
+var rdf = require('rdf-ext')
+var LdpStore = require('rdf-store-ldp')
+var store = new LdpStore(rdf)
+store.graph(iri, function() {
+  // and so on
+})
+```
+
 #### InMemoryStore
+
+Link: [rdf-store-inmemory](http://npm.im/rdf-store-inmemory)
 
 A simple in-memory triple store implementation.
 Cross graph read operations are supported by using `undefined` as graph IRI.
@@ -111,6 +124,8 @@ In that case `.graph` returns all graphs merged into a single graph and `.match`
 Because there is nothing to configure, the constructor doesn't require any parameters.
 
 #### LdpStore
+
+Link: [rdf-store-inmemory](http://npm.im/rdf-store-ldp)
 
 Store implementation to access graphs via a RESTful [LDP](http://www.w3.org/TR/ldp/) interface.
 The constructor accepts a single `options` parameters.
@@ -130,15 +145,21 @@ The `options` object can have the following properties:
 
 #### RdfstoreStore
 
+Link: [rdf-store-inmemory](http://npm.im/rdf-store-rdfstore-js)
+
 Store based on [rdfstore-js](https://github.com/antoniogarrote/rdfstore-js).
 The constructor requires a rdfstore-js object parameter that will be wrapped.
 
 #### SingleGraphStore
 
+Link: [rdf-store-inmemory](http://npm.im/rdf-store-singlegraph)
+
 In memory triple store using a single graph for all named graphs.
 Sometimes usefull for testing.
 
 #### SparqlStore
+
+Link: [rdf-store-inmemory](http://npm.im/rdf-store-sparql)
 
 Store implementation to access graphs via [SPARQL 1.1 Graph Store HTTP Protocol](http://www.w3.org/TR/sparql11-http-rdf-update/) interface. This requires an external triple store.
 
@@ -161,6 +182,10 @@ The `options` object can have the following properties:
   `rdf.parseTurtle` is used by default.
 * `request` Replaces the default request function.
   See the utils sections for implementations provided by RDF-Ext.
+
+#### See also
+- FileStore ([rdf-store-fs](http://npm.im/rdf-store-fs))
+- AbstractStore ([rdf-store-fs](http://npm.im/rdf-store-abstract))
 
 ### Parser
 
