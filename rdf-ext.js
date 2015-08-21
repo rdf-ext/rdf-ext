@@ -3,7 +3,8 @@
 
 
 var
-  rdf = require('rdf-interfaces');
+  rdf = require('rdf-interfaces'),
+  InMemoryStore = require('rdf-store-inmemory');
 
 
 rdf.isNode = (typeof process !== 'undefined' && process.versions && process.versions.node);
@@ -116,19 +117,31 @@ var mixin = function (options) {
   Object.defineProperty(rdf, 'createGraph', { value: rdf.createGraphExt });
 
   require('./lib/clownface.js')(rdf);
-  require('./lib/inmemory-store.js')(rdf);
   require('./lib/jsonld-parser.js')(rdf);
   require('./lib/jsonld-serializer.js')(rdf);
-  require('./lib/ldp-store.js')(rdf);
   require('./lib/microdata-parser.js')(rdf);
   require('./lib/ntriples-serializer.js')(rdf);
   require('./lib/promise.js')(rdf);
-  require('./lib/rdfstore-store.js')(rdf);
   require('./lib/rdfxml-parser.js')(rdf);
-  require('./lib/singlegraph-store.js')(rdf);
-  require('./lib/sparql-store.js')(rdf);
   require('./lib/turtle-parser.js')(rdf);
   require('./lib/turtle-serializer.js')(rdf);
+
+  // Use InMemoryStore as default store
+  rdf.createStore = function (options) {
+    return new InMemoryStore(rdf, options);
+  }
+
+  // Deprecated Store files
+  function deprecatedError(name, pkg) {
+    return function () {
+      throw new Error(name + " is now deprecated, please see: http://npm.im/" + pkg)
+    }
+  }
+
+  rdf.LdpStore = deprecatedError('LdpStore', 'rdf-store-ldp')
+  rdf.RdfstoreStore = deprecatedError('RdfstoreStore', 'rdf-store-rdfstore-js')
+  rdf.SingleGraphStore = deprecatedError('SingleGraphStore', 'rdf-store-singlegraph')
+  rdf.SparqlStore = deprecatedError('SparqlStore', 'rdf-store-sparql')
 
   return rdf;
 };
