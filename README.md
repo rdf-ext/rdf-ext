@@ -1,5 +1,9 @@
 # RDF Interfaces Extension
 
+[![Build Status](https://travis-ci.org/zazukoians/rdf-ext.svg?branch=master)](https://travis-ci.org/zazukoians/rdf-ext)
+[![NPM Version](https://img.shields.io/npm/v/rdf-ext.svg?style=flat)](https://npm.im/rdf-ext)
+
+
 RDF-Ext provides a JavaScript library for working with RDF & Linked Data. It provides read/write support for the most widely used RDF data formats like:
 
 ### Parsing
