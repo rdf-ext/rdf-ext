@@ -12,7 +12,6 @@
     var tests = {
       clownface: require('./clownface'),
       graph: require('./graph'),
-      ldpStore: require('./ldp-store'),
       microdataSuite: require('./microdata-suite'),
       parsers: require('./parsers'),
       rdfaSuite: require('./rdfa-suite'),
@@ -148,7 +147,6 @@
 
     tests.parsers(assert, rdf, readFile, utils, ctx);
     tests.serializers(assert, rdf, readFile, utils, ctx);
-    tests.ldpStore(assert, rdf, readFile, utils, ctx);
     tests.utils(assert, rdf, readFile, utils, ctx);
     tests.clownface(assert, rdf, readFile, utils, ctx);
   });
