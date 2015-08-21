@@ -77,19 +77,20 @@ Use the global turtle parser instance to parse a triple from turtle data string 
 Use a [`LdpStore`](http://npm.im/rdf-store-ldp) instance to read the http://dbpedia.org/resource/RDF graph from the turtle resource on DBpedia and
 print the first rdfs:label object value:
 
+```javascript
+var LdpStore = require('rdf-store-ldp');
+var store = new LdpStore(rdf);
 
-        var LdpStore = require('rdf-store-ldp');
-	var store = new LdpStore(rdf);
-
-	store.match(
-	  'http://dbpedia.org/data/RDF.ttl',
-	  'http://dbpedia.org/resource/RDF',
-	  'http://www.w3.org/2000/01/rdf-schema#label',
-	  null,
-	  function (graph) {
-	    console.log(graph.toArray()[0].object.toString());
-	  }
-	);
+store.match(
+  'http://dbpedia.org/data/RDF.ttl',
+  'http://dbpedia.org/resource/RDF',
+  'http://www.w3.org/2000/01/rdf-schema#label',
+  null,
+  function (graph) {
+    console.log(graph.toArray()[0].object.toString());
+  }
+);
+```
 
 ### RDFJS Primer
 
