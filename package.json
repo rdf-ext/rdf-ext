@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/zazukoians/rdf-ext.git"
+    "url": "git://github.com/rdf-ext/rdf-ext.git"
   },
   "keywords": [
     "RDF",
@@ -22,9 +22,9 @@
   "author": "Thomas Bergwinkl",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/zazukoians/rdf-ext/issues"
+    "url": "https://github.com/rdf-ext/rdf-ext/issues"
   },
-  "homepage": "https://github.com/zazukoians/rdf-ext",
+  "homepage": "https://github.com/rdf-ext/rdf-ext",
   "dependencies": {
     "es6-promise": "2.*",
     "jsonld": "0.3.*",
