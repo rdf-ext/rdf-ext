@@ -72,11 +72,13 @@ Because rdfstore-js comes with an outdated version of JSON-LD it must be deleted
 
 Use the global turtle parser instance to parse a triple from turtle data string and print the number of triples:
 
-	var data = '<http://example.org/#s> <http://example.org/#p> <http://example.org/#o>.';
+```javascript
+var data = '<http://example.org/#s> <http://example.org/#p> <http://example.org/#o>.';
 
-	rdf.parseTurtle(data, function (graph) {
-	  console.log(graph.length);
-	});
+rdf.parseTurtle(data, function (graph) {
+  console.log(graph.length);
+});
+```
 
 Use a [`LdpStore`](http://npm.im/rdf-store-ldp) instance to read the http://dbpedia.org/resource/RDF graph from the turtle resource on DBpedia and
 print the first rdfs:label object value:
