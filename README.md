@@ -123,7 +123,7 @@ Because there is nothing to configure, the constructor doesn't require any param
 
 #### LdpStore
 
-Link: [rdf-store-inmemory](http://npm.im/rdf-store-ldp)
+Link: [rdf-store-ldp](http://npm.im/rdf-store-ldp)
 
 Store implementation to access graphs via a RESTful [LDP](http://www.w3.org/TR/ldp/) interface.
 The constructor accepts a single `options` parameters.
@@ -143,21 +143,21 @@ The `options` object can have the following properties:
 
 #### RdfstoreStore
 
-Link: [rdf-store-inmemory](http://npm.im/rdf-store-rdfstore-js)
+Link: [rdf-store-rdfstore-js](http://npm.im/rdf-store-rdfstore-js)
 
 Store based on [rdfstore-js](https://github.com/antoniogarrote/rdfstore-js).
 The constructor requires a rdfstore-js object parameter that will be wrapped.
 
 #### SingleGraphStore
 
-Link: [rdf-store-inmemory](http://npm.im/rdf-store-singlegraph)
+Link: [rdf-store-singlegraph](http://npm.im/rdf-store-singlegraph)
 
 In memory triple store using a single graph for all named graphs.
 Sometimes usefull for testing.
 
 #### SparqlStore
 
-Link: [rdf-store-inmemory](http://npm.im/rdf-store-sparql)
+Link: [rdf-store-sparql](http://npm.im/rdf-store-sparql)
 
 Store implementation to access graphs via [SPARQL 1.1 Graph Store HTTP Protocol](http://www.w3.org/TR/sparql11-http-rdf-update/) interface. This requires an external triple store.
 
@@ -183,7 +183,7 @@ The `options` object can have the following properties:
 
 #### See also
 - FileStore ([rdf-store-fs](http://npm.im/rdf-store-fs))
-- AbstractStore ([rdf-store-fs](http://npm.im/rdf-store-abstract))
+- AbstractStore ([rdf-store-abstract](http://npm.im/rdf-store-abstract))
 
 ### Parser
 
