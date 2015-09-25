@@ -117,14 +117,7 @@ var mixin = function (options) {
   Object.defineProperty(rdf, 'createGraph', { value: rdf.createGraphExt });
 
   require('./lib/clownface.js')(rdf);
-  require('./lib/jsonld-parser.js')(rdf);
-  require('./lib/jsonld-serializer.js')(rdf);
-  require('./lib/microdata-parser.js')(rdf);
-  require('./lib/ntriples-serializer.js')(rdf);
   require('./lib/promise.js')(rdf);
-  require('./lib/rdfxml-parser.js')(rdf);
-  require('./lib/turtle-parser.js')(rdf);
-  require('./lib/turtle-serializer.js')(rdf);
 
   // Use InMemoryStore as default store
   rdf.createStore = function (options) {
