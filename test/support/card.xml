@@ -7,6 +7,6 @@
                 <cert:modulus rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">abcdef</cert:modulus>
             </cert:RSAPublicKey>
         </cert:key>
-        <foaf:name  rdf:parseType="Literal" xml:lang="en">John Smith</foaf:name>
+        <foaf:name xml:lang="en">John Smith</foaf:name>
     </foaf:Person>
 </rdf:RDF>
