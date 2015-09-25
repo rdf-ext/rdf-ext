@@ -52,7 +52,7 @@
     graph.add(rdf.createTriple(
       cardNode,
       rdf.createNamedNode('http://xmlns.com/foaf/0.1/name'),
-      rdf.createLiteral('John Smith', 'en','http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral')));
+      rdf.createLiteral('John Smith', 'en')));
 
     var keyNode = rdf.createBlankNode();
 
