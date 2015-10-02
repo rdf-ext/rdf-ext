@@ -1,8 +1,0 @@
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix schema: <http://schema.org/> .
-
-[
-  a schema:Person;
-  schema:knows [ schema:name "Jeni"];
-  schema:name "Gregg"
-] .

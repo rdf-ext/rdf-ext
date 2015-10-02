@@ -1,2 +1,6 @@
 .idea
 node_modules
+test/support/browser-test.js
+test/support/mocha.css
+test/support/mocha.js
+test/support/tbbt.nt

@@ -1,3 +1,0 @@
-ASK WHERE {
-	<mailto:daniel.brickley@bristol.ac.uk> <http://xmlns.com/foaf/0.1/knows> <malto:libby.miller@bristol.ac.uk> .
-}

@@ -10,7 +10,7 @@ var
 rdf.isNode = (typeof process !== 'undefined' && process.versions && process.versions.node);
 
 
-var mixin = function (options) {
+var mixin = function (rdf, options) {
   options = options || {};
 
   if (typeof window !== 'undefined') {
@@ -116,9 +116,6 @@ var mixin = function (options) {
 
   Object.defineProperty(rdf, 'createGraph', { value: rdf.createGraphExt });
 
-  require('./lib/clownface.js')(rdf);
-  require('./lib/promise.js')(rdf);
-
   // Use InMemoryStore as default store
   rdf.createStore = function (options) {
     return new InMemoryStore(rdf, options);
@@ -139,10 +136,6 @@ var mixin = function (options) {
   return rdf;
 };
 
+mixin(rdf);
 
-if (!rdf.isNode) {
-  mixin();
-}
-
-
-module.exports = mixin;
+module.exports = rdf;

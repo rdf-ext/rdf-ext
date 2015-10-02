@@ -1,3 +1,0 @@
-@prefix schema: <http://schema.org/> .
-
-[ a schema:Person; schema:name "Gregg Kellogg"] .

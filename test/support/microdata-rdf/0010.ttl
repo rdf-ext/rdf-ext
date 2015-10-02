@@ -1,3 +1,0 @@
-@prefix schema: <http://schema.org/> .
-
-[ a schema:Thing; schema:track <foo>] .

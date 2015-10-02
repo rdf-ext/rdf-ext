@@ -2,31 +2,13 @@
 <html>
 <head lang="en">
 	<meta charset="UTF-8">
-	<title>RDF-Ext Tests</title>
-	<link rel="stylesheet" href="mocha.css" />
+	<link rel="stylesheet" href="support/mocha.css" />
 </head>
 <body>
 	<div id="mocha"></div>
-
-	<script src="support/assert.js"></script>
 	<script src="support/mocha.js"></script>
-
 	<script>mocha.setup('bdd')</script>
-
-	<script src="support/rdf-ext.js"></script>
-	<script src="support/rdf-test-utils.js"></script>
-
-	<script src="clownface.js"></script>
-	<script src="graph.js"></script>
-	<script src="ldp-store.js"></script>
-	<script src="microdata-suite.js"></script>
-	<script src="parsers.js"></script>
-	<script src="rdfa-suite.js"></script>
-	<script src="serializers.js"></script>
-	<script src="store.js"></script>
-	<script src="utils.js"></script>
- <script src="test.js"></script>
-
+	<script src="support/browser-test.js"></script>
 	<script>
 		mocha.checkLeaks();
 		mocha.run();

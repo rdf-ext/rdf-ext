@@ -26,18 +26,13 @@
   },
   "homepage": "https://github.com/rdf-ext/rdf-ext",
   "dependencies": {
-    "es6-promise": "2.*",
-    "rdf-interfaces": "0.1.*",
+    "es6-promise": "^2.3.0",
+    "rdf-interfaces": "^0.1.0",
     "rdf-store-inmemory": "^0.1.1"
   },
   "devDependencies": {
-    "browserify": "9.*",
-    "exorcist": "0.1.*",
-    "mocha": "2.*",
-    "rdf-store-inmemory": "^0.1.1",
-    "rdf-test-utils": "0.1.*",
-    "tbbt-ld": "0.0.2",
-    "uglify-js": "2.*"
+    "mocha": "^2.2.5",
+    "rdf-test-data": "^0.3.0"
   },
   "readmeFilename": "README.md"
 }

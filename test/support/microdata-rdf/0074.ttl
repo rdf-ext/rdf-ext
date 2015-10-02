@@ -1,8 +1,0 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfa: <http://www.w3.org/ns/rdfa#> .
-
-[ a <http://expansion/MainType>, <http://expansion/AdditionalType>;
-  <http://expansion/equivalentProperty>
-    <http://expansion/AdditionalType>
-] .
