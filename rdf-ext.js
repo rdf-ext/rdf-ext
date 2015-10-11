@@ -18,12 +18,6 @@ var mixin = function (rdf, options) {
     window.rdf = rdf;
   }
 
-  if (typeof Promise !== 'undefined') {
-    rdf.Promise = Promise;
-  } else {
-    rdf.Promise = null;
-  }
-
   rdf.defaultRequest = null;
   rdf.corsProxyRequest = null;
   rdf.ns = {
