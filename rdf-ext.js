@@ -6,9 +6,6 @@ var rdf = require('rdf-graph-array');
 var InMemoryStore = require('rdf-store-inmemory');
 
 
-rdf.isNode = (typeof process !== 'undefined' && process.versions && process.versions.node);
-
-
 var mixin = function (rdf, options) {
   options = options || {};
 
@@ -23,7 +20,7 @@ var mixin = function (rdf, options) {
 
   require('./lib/utils')(rdf);
 
-  if (rdf.isNode) {
+  if (typeof process !== 'undefined' && process.versions && process.versions.node) {
     require('./lib/utils-node')(rdf);
   } else {
     require('./lib/utils-browser')(rdf);
