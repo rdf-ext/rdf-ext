@@ -20,9 +20,6 @@ var mixin = function (rdf, options) {
 
   rdf.defaultRequest = null;
   rdf.corsProxyRequest = null;
-  rdf.ns = {
-    type: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'
-  };
 
   require('./lib/utils')(rdf);
 
