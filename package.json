@@ -4,7 +4,6 @@
   "description": "Implements the RDF-Ext spec plus parsers (JSON-LD, RDF/XML, Turtle), serializers (JSON-LD, N-Triples) and stores (in memory, LDP, SPARQL)",
   "main": "rdf-ext.js",
   "scripts": {
-    "prepublish": "node prepublish.js",
     "test": "node_modules/.bin/mocha"
   },
   "repository": {
