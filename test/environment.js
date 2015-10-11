@@ -1,3 +1,4 @@
+/* global describe, it */
 var assert = require('assert')
 var rdf = require('../rdf-ext')
 
@@ -90,11 +91,11 @@ module.exports = function () {
 
         assert.equal(typeof profile, 'object')
         assert.equal(typeof profile.prefixes, 'object')
-        //assert.equal(typeof profile.terms, 'object')
+        // assert.equal(typeof profile.terms, 'object')
         assert.equal(typeof profile.resolve, 'function')
-        //assert.equal(typeof profile.setDefaultVocabulary, 'function')
+        // assert.equal(typeof profile.setDefaultVocabulary, 'function')
         assert.equal(typeof profile.setDefaultPrefix, 'function')
-        //assert.equal(typeof profile.setTerm, 'function')
+        // assert.equal(typeof profile.setTerm, 'function')
         assert.equal(typeof profile.setPrefix, 'function')
         assert.equal(typeof profile.importProfile, 'function')
       })
@@ -112,7 +113,7 @@ module.exports = function () {
         assert.equal(typeof env.createGraph, 'function')
         assert.equal(typeof env.createAction, 'function')
         assert.equal(typeof env.createProfile, 'function')
-        //assert.equal(typeof env.createTermMap, 'function')
+        // assert.equal(typeof env.createTermMap, 'function')
         assert.equal(typeof env.createPrefixMap, 'function')
       })
     })
