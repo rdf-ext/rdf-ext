@@ -157,7 +157,7 @@ module.exports = function (ctx) {
           .then(function (store) {
             var graphCount = 0;
 
-            store.store().forEach(function () {
+            store.forEach(function () {
               graphCount++;
             });
 

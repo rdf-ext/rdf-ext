@@ -27,7 +27,7 @@
   "homepage": "https://github.com/rdf-ext/rdf-ext",
   "dependencies": {
     "es6-promise": "^2.3.0",
-    "rdf-interfaces": "^0.1.0",
+    "rdf-graph-array": "^0.1.0",
     "rdf-store-inmemory": "^0.1.1"
   },
   "devDependencies": {

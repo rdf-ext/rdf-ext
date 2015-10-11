@@ -1,4 +1,5 @@
 var tests = [
+  require('./environment'),
   require('./utils')
 ]
 

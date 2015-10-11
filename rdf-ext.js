@@ -2,9 +2,8 @@
 'use strict';
 
 
-var
-  rdf = require('rdf-interfaces'),
-  InMemoryStore = require('rdf-store-inmemory');
+var rdf = require('rdf-graph-array');
+var InMemoryStore = require('rdf-store-inmemory');
 
 
 rdf.isNode = (typeof process !== 'undefined' && process.versions && process.versions.node);
@@ -12,6 +11,8 @@ rdf.isNode = (typeof process !== 'undefined' && process.versions && process.vers
 
 var mixin = function (rdf, options) {
   options = options || {};
+
+  require('./lib/environment')(rdf)
 
   if (typeof window !== 'undefined') {
     window.rdf = rdf;
@@ -37,88 +38,36 @@ var mixin = function (rdf, options) {
     require('./lib/utils-browser')(rdf);
   }
 
-  if (typeof rdf.Graph === 'undefined') {
-    rdf.Graph = {};
-  }
-
-  rdf.Graph.difference = function (a, b) {
-    var d = rdf.createGraph();
-
-    a.forEach(function (at) {
-      if (!b.some(function (bt) { return at.equals(bt); })) {
-        d.add(at);
-      }
-    });
-
-    return d;
+  rdf.createBlankNode = function () {
+    return new rdf.BlankNode();
   };
 
-  rdf.Graph.intersection = function (a, b) {
-    var i = rdf.createGraph();
-
-    a.forEach(function (at) {
-      if (b.some(function (bt) { return at.equals(bt); })) {
-        i.add(at);
-      }
-    });
-
-    return i;
+  rdf.createNamedNode = function (iri) {
+    return new rdf.NamedNode(iri);
   };
 
-  rdf.Graph.map = function (graph, callback) {
-    var result = [];
-
-    graph.forEach(function (triple) {
-      result.push(callback(triple));
-    });
-
-    return result;
+  rdf.createLiteral = function (value, language, datatype) {
+    return new rdf.Literal(value, language, datatype);
   };
 
-  rdf.Graph.merge = function (a, b) {
-    var m = rdf.createGraph();
-
-    m.addAll(a);
-    m.addAll(b);
-
-    return m;
+  rdf.createTriple = function (subject, predicate, object) {
+    return new rdf.Triple(subject, predicate, object);
   };
 
-  rdf.Graph.toString = function (a) {
-    var s = '';
-
-    a.forEach(function (t) {
-      s += t.toString() + '\n';
-    });
-
-    return s;
+  rdf.createQuad = function (subject, predicate, object, graph) {
+    return new rdf.Quad(subject, predicate, object, graph);
   };
 
-  var wrappedCreateGraph = rdf.createGraph.bind(rdf);
-
-  rdf.createGraphExt = function (triples) {
-    var graph = wrappedCreateGraph(triples);
-
-    graph.difference = rdf.Graph.difference.bind(graph, graph);
-
-    graph.intersection = rdf.Graph.intersection.bind(graph, graph);
-
-    graph.map = rdf.Graph.map.bind(graph, graph);
-
-    graph.toString = rdf.Graph.toString.bind(graph, graph);
-
-    if ('replaceMerge' in options && options.replaceMerge) {
-      graph.merge = rdf.Graph.merge.bind(graph, graph);
-    }
-
-    return graph;
+  rdf.createGraph = function (triples) {
+    return new rdf.Graph(triples);
   };
-
-  Object.defineProperty(rdf, 'createGraph', { value: rdf.createGraphExt });
 
   // Use InMemoryStore as default store
   rdf.createStore = function (options) {
-    return new InMemoryStore(rdf, options);
+    options = options || {}
+    options.rdf = options.rdf || rdf
+
+    return new InMemoryStore(options);
   };
 
   // Deprecated Store files
@@ -136,6 +85,6 @@ var mixin = function (rdf, options) {
   return rdf;
 };
 
-mixin(rdf);
+mixin(rdf)
 
 module.exports = rdf;
