@@ -61,18 +61,6 @@ var mixin = function (rdf, options) {
     return new InMemoryStore(options);
   };
 
-  // Deprecated Store files
-  function deprecatedError(name, pkg) {
-    return function () {
-      throw new Error(name + " is now deprecated, please see: http://npm.im/" + pkg)
-    };
-  }
-
-  rdf.LdpStore = deprecatedError('LdpStore', 'rdf-store-ldp');
-  rdf.RdfstoreStore = deprecatedError('RdfstoreStore', 'rdf-store-rdfstore-js');
-  rdf.SingleGraphStore = deprecatedError('SingleGraphStore', 'rdf-store-singlegraph');
-  rdf.SparqlStore = deprecatedError('SparqlStore', 'rdf-store-sparql');
-
   return rdf;
 };
 
