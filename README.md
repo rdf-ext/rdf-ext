@@ -159,7 +159,7 @@ Sometimes usefull for testing.
 
 Link: [rdf-store-sparql](http://npm.im/rdf-store-sparql)
 
-Store implementation to access graphs via [SPARQL 1.1 Graph Store HTTP Protocol](http://www.w3.org/TR/sparql11-http-rdf-update/) interface. This requires an external triple store.
+Store implementation to access graphs using the [SPARQL 1.1 Protocol](http://www.w3.org/TR/sparql11-protocol/). This requires an external triple store.
 
 The constructor accepts a single `options` parameters.
 
