@@ -150,13 +150,7 @@ module.exports = function (ctx) {
       it('should split a graph by NamedNode subject into a store', function (done) {
         rdf.utils.splitGraphByNamedNodeSubject(tbbtGraph)
           .then(function (store) {
-            var graphCount = 0
-
-            store.forEach(function () {
-              graphCount++
-            })
-
-            assert.equal(graphCount, 9)
+            assert.equal(Object.keys(store.graphs).length, 9)
           })
           .then(function () {
             done()
@@ -166,53 +160,5 @@ module.exports = function (ctx) {
           })
       })
     })
-
-    /* describe('mimeType', function () {
-      it('should find a parser by mime type and use it to parse data', function (done) {
-        rdf.utils.parse('application/n-triples', tbbtGraph.toString())
-          .then(function (graph) {
-            assert.equal(graph.length, 126);
-          })
-          .then(function () {
-            done();
-          })
-          .catch(function (error) {
-            done(error);
-          });
-      });
-
-      it('should throw an error if the mime type is not in the parser map', function (done) {
-        rdf.utils.parse('image/jpeg', '')
-          .then(function (graph) {
-            done('no error thrown');
-          })
-          .catch(function (error) {
-            done();
-          });
-      });
-
-      it('should find a serializer by mime type and use it to serialize data', function (done) {
-        rdf.utils.serialize('application/n-triples', tbbtGraph)
-            .then(function (output) {
-              assert.equal(output, tbbtGraph.toString());
-            })
-            .then(function () {
-              done();
-            })
-            .catch(function (error) {
-              done(error);
-            });
-      });
-
-      it('should throw an error if the mime type is not in the serializer map', function (done) {
-        rdf.utils.serialize('image/jpeg', rdf.createGraph())
-            .then(function (output) {
-              done('no error thrown');
-            })
-            .catch(function (error) {
-              done();
-            });
-      });
-    }); */
   })
 }
