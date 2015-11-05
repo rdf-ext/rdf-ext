@@ -1,9 +1,10 @@
 {
   "name": "rdf-ext",
-  "version": "0.2.6",
-  "description": "Implements the RDF-Ext spec plus parsers (JSON-LD, RDF/XML, Turtle), serializers (JSON-LD, N-Triples) and stores (in memory, LDP, SPARQL)",
+  "version": "0.3.0-rc1",
+  "description": "Extended Linked Data module",
   "main": "rdf-ext.js",
   "scripts": {
+    "lint": "standard",
     "test": "node_modules/.bin/mocha"
   },
   "repository": {
@@ -11,27 +12,24 @@
     "url": "git://github.com/rdf-ext/rdf-ext.git"
   },
   "keywords": [
-    "RDF",
-    "RDF Interfaces",
-    "JSON-LD",
-    "Turtle",
-    "NTriples",
-    "SPARQL"
+    "rdf",
+    "rdf-ext",
+    "rdf-interfaces"
   ],
-  "author": "Thomas Bergwinkl",
+  "author": "Thomas Bergwinkl <bergi@axolotlfarm.org> (https://www.bergnet.org/people/bergi/card#me)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/rdf-ext/rdf-ext/issues"
   },
   "homepage": "https://github.com/rdf-ext/rdf-ext",
   "dependencies": {
-    "es6-promise": "^2.3.0",
-    "rdf-graph-array": "^0.1.0",
-    "rdf-store-inmemory": "^0.1.1"
+    "es6-promise": "^3.0.2",
+    "rdf-graph-array": "^0.3.0-rc1",
+    "rdf-store-inmemory": "^0.3.0-rc1"
   },
   "devDependencies": {
-    "mocha": "^2.2.5",
-    "rdf-test-data": "^0.3.0"
+    "mocha": "^2.3.3",
+    "rdf-test-data": "^0.3.0-rc1"
   },
   "readmeFilename": "README.md"
 }
