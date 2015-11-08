@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "mocha": "^2.3.3",
+    "nock": "^2.17.0",
     "rdf-test-data": "^0.3.0-rc1"
   },
   "readmeFilename": "README.md"

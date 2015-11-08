@@ -17,6 +17,103 @@ module.exports = function (ctx) {
       })
     })
 
+    describe('defaultRequest', function () {
+      if (typeof process !== 'undefined' && process.versions && process.versions.node) {
+        var nock = require('nock')
+
+        it('should support method, url, headers, content interface', function (done) {
+          var sentHeaders
+          var sentData
+
+          nock('http://example.org')
+            .post('/resource')
+            .reply(200, function (iri, body) {
+              sentHeaders = this.req.headers
+              sentContent = body
+
+              return 'response'
+            })
+
+          rdf.defaultRequest(
+            'POST',
+            'http://example.org/resource',
+            {'Accept': 'text/plain'},
+            'request',
+            function (statusCode, headers, content) {
+              assert.equal(statusCode, 200)
+              assert.deepEqual(headers, {})
+              assert.equal(content, 'response')
+              assert.equal(sentHeaders.accept, 'text/plain')
+              assert.equal(sentContent, 'request')
+
+              done()
+          })
+        })
+
+        it('should support request module compatible interface', function (done) {
+          var sentHeaders
+          var sentContent
+
+          nock('http://example.org')
+            .post('/resource')
+            .reply(200, function (iri, body) {
+              sentHeaders = this.req.headers
+              sentContent = body
+
+              return 'response'
+            })
+
+          rdf.defaultRequest({
+            method: 'POST',
+            url: 'http://example.org/resource',
+            headers: {'Accept': 'text/plain'},
+            body: 'request'
+          }, function (statusCode, headers, content) {
+            assert.equal(statusCode, 200)
+            assert.deepEqual(headers, {})
+            assert.equal(content, 'response')
+            assert.equal(sentHeaders.accept, 'text/plain')
+            assert.equal(sentContent, 'request')
+
+            done()
+          })
+        })
+
+        it('should return a Promise', function (done) {
+          var sentHeaders
+          var sentContent
+
+          nock('http://example.org')
+            .post('/resource')
+            .reply(200, function (iri, body) {
+              sentHeaders = this.req.headers
+              sentContent = body
+
+              return 'response'
+            })
+
+          rdf.defaultRequest({
+            method: 'POST',
+            url: 'http://example.org/resource',
+            headers: {'Accept': 'text/plain'},
+            body: 'request'
+          }).then(function (result) {
+            assert.equal(result.statusCode, 200)
+            assert.deepEqual(result.headers, {})
+            assert.equal(result.content, 'response')
+            assert.equal(sentHeaders.accept, 'text/plain')
+            assert.equal(sentContent, 'request')
+
+            done()
+          }).catch(function (error) {
+            done(error)
+          })
+        })
+      } else {
+        //TODO: implement browser defaultRequest test
+      }
+    })
+
     describe('filter', function () {
       it('namedNode should filter NamedNode nodes', function () {
         assert.equal(rdf.utils.filter.namedNode(rdf.createNamedNode('http://example.org')), true)
