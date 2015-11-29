@@ -1,6 +1,6 @@
 # RDF Interfaces Extension
 
-**Attention: a lot of work has gone through rdf-ext 0.3.0 and it doesn't match this documentation, please come back for a better spec. Right now you can have a look at the tests and different packages under the [rdf-ext](https://github.com/rdf-ext) organization. Documentation will be updated soon**
+**Attention: a lot of work has gone through rdf-ext 0.3.0 and it doesn't match this documentation. Right now you can have a look at the tests and at the different packages under the [rdf-ext](https://github.com/rdf-ext) organization. Documentation will be updated soon**
 
 [![Build Status](https://travis-ci.org/rdf-ext/rdf-ext.svg?branch=master)](https://travis-ci.org/zazukoians/rdf-ext)
 [![NPM Version](https://img.shields.io/npm/v/rdf-ext.svg?style=flat)](https://npm.im/rdf-ext)
