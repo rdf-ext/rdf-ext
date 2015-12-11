@@ -1,6 +1,8 @@
 /* global window */
 var rdf = require('rdf-graph-array')
 var InMemoryStore = require('rdf-store-inmemory')
+var Parsers = require('./lib/parsers')
+var Serializers = require('./lib/serializers')
 
 var mixin = function (rdf, options) {
   options = options || {}
@@ -53,6 +55,12 @@ var mixin = function (rdf, options) {
 
     return new InMemoryStore(options)
   }
+
+  rdf.Parsers = Parsers
+  rdf.parsers = new Parsers()
+
+  rdf.Serializers = Serializers
+  rdf.serializers = new Serializers()
 
   return rdf
 }

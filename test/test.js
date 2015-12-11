@@ -1,6 +1,8 @@
 /* global describe */
 var tests = [
   require('./environment'),
+  require('./parsers'),
+  require('./serializers'),
   require('./utils')
 ]
 
