@@ -1,6 +1,6 @@
 {
   "name": "rdf-ext",
-  "version": "0.3.0-rc3",
+  "version": "0.3.0-rc4",
   "description": "Extended Linked Data module",
   "main": "rdf-ext.js",
   "scripts": {
@@ -30,7 +30,7 @@
   "devDependencies": {
     "mocha": "^2.3.3",
     "nock": "^2.17.0",
-    "rdf-test-data": "^0.3.0-rc1"
+    "rdf-test-data": "^0.3.0-rc2"
   },
   "readmeFilename": "README.md"
 }
