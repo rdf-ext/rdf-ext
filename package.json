@@ -1,6 +1,6 @@
 {
   "name": "rdf-ext",
-  "version": "0.3.0-rc4",
+  "version": "0.3.0-rc6",
   "description": "Extended Linked Data module",
   "main": "rdf-ext.js",
   "scripts": {
@@ -24,7 +24,7 @@
   "homepage": "https://github.com/rdf-ext/rdf-ext",
   "dependencies": {
     "es6-promise": "^3.0.2",
-    "rdf-graph-array": "^0.3.0-rc1",
+    "rdf-graph-array": "^0.3.0-rc6",
     "rdf-store-inmemory": "^0.3.0-rc1"
   },
   "devDependencies": {
