@@ -73,15 +73,18 @@ In the code, import RDF-Ext:
 
 ### Browser
 
-Just import RDF-Ext:
+Just import the RDF-Ext distribution:
 
 	<script src="/js/rdf-ext.js"></script>
 
-If you want to use rdfstore-js it must be imported first.
-Because rdfstore-js comes with an outdated version of JSON-LD it must be deleted afterwards:
+#### Distribution
 
-	<script src="/js/rdfstore.js"></script>
-	<script>delete jsonld;</script>
+You can download a prebuilt or custom distribution from the [RDF-Ext distribution builder site](http://rdf-ext.bergnet.org/).
+The [RDF-Ext distribution builder](https://github.com/rdf-ext/rdf-ext-dist-builder) also offers a command line interface to build custom distributions.
+
+#### Browserify
+
+If you build your application with Browserify, RDF-Ext can be bundled flawless.
 
 ## Support
 
