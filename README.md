@@ -48,15 +48,6 @@ The motivation for an asynchronous API is simple: A JSON-LD context for example 
 
 With ECMAScript 6 (ES6) JavaScript introduces some new features. RDF-Ext uses the new [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) feature to handle asynchronous function calls easier.
 
-## Requirements
-
-RDF-Ext requires a library, which implements the W3C [RDF Interfaces](http://www.w3.org/TR/rdf-interfaces/) API.
-Here is a list of known working implementations:
-
-* [reference implementation](https://github.com/bergos/rdf-interfaces)
-* [rdf](https://github.com/Acubed/node-rdf)
-* [rdfstore-js](https://github.com/antoniogarrote/rdfstore-js)
-
 ## Usage
 
 In general, consult the documentation for the [RDF Interfaces](http://www.w3.org/TR/rdf-interfaces/) and [RDF-Ext](http://bergos.github.io/rdf-ext-spec/) specifications for details about how to interact with the library.
