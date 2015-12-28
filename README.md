@@ -43,7 +43,6 @@ The [RDF-Ext distribution builder](https://github.com/rdf-ext/rdf-ext-dist-build
 
 #### Browserify
 
-Uses [N3.js](https://github.com/RubenVerborgh/N3.js) for serializing
 If you build your application with Browserify, RDF-Ext can be bundled flawless.
 
 
