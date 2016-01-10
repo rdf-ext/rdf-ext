@@ -55,7 +55,7 @@ Pull requests are very welcome.
 
 ## Modules
 
-There are many modules for parsing, serializing, stores for persistence and simplified data handling.
+There are many modules for parsing, serializing, stores for persistence and simplified data handling. In general all modules are available at [npm][https://www.npmjs.com] and you can use the Github repository name to install them.
 
 
 ### Parsers
@@ -95,3 +95,4 @@ There are many modules for parsing, serializing, stores for persistence and simp
 - [Clownface](https://github.com/rdf-ext/clownface) - Simple but powerful graph traversing library
 - [Common Formats](https://github.com/rdf-ext/rdf-formats-common) - Loads parsers and serializers for the most common formats
 - [SimpleRDF](https://github.com/nicola/simplerdf/) - Simple but powerful graph to object mapping
+- [RDF body parser](https://github.com/rdf-ext/rdf-body-parser) - Node.js body parsing middleware, parses incoming RDF data
