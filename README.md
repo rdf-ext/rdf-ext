@@ -55,7 +55,7 @@ Pull requests are very welcome.
 
 ## Modules
 
-There are many modules for parsing, serializing, stores for persistence and simplified data handling. In general all modules are available at [npm][https://www.npmjs.com] and you can use the Github repository name to install them.
+There are many modules for parsing, serializing, stores for persistence and simplified data handling. In general all modules are available at [npm](https://www.npmjs.com) and you can use the Github repository name to install them.
 
 
 ### Parsers
