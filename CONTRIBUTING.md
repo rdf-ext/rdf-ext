@@ -14,6 +14,10 @@ All projects managed in the RDF-Ext organisation use the [standard code style](h
 Standard is also configured as `lint` script in every `package.json` file.
 So you can use `npm run lint` beside `standard` to check the style.
 
+## Pull Requests
+
+All developers, also members of the organization, must use forks and pull request to submit contributions.
+
 ## Branches
 
 Gitflow is used to manage branches and versions.
