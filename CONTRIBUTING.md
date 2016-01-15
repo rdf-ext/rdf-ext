@@ -16,7 +16,7 @@ So you can use `npm run lint` beside `standard` to check the style.
 
 ## Pull Requests
 
-All developers, also members of the organization, must use forks and pull request to submit contributions.
+All developers, also members of the organization, must use forks and pull requests to submit contributions.
 
 ## Branches
 
