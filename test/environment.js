@@ -116,6 +116,49 @@ module.exports = function () {
         // assert.equal(typeof env.createTermMap, 'function')
         assert.equal(typeof env.createPrefixMap, 'function')
       })
+
+      it('should create a named node with correct IRI', function () {
+        var iri = 'http://example.org#node'
+        var node = rdf.createNamedNode(iri)
+
+        assert.equal(node.nominalValue, iri)
+      })
+
+      it('should resolve a CURIE when creating a named node -- uses global RDFEnvironment', function () {
+        rdf.setPrefix('ex', 'http://example.org/')
+        var curie = 'ex:test'
+        var iri = rdf.prefixes.resolve(curie)
+        var node = rdf.createNamedNode(curie)
+
+        assert.equal(node.nominalValue, iri)
+      })
+
+      it('should resolve a CURIE when creating a named node -- uses a separate RDFEnvironment', function () {
+        var env = new rdf.RDFEnvironment()
+        env.setPrefix('ex', 'http://example.org/')
+        var curie = 'ex:test'
+        var iri = env.prefixes.resolve(curie)
+        var node = env.createNamedNode(curie)
+
+        assert.equal(node.nominalValue, iri)
+      })
+
+      it('should not resolve a CURIE for unknown prefix', function () {
+        var env = new rdf.RDFEnvironment()
+        var curie = 'ex:test'
+        var node = env.createNamedNode(curie)
+
+        assert.throws(function () { env.prefixes.resolve(curie) }, Error)
+        assert.equal(node.nominalValue, curie)
+      })
+
+      it('should not resolve a CURIE for unknown prefix', function () {
+        var curie = 'fu:bar'
+        var node = rdf.createNamedNode(curie)
+
+        assert.throws(function () { rdf.prefixes.resolve(curie) }, Error)
+        assert.equal(node.nominalValue, curie)
+      })
     })
   })
 }
