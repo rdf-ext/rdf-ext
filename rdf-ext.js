@@ -29,17 +29,9 @@ var mixin = function (rdf, options) {
   }
 
   rdf.createNamedNode = function (curieOrIri) {
-    // - get a pot. CURIE prefix
-    var separator = curieOrIri.indexOf(':')
-    var prefix = (separator !== -1) ? curieOrIri.substr(0, separator).toLowerCase() : undefined
-
-    if (prefix !== undefined &&
-        prefix in rdf.prefixes) {
-      // - CURIE detected, resolve it.
-      var iri = rdf.prefixes.resolve(curieOrIri)
-      return new rdf.NamedNode(iri)
+    if (rdf.prefixes.isCURIEWithDefinedPrefix(curieOrIri)) {
+      return new rdf.NamedNode(rdf.prefixes.resolve(curieOrIri))
     } else {
-      // - assume IRI
       return new rdf.NamedNode(curieOrIri)
     }
   }
