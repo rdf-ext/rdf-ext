@@ -107,6 +107,14 @@ module.exports = function () {
         assert.equal(shrinked, 'ex:test')
         assert.equal(shrinkedDefault, ':test')
       })
+
+      it('.shrink should return the IRI if no prefix was found', function () {
+        var prefixMap = new rdf.PrefixMap({ex: 'http://example.org/1/'})
+
+        var shrinked = prefixMap.shrink('http://example1.org/1/test')
+
+        assert.equal(shrinked, 'http://example1.org/1/test')
+      })
     })
 
     describe('Profile', function () {
