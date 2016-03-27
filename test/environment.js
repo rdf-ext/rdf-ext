@@ -61,6 +61,30 @@ module.exports = function () {
         assert.equal(expanded, 'http://example.org/test')
       })
 
+      it('.resolve should ignore IRIs', function () {
+        var prefixMap = new rdf.PrefixMap({ex: 'http://example.org/'})
+
+        var expanded = prefixMap.resolve('http://example.org')
+
+        assert.equal(expanded, undefined)
+      })
+
+      it('.resolve should ignore strings without separator', function () {
+        var prefixMap = new rdf.PrefixMap({ex: 'http://example.org/'})
+
+        var expanded = prefixMap.resolve('test')
+
+        assert.equal(expanded, undefined)
+      })
+
+      it('.resolve should ignore strings with unknown prefix', function () {
+        var prefixMap = new rdf.PrefixMap({ex: 'http://example.org/'})
+
+        var expanded = prefixMap.resolve('ex1:test')
+
+        assert.equal(expanded, undefined)
+      })
+
       it('.setDefault should set the default namespace', function () {
         var prefixMap = new rdf.PrefixMap()
 
