@@ -72,7 +72,7 @@ Also see [rdf-formats-common](https://github.com/rdf-ext/rdf-formats-common) if 
 * [Abstract](https:https://github.com/rdf-ext/rdf-ext-spec/blob/gh-pages/API.md//github.com/rdf-ext/rdf-serializer-abstract) - Can be used to implement own serializers 
 * [JSON-LD](https://github.com/rdf-ext/rdf-serializer-jsonld) - Outputs JSON-LD in flat document form
 * [N-Triples](https://github.com/rdf-ext/rdf-serializer-ntriples) - Uses the `.toNT()` method to serialize N-Triples
-* [Turtle](https://github.com/rdf-ext/rdf-serializer-ntriples) - Uses [N3.js](https://github.com/RubenVerborgh/N3.js) for serializing
+* [Turtle](https://github.com/rdf-ext/rdf-serializer-n3) - Uses [N3.js](https://github.com/RubenVerborgh/N3.js) for serializing
 * [SPARQL Update](https://github.com/rdf-ext/rdf-serializer-sparql-update) - Generates `INSERT DATA` SPARQL updates 
 
 Also see [rdf-formats-common](https://github.com/rdf-ext/rdf-formats-common) if you want to get support for the most common formats.
