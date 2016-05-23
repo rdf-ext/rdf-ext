@@ -1,0 +1,35 @@
+{
+  "name": "rdf-ext",
+  "version": "0.9.0",
+  "description": "Extended Linked Data module",
+  "main": "rdf-ext.js",
+  "scripts": {
+    "lint": "standard",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rdf-ext/rdf-ext.git"
+  },
+  "keywords": [
+    "rdf",
+    "rdf-ext",
+    "rdf-interfaces"
+  ],
+  "author": "Thomas Bergwinkl <bergi@axolotlfarm.org> (https://www.bergnet.org/people/bergi/card#me)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rdf-ext/rdf-ext/issues"
+  },
+  "homepage": "https://github.com/rdf-ext/rdf-ext",
+  "dependencies": {
+    "mocha": "^2.4.5",
+    "rdf-data-model": "git://github.com/rdf-ext/rdf-data-model.git#v1",
+    "rdf-normalize": "git://github.com/rdf-ext/rdf-normalize.git#v1",
+    "rdf-source": "git://github.com/rdf-ext/rdf-source.git#v1"
+  },
+  "devDependencies": {
+    "standard": "^7.0.1"
+  },
+  "readmeFilename": "README.md"
+}
