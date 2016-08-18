@@ -26,6 +26,7 @@
     "mocha": "^2.4.5",
     "rdf-data-model": "git://github.com/rdf-ext/rdf-data-model.git#develop",
     "rdf-normalize": "git://github.com/rdf-ext/rdf-normalize.git#develop",
+    "rdf-dataset-simple": "git://github.com/rdf-ext/rdf-dataset-simple.git#develop",
     "rdf-source": "git://github.com/rdf-ext/rdf-source.git#develop"
   },
   "devDependencies": {
