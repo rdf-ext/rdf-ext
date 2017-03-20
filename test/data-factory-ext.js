@@ -1,11 +1,9 @@
-'use strict'
-
 /* global describe, it */
 
 const assert = require('assert')
 const rdf = require('..')
 
-describe('rdf-ext', () => {
+describe('data-factory-ext', () => {
   describe('.defaults', () => {
     it('should container a Dataset constructor', () => {
       assert.equal(typeof rdf.defaults.Dataset, 'function')
