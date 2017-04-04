@@ -65,5 +65,18 @@ describe('data-factory-ext', () => {
       assert.equal(dataset.match(null, null, quad2.object).length, 1)
       assert.equal(dataset.match(null, null, null, quad1.graph).length, 2)
     })
+
+    it('should replace the graph part of the quad if a second parameter is given', () => {
+      let quad = rdf.quad(
+        rdf.namedNode('http://example.org/subject'),
+        rdf.namedNode('http://example.org/predicate'),
+        rdf.literal('object1'),
+        rdf.namedNode('http://example.org/graph'))
+
+      let dataset = rdf.dataset([quad], rdf.namedNode('http://example.org/graph-replaced'))
+
+      assert.equal(dataset.length, 1)
+      assert.equal(dataset.toArray().shift().graph.value, 'http://example.org/graph-replaced')
+    })
   })
 })
