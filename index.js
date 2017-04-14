@@ -2,11 +2,11 @@ const streams = require('./lib/streams')
 const Parsers = require('./lib/parsers')
 const Serializers = require('./lib/serializers')
 
-let DataFactoryExt = require('./lib/data-factory-ext')
+let DataFactory = require('./lib/DataFactory')
 
-DataFactoryExt.asEvent = streams.asEvent
-DataFactoryExt.waitFor = streams.waitFor
-DataFactoryExt.Parsers = Parsers
-DataFactoryExt.Serializers = Serializers
+DataFactory.asEvent = streams.asEvent
+DataFactory.waitFor = streams.waitFor
+DataFactory.Parsers = Parsers
+DataFactory.Serializers = Serializers
 
-module.exports = DataFactoryExt
+module.exports = DataFactory
