@@ -260,6 +260,14 @@ describe('DataFactory', () => {
       assert.equal(typeof rdf.dataset, 'function')
     })
 
+    it('should implement the extended Dataset interface', () => {
+      let dataset = rdf.dataset()
+
+      assert.equal(typeof dataset.equals, 'function')
+      assert.equal(typeof dataset.toCanonical, 'function')
+      assert.equal(typeof dataset.toString, 'function')
+    })
+
     it('should initialize the Dataset with the given quads', () => {
       let quad1 = rdf.quad(
         rdf.namedNode('http://example.org/subject'),
@@ -294,8 +302,39 @@ describe('DataFactory', () => {
       assert.equal(dataset.toArray().shift().graph.value, 'http://example.org/graph-replaced')
     })
 
+    describe('.equals', () => {
+      it('should compare the other graph for equality', () => {
+        let quad1a = rdf.quad(rdf.namedNode('http://example.org/subject'), rdf.namedNode('http://example.org/predicate'),
+          rdf.blankNode())
+
+        let quad1b = rdf.quad(rdf.namedNode('http://example.org/subject'), rdf.namedNode('http://example.org/predicate'),
+          rdf.blankNode())
+
+        let quad2 = rdf.quad(rdf.namedNode('http://example.org/subject'), rdf.namedNode('http://example.org/predicate'),
+          rdf.literal('c'))
+
+        let dataset1a = rdf.dataset([quad1a])
+        let dataset1b = rdf.dataset([quad1b])
+        let dataset2 = rdf.dataset([quad2])
+
+        assert.equal(dataset1a.equals(dataset1b), true)
+        assert.equal(dataset1a.equals(dataset2), false)
+      })
+    })
+
+    describe('.toCanonical', () => {
+      it('should return the canonical representation', () => {
+        let quad = rdf.quad(rdf.namedNode('http://example.org/subject'), rdf.namedNode('http://example.org/predicate'),
+          rdf.blankNode())
+
+        let dataset = rdf.dataset([quad])
+
+        assert.equal(dataset.toCanonical(), '<http://example.org/subject> <http://example.org/predicate> _:c14n0 .\n', true)
+      })
+    })
+
     describe('.toString', () => {
-      it('should return a canonical representation', () => {
+      it('should return N-Quads', () => {
         let quad = rdf.quad(
           rdf.namedNode('http://example.org/subject'),
           rdf.namedNode('http://example.org/predicate'),
