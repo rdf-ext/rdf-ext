@@ -101,6 +101,22 @@ describe('DataFactory', () => {
 
         assert.equal(term.toCanonical(), '"' + string + '"')
       })
+
+      it('should support language literals', () => {
+        const string = 'example'
+        const language = 'en'
+        const term = rdf.literal(string, language)
+
+        assert.equal(term.toCanonical(), '"' + string + '"@' + language)
+      })
+
+      it('should support datatype literals', () => {
+        const string = 'example'
+        const datatype = rdf.namedNode('http://example.org/datatype')
+        const term = rdf.literal(string, datatype)
+
+        assert.equal(term.toCanonical(), '"' + string + '"^^<' + datatype.value + '>')
+      })
     })
 
     describe('.toString', () => {
