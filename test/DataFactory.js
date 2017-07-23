@@ -117,6 +117,13 @@ describe('DataFactory', () => {
 
         assert.equal(term.toCanonical(), '"' + string + '"^^<' + datatype.value + '>')
       })
+
+      it('should escape special chars', () => {
+        const string = '"\\\n\r'
+        const term = rdf.literal(string)
+
+        assert.equal(term.toCanonical(), '"\\"\\\\n\\r"')
+      })
     })
 
     describe('.toString', () => {
