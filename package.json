@@ -22,9 +22,9 @@
   },
   "homepage": "https://github.com/rdf-ext/rdf-ext",
   "dependencies": {
-    "rdf-data-model": "git://github.com/rdf-ext/rdf-data-model.git#develop",
-    "rdf-dataset-simple": "git://github.com/rdf-ext/rdf-dataset-simple.git#develop",
-    "rdf-normalize": "git://github.com/rdf-ext/rdf-normalize.git#develop"
+    "rdf-data-model": "^1.0.0",
+    "rdf-dataset-simple": "^1.0.0",
+    "rdf-normalize": "^1.0.0"
   },
   "devDependencies": {
     "mocha": "^3.2.0",
