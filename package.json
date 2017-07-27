@@ -4,8 +4,7 @@
   "description": "Extended Linked Data module",
   "main": "rdf-ext.js",
   "scripts": {
-    "lint": "standard",
-    "test": "npm run lint && mocha"
+    "test": "standard && mocha"
   },
   "repository": {
     "type": "git",
@@ -13,8 +12,8 @@
   },
   "keywords": [
     "rdf",
-    "rdf-ext",
-    "rdf-interfaces"
+    "rdfjs",
+    "rdf-ext"
   ],
   "author": "Thomas Bergwinkl <bergi@axolotlfarm.org> (https://www.bergnet.org/people/bergi/card#me)",
   "license": "MIT",
@@ -30,6 +29,5 @@
   "devDependencies": {
     "mocha": "^3.2.0",
     "standard": "^9.0.1"
-  },
-  "readmeFilename": "README.md"
+  }
 }
