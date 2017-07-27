@@ -1,46 +1,88 @@
 /* global describe, it */
-var assert = require('assert')
-var rdf = require('../rdf-ext')
 
-module.exports = function () {
-  describe('parsers', function () {
-    it('should implement all required functions', function () {
-      assert.equal(typeof rdf.Parsers.prototype.list, 'function')
-      assert.equal(typeof rdf.Parsers.prototype.findParsers, 'function')
-      assert.equal(typeof rdf.Parsers.prototype.parse, 'function')
-      assert.equal(typeof rdf.Parsers.prototype.process, 'function')
-      assert.equal(typeof rdf.Parsers.prototype.stream, 'function')
+const assert = require('assert')
+const EventEmitter = require('events').EventEmitter
+const Parsers = require('..').Parsers
+
+describe('parsers', () => {
+  it('should implement all required functions', function () {
+    assert.equal(typeof Parsers.prototype.find, 'function')
+    assert.equal(typeof Parsers.prototype.list, 'function')
+    assert.equal(typeof Parsers.prototype.import, 'function')
+  })
+
+  describe('.find', () => {
+    it('should return null if no parser was found', function () {
+      let parsers = new Parsers()
+
+      assert.equal(parsers.find('image/jpeg'), null)
     })
 
-    it('.list should return an array', function () {
-      var mediaTypes = rdf.parsers.list()
+    it('should return the parser class for the given media type', function () {
+      let jsonld = {}
+      let turtle = {}
+
+      let parsers = new Parsers({
+        'application/ld+json': jsonld,
+        'text/turtle': turtle
+      })
+
+      assert.equal(parsers.find('text/turtle'), turtle)
+    })
+  })
+
+  describe('.list', () => {
+    it('should return an array', function () {
+      let parsers = new Parsers()
+      let mediaTypes = parsers.list()
 
       assert(Array.isArray(mediaTypes))
     })
 
-    it('.findParsers should return null if no parser was found', function () {
-      assert.equal(rdf.parsers.findParsers('image/jpeg'), null)
-    })
-
-    it('.parse should throw an error if no parser was found', function (done) {
-      rdf.parsers.parse('image/jpeg', '').then(function () {
-        done('no error thrown')
-      }).catch(function () {
-        done()
+    it('should return all media types', function () {
+      let parsers = new Parsers({
+        'application/ld+json': {},
+        'text/turtle': {}
       })
-    })
 
-    it('.process should throw an error if no parser was found', function (done) {
-      rdf.parsers.process('image/jpeg', '', function () {
-      }).then(function () {
-        done('no error thrown')
-      }).catch(function () {
-        done()
-      })
-    })
-
-    it('.stream should return null if no parser was found', function () {
-      assert.equal(rdf.parsers.stream('image/jpeg', ''), null)
+      assert.deepEqual(parsers.list(), ['application/ld+json', 'text/turtle'])
     })
   })
-}
+
+  describe('.import', () => {
+    it('should return null if no parser was found', function () {
+      let parsers = new Parsers()
+
+      assert.equal(parsers.import('image/jpeg', ''), null)
+    })
+
+    it('should call read on the parser class for the given media type', function () {
+      let touched = false
+      let jsonld = {}
+      let turtle = new EventEmitter()
+
+      turtle.import = () => {
+        touched = true
+      }
+
+      let parsers = new Parsers({
+        'application/ld+json': jsonld,
+        'text/turtle': turtle
+      })
+
+      parsers.import('text/turtle')
+
+      let result = new Promise((resolve) => {
+        turtle.on('end', () => {
+          assert(touched)
+
+          resolve()
+        })
+      })
+
+      turtle.emit('end')
+
+      return result
+    })
+  })
+})
