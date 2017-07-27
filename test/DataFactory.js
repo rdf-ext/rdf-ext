@@ -119,10 +119,15 @@ describe('DataFactory', () => {
       })
 
       it('should escape special chars', () => {
-        const string = '"\\\n\r'
-        const term = rdf.literal(string)
+        const quotationMarkTerm = rdf.literal('"')
+        const backslashTerm = rdf.literal('\\')
+        const lineFeedTerm = rdf.literal('\n')
+        const carriageReturnTerm = rdf.literal('\r')
 
-        assert.equal(term.toCanonical(), '"\\"\\\\n\\r"')
+        assert.equal(quotationMarkTerm.toCanonical(), '"\\""')
+        assert.equal(backslashTerm.toCanonical(), '"\\\\"')
+        assert.equal(lineFeedTerm.toCanonical(), '"\\n"')
+        assert.equal(carriageReturnTerm.toCanonical(), '"\\r"')
       })
     })
 
