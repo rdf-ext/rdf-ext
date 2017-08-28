@@ -53,6 +53,22 @@ describe('DataFactory', () => {
         assert.equal(term.toString(), iri)
       })
     })
+
+    describe('.toJSON', () => {
+      it('should be a method', () => {
+        const iri = 'http://example.org'
+        const term = rdf.namedNode(iri)
+
+        assert.equal(typeof term.toJSON, 'function')
+      })
+
+      it('should return the JSON', () => {
+        const iri = 'http://example.org'
+        const term = rdf.namedNode(iri)
+
+        assert.deepEqual(term.toJSON(), { value: iri, termType: 'NamedNode' })
+      })
+    })
   })
 
   describe('.blankNode', () => {
@@ -83,6 +99,21 @@ describe('DataFactory', () => {
         const term = rdf.blankNode(id)
 
         assert.equal(term.toString(), '_:' + id)
+      })
+    })
+
+    describe('.toJSON', () => {
+      it('should be a method', () => {
+        const term = rdf.blankNode()
+
+        assert.equal(typeof term.toJSON, 'function')
+      })
+
+      it('should return the JSON with the identifier', () => {
+        const id = 'b1'
+        const term = rdf.blankNode(id)
+
+        assert.deepEqual(term.toJSON(), { value: id, termType: 'BlankNode' })
       })
     })
   })
@@ -145,6 +176,31 @@ describe('DataFactory', () => {
         assert.equal(term.toString(), string)
       })
     })
+
+    describe('.toJSON', () => {
+      it('should be a method', () => {
+        const term = rdf.literal()
+
+        assert.equal(typeof term.toJSON, 'function')
+      })
+
+      it('should return the JSON', () => {
+        const string = 'example'
+        const lang = 'cs'
+        const term = rdf.literal(string, lang)
+        const expected = {
+          'value': string,
+          'termType': 'Literal',
+          'language': lang,
+          'datatype': {
+            'termType': 'NamedNode',
+            'value': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#langString'
+          }
+        }
+
+        assert.deepEqual(term.toJSON(), expected)
+      })
+    })
   })
 
   describe('.defaultGraph', () => {
@@ -173,6 +229,20 @@ describe('DataFactory', () => {
         const term = rdf.defaultGraph()
 
         assert.equal(term.toString(), '')
+      })
+    })
+
+    describe('.toJSON', () => {
+      it('should be a method', () => {
+        const term = rdf.defaultGraph()
+
+        assert.equal(typeof term.toJSON, 'function')
+      })
+
+      it('should return the JSON', () => {
+        const term = rdf.defaultGraph()
+
+        assert.deepEqual(term.toJSON(), { value: '', termType: 'DefaultGraph' })
       })
     })
   })
@@ -205,6 +275,21 @@ describe('DataFactory', () => {
         const term = rdf.variable(name)
 
         assert.equal(term.toString(), '?' + name)
+      })
+    })
+
+    describe('.toJSON', () => {
+      it('should be a method', () => {
+        const term = rdf.variable('v')
+
+        assert.equal(typeof term.toJSON, 'function')
+      })
+
+      it('should return the JSON', () => {
+        const name = 'v'
+        const term = rdf.variable(name)
+
+        assert.deepEqual(term.toJSON(), { value: name, termType: 'Variable' })
       })
     })
   })
@@ -249,6 +334,32 @@ describe('DataFactory', () => {
         var quad = rdf.quad(subject, predicate, object)
 
         assert.equal(quad.toString(), '<http://example.org/subject> <http://example.org/predicate> <http://example.org/object> .')
+      })
+    })
+
+    describe('.toJSON', () => {
+      it('should be a method', () => {
+        var subject = rdf.namedNode('http://example.org/subject')
+        var predicate = rdf.namedNode('http://example.org/predicate')
+        var object = rdf.namedNode('http://example.org/object')
+        var graph = rdf.namedNode('http://example.org/graph')
+        var quad = rdf.quad(subject, predicate, object, graph)
+
+        assert.equal(typeof quad.toJSON, 'function')
+      })
+      it('should return the JSON', () => {
+        var subject = rdf.namedNode('http://example.org/subject')
+        var predicate = rdf.namedNode('http://example.org/predicate')
+        var object = rdf.namedNode('http://example.org/object')
+        var graph = rdf.namedNode('http://example.org/graph')
+        var quad = rdf.quad(subject, predicate, object, graph)
+
+        assert.deepEqual(quad.toJSON(), {
+          subject: { value: 'http://example.org/subject', termType: 'NamedNode' },
+          predicate: { value: 'http://example.org/predicate', termType: 'NamedNode' },
+          object: { value: 'http://example.org/object', termType: 'NamedNode' },
+          graph: { value: 'http://example.org/graph', termType: 'NamedNode' }
+        })
       })
     })
   })
@@ -372,6 +483,34 @@ describe('DataFactory', () => {
         let dataset = rdf.dataset([quad])
 
         assert.equal(dataset.toString(), '<http://example.org/subject> <http://example.org/predicate> "object" <http://example.org/graph> .\n')
+      })
+    })
+
+    describe('.toJSON', () => {
+      it('should return the JSON', () => {
+        let quad = rdf.quad(
+          rdf.namedNode('http://example.org/subject'),
+          rdf.namedNode('http://example.org/predicate'),
+          rdf.literal('object'),
+          rdf.namedNode('http://example.org/graph'))
+
+        let dataset = rdf.dataset([ quad ])
+
+        assert.deepEqual(dataset.toJSON(), [
+          {
+            subject: { value: 'http://example.org/subject', termType: 'NamedNode' },
+            predicate: { value: 'http://example.org/predicate', termType: 'NamedNode' },
+            object: {
+              value: 'object',
+              termType: 'Literal',
+              language: '',
+              datatype: {
+                value: 'http://www.w3.org/2001/XMLSchema#string', termType: 'NamedNode'
+              }
+            },
+            graph: { value: 'http://example.org/graph', termType: 'NamedNode' }
+          }
+        ])
       })
     })
   })
