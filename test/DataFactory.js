@@ -2,7 +2,7 @@
 
 const assert = require('assert')
 const rdf = require('../lib/DataFactory')
-const standard = require('rdf-data-model/test')
+const standard = require('@rdfjs/data-model/test')
 
 describe('DataFactory', () => {
   describe('test suite', () => {
@@ -11,13 +11,13 @@ describe('DataFactory', () => {
 
   describe('.defaults', () => {
     it('should contain objects and constructors for all data model objects', () => {
-      assert.equal(typeof rdf.defaults.defaultGraph, 'object')
-      assert.equal(typeof rdf.defaults.NamedNode, 'function')
-      assert.equal(typeof rdf.defaults.BlankNode, 'function')
-      assert.equal(typeof rdf.defaults.Literal, 'function')
-      assert.equal(typeof rdf.defaults.Variable, 'function')
-      assert.equal(typeof rdf.defaults.Quad, 'function')
-      assert.equal(typeof rdf.defaults.Dataset, 'function')
+      assert.strictEqual(typeof rdf.defaults.defaultGraph, 'object')
+      assert.strictEqual(typeof rdf.defaults.NamedNode, 'function')
+      assert.strictEqual(typeof rdf.defaults.BlankNode, 'function')
+      assert.strictEqual(typeof rdf.defaults.Literal, 'function')
+      assert.strictEqual(typeof rdf.defaults.Variable, 'function')
+      assert.strictEqual(typeof rdf.defaults.Quad, 'function')
+      assert.strictEqual(typeof rdf.defaults.Dataset, 'function')
     })
   })
 
@@ -27,14 +27,14 @@ describe('DataFactory', () => {
         const iri = 'http://example.org'
         const term = rdf.namedNode(iri)
 
-        assert.equal(typeof term.toCanonical, 'function')
+        assert.strictEqual(typeof term.toCanonical, 'function')
       })
 
       it('should return the IRI wrapped in angle brackets', () => {
         const iri = 'http://example.org'
         const term = rdf.namedNode(iri)
 
-        assert.equal(term.toCanonical(), '<' + iri + '>')
+        assert.strictEqual(term.toCanonical(), '<' + iri + '>')
       })
     })
 
@@ -43,14 +43,14 @@ describe('DataFactory', () => {
         const iri = 'http://example.org'
         const term = rdf.namedNode(iri)
 
-        assert.equal(typeof term.toString, 'function')
+        assert.strictEqual(typeof term.toString, 'function')
       })
 
       it('should return the IRI', () => {
         const iri = 'http://example.org'
         const term = rdf.namedNode(iri)
 
-        assert.equal(term.toString(), iri)
+        assert.strictEqual(term.toString(), iri)
       })
     })
 
@@ -59,14 +59,14 @@ describe('DataFactory', () => {
         const iri = 'http://example.org'
         const term = rdf.namedNode(iri)
 
-        assert.equal(typeof term.toJSON, 'function')
+        assert.strictEqual(typeof term.toJSON, 'function')
       })
 
       it('should return the JSON', () => {
         const iri = 'http://example.org'
         const term = rdf.namedNode(iri)
 
-        assert.deepEqual(term.toJSON(), { value: iri, termType: 'NamedNode' })
+        assert.deepStrictEqual(term.toJSON(), { value: iri, termType: 'NamedNode' })
       })
     })
   })
@@ -76,14 +76,14 @@ describe('DataFactory', () => {
       it('should be a method', () => {
         const term = rdf.blankNode()
 
-        assert.equal(typeof term.toCanonical, 'function')
+        assert.strictEqual(typeof term.toCanonical, 'function')
       })
 
       it('should return the identifier prefixed with "_:"', () => {
         const id = 'b1'
         const term = rdf.blankNode(id)
 
-        assert.equal(term.toCanonical(), '_:' + id)
+        assert.strictEqual(term.toCanonical(), '_:' + id)
       })
     })
 
@@ -91,14 +91,14 @@ describe('DataFactory', () => {
       it('should be a method', () => {
         const term = rdf.blankNode()
 
-        assert.equal(typeof term.toString, 'function')
+        assert.strictEqual(typeof term.toString, 'function')
       })
 
       it('should return the identifier prefixed with "_:"', () => {
         const id = 'b1'
         const term = rdf.blankNode(id)
 
-        assert.equal(term.toString(), '_:' + id)
+        assert.strictEqual(term.toString(), '_:' + id)
       })
     })
 
@@ -106,14 +106,14 @@ describe('DataFactory', () => {
       it('should be a method', () => {
         const term = rdf.blankNode()
 
-        assert.equal(typeof term.toJSON, 'function')
+        assert.strictEqual(typeof term.toJSON, 'function')
       })
 
       it('should return the JSON with the identifier', () => {
         const id = 'b1'
         const term = rdf.blankNode(id)
 
-        assert.deepEqual(term.toJSON(), { value: id, termType: 'BlankNode' })
+        assert.deepStrictEqual(term.toJSON(), { value: id, termType: 'BlankNode' })
       })
     })
   })
@@ -123,14 +123,14 @@ describe('DataFactory', () => {
       it('should be a method', () => {
         const term = rdf.literal()
 
-        assert.equal(typeof term.toCanonical, 'function')
+        assert.strictEqual(typeof term.toCanonical, 'function')
       })
 
       it('should return the string wrapped in double quotes', () => {
         const string = 'example'
         const term = rdf.literal(string)
 
-        assert.equal(term.toCanonical(), '"' + string + '"')
+        assert.strictEqual(term.toCanonical(), '"' + string + '"')
       })
 
       it('should support language literals', () => {
@@ -138,7 +138,7 @@ describe('DataFactory', () => {
         const language = 'en'
         const term = rdf.literal(string, language)
 
-        assert.equal(term.toCanonical(), '"' + string + '"@' + language)
+        assert.strictEqual(term.toCanonical(), '"' + string + '"@' + language)
       })
 
       it('should support datatype literals', () => {
@@ -146,7 +146,7 @@ describe('DataFactory', () => {
         const datatype = rdf.namedNode('http://example.org/datatype')
         const term = rdf.literal(string, datatype)
 
-        assert.equal(term.toCanonical(), '"' + string + '"^^<' + datatype.value + '>')
+        assert.strictEqual(term.toCanonical(), '"' + string + '"^^<' + datatype.value + '>')
       })
 
       it('should escape special chars', () => {
@@ -155,10 +155,10 @@ describe('DataFactory', () => {
         const lineFeedTerm = rdf.literal('\n')
         const carriageReturnTerm = rdf.literal('\r')
 
-        assert.equal(quotationMarkTerm.toCanonical(), '"\\""')
-        assert.equal(backslashTerm.toCanonical(), '"\\\\"')
-        assert.equal(lineFeedTerm.toCanonical(), '"\\n"')
-        assert.equal(carriageReturnTerm.toCanonical(), '"\\r"')
+        assert.strictEqual(quotationMarkTerm.toCanonical(), '"\\""')
+        assert.strictEqual(backslashTerm.toCanonical(), '"\\\\"')
+        assert.strictEqual(lineFeedTerm.toCanonical(), '"\\n"')
+        assert.strictEqual(carriageReturnTerm.toCanonical(), '"\\r"')
       })
     })
 
@@ -166,14 +166,14 @@ describe('DataFactory', () => {
       it('should be a method', () => {
         const term = rdf.literal()
 
-        assert.equal(typeof term.toString, 'function')
+        assert.strictEqual(typeof term.toString, 'function')
       })
 
       it('should return the string', () => {
         const string = 'example'
         const term = rdf.literal(string)
 
-        assert.equal(term.toString(), string)
+        assert.strictEqual(term.toString(), string)
       })
     })
 
@@ -181,7 +181,7 @@ describe('DataFactory', () => {
       it('should be a method', () => {
         const term = rdf.literal()
 
-        assert.equal(typeof term.toJSON, 'function')
+        assert.strictEqual(typeof term.toJSON, 'function')
       })
 
       it('should return the JSON', () => {
@@ -198,7 +198,7 @@ describe('DataFactory', () => {
           }
         }
 
-        assert.deepEqual(term.toJSON(), expected)
+        assert.deepStrictEqual(term.toJSON(), expected)
       })
     })
   })
@@ -208,13 +208,13 @@ describe('DataFactory', () => {
       it('should be a method', () => {
         const term = rdf.defaultGraph()
 
-        assert.equal(typeof term.toCanonical, 'function')
+        assert.strictEqual(typeof term.toCanonical, 'function')
       })
 
       it('should return an empty string', () => {
         const term = rdf.defaultGraph()
 
-        assert.equal(term.toCanonical(), '')
+        assert.strictEqual(term.toCanonical(), '')
       })
     })
 
@@ -222,13 +222,13 @@ describe('DataFactory', () => {
       it('should be a method', () => {
         const term = rdf.defaultGraph()
 
-        assert.equal(typeof term.toString, 'function')
+        assert.strictEqual(typeof term.toString, 'function')
       })
 
       it('should return an empty string', () => {
         const term = rdf.defaultGraph()
 
-        assert.equal(term.toString(), '')
+        assert.strictEqual(term.toString(), '')
       })
     })
 
@@ -236,13 +236,13 @@ describe('DataFactory', () => {
       it('should be a method', () => {
         const term = rdf.defaultGraph()
 
-        assert.equal(typeof term.toJSON, 'function')
+        assert.strictEqual(typeof term.toJSON, 'function')
       })
 
       it('should return the JSON', () => {
         const term = rdf.defaultGraph()
 
-        assert.deepEqual(term.toJSON(), { value: '', termType: 'DefaultGraph' })
+        assert.deepStrictEqual(term.toJSON(), { value: '', termType: 'DefaultGraph' })
       })
     })
   })
@@ -252,14 +252,14 @@ describe('DataFactory', () => {
       it('should be a method', () => {
         const term = rdf.variable('v')
 
-        assert.equal(typeof term.toCanonical, 'function')
+        assert.strictEqual(typeof term.toCanonical, 'function')
       })
 
       it('should return the name prefixed with a question mark', () => {
         const name = 'v'
         const term = rdf.variable(name)
 
-        assert.equal(term.toCanonical(), '?' + name)
+        assert.strictEqual(term.toCanonical(), '?' + name)
       })
     })
 
@@ -267,14 +267,14 @@ describe('DataFactory', () => {
       it('should be a method', () => {
         const term = rdf.variable('v')
 
-        assert.equal(typeof term.toString, 'function')
+        assert.strictEqual(typeof term.toString, 'function')
       })
 
       it('should return the name prefixed with a question mark', () => {
         const name = 'v'
         const term = rdf.variable(name)
 
-        assert.equal(term.toString(), '?' + name)
+        assert.strictEqual(term.toString(), '?' + name)
       })
     })
 
@@ -282,14 +282,14 @@ describe('DataFactory', () => {
       it('should be a method', () => {
         const term = rdf.variable('v')
 
-        assert.equal(typeof term.toJSON, 'function')
+        assert.strictEqual(typeof term.toJSON, 'function')
       })
 
       it('should return the JSON', () => {
         const name = 'v'
         const term = rdf.variable(name)
 
-        assert.deepEqual(term.toJSON(), { value: name, termType: 'Variable' })
+        assert.deepStrictEqual(term.toJSON(), { value: name, termType: 'Variable' })
       })
     })
   })
@@ -303,7 +303,7 @@ describe('DataFactory', () => {
         var graph = rdf.namedNode('http://example.org/graph')
         var quad = rdf.quad(subject, predicate, object, graph)
 
-        assert.equal(quad.toCanonical(), '<http://example.org/subject> <http://example.org/predicate> <http://example.org/object> <http://example.org/graph> .')
+        assert.strictEqual(quad.toCanonical(), '<http://example.org/subject> <http://example.org/predicate> <http://example.org/object> <http://example.org/graph> .')
       })
 
       it('should skip the graph if it\'s a DefaultGraph', () => {
@@ -312,7 +312,7 @@ describe('DataFactory', () => {
         var object = rdf.namedNode('http://example.org/object')
         var quad = rdf.quad(subject, predicate, object)
 
-        assert.equal(quad.toCanonical(), '<http://example.org/subject> <http://example.org/predicate> <http://example.org/object> .')
+        assert.strictEqual(quad.toCanonical(), '<http://example.org/subject> <http://example.org/predicate> <http://example.org/object> .')
       })
     })
 
@@ -324,7 +324,7 @@ describe('DataFactory', () => {
         var graph = rdf.namedNode('http://example.org/graph')
         var quad = rdf.quad(subject, predicate, object, graph)
 
-        assert.equal(quad.toString(), '<http://example.org/subject> <http://example.org/predicate> <http://example.org/object> <http://example.org/graph> .')
+        assert.strictEqual(quad.toString(), '<http://example.org/subject> <http://example.org/predicate> <http://example.org/object> <http://example.org/graph> .')
       })
 
       it('should skip the graph if it\'s a DefaultGraph', () => {
@@ -333,7 +333,7 @@ describe('DataFactory', () => {
         var object = rdf.namedNode('http://example.org/object')
         var quad = rdf.quad(subject, predicate, object)
 
-        assert.equal(quad.toString(), '<http://example.org/subject> <http://example.org/predicate> <http://example.org/object> .')
+        assert.strictEqual(quad.toString(), '<http://example.org/subject> <http://example.org/predicate> <http://example.org/object> .')
       })
     })
 
@@ -345,7 +345,7 @@ describe('DataFactory', () => {
         var graph = rdf.namedNode('http://example.org/graph')
         var quad = rdf.quad(subject, predicate, object, graph)
 
-        assert.equal(typeof quad.toJSON, 'function')
+        assert.strictEqual(typeof quad.toJSON, 'function')
       })
       it('should return the JSON', () => {
         var subject = rdf.namedNode('http://example.org/subject')
@@ -354,7 +354,7 @@ describe('DataFactory', () => {
         var graph = rdf.namedNode('http://example.org/graph')
         var quad = rdf.quad(subject, predicate, object, graph)
 
-        assert.deepEqual(quad.toJSON(), {
+        assert.deepStrictEqual(quad.toJSON(), {
           subject: { value: 'http://example.org/subject', termType: 'NamedNode' },
           predicate: { value: 'http://example.org/predicate', termType: 'NamedNode' },
           object: { value: 'http://example.org/object', termType: 'NamedNode' },
@@ -366,13 +366,13 @@ describe('DataFactory', () => {
 
   describe('.graph', () => {
     it('should be a function', () => {
-      assert.equal(typeof rdf.graph, 'function')
+      assert.strictEqual(typeof rdf.graph, 'function')
     })
 
     it('should return an empty Dataset', () => {
       let dataset = rdf.graph()
 
-      assert.equal(dataset.length, 0)
+      assert.strictEqual(dataset.length, 0)
     })
 
     it('should initialize the Dataset with the given triples', () => {
@@ -388,23 +388,23 @@ describe('DataFactory', () => {
 
       let dataset = rdf.graph([triple1, triple2])
 
-      assert.equal(dataset.length, 2)
-      assert.equal(dataset.match(null, null, triple1.object).length, 1)
-      assert.equal(dataset.match(null, null, triple2.object).length, 1)
+      assert.strictEqual(dataset.length, 2)
+      assert.strictEqual(dataset.match(null, null, triple1.object).length, 1)
+      assert.strictEqual(dataset.match(null, null, triple2.object).length, 1)
     })
   })
 
   describe('.dataset', () => {
     it('should be a function', () => {
-      assert.equal(typeof rdf.dataset, 'function')
+      assert.strictEqual(typeof rdf.dataset, 'function')
     })
 
     it('should implement the extended Dataset interface', () => {
       let dataset = rdf.dataset()
 
-      assert.equal(typeof dataset.equals, 'function')
-      assert.equal(typeof dataset.toCanonical, 'function')
-      assert.equal(typeof dataset.toString, 'function')
+      assert.strictEqual(typeof dataset.equals, 'function')
+      assert.strictEqual(typeof dataset.toCanonical, 'function')
+      assert.strictEqual(typeof dataset.toString, 'function')
     })
 
     it('should initialize the Dataset with the given quads', () => {
@@ -422,10 +422,10 @@ describe('DataFactory', () => {
 
       let dataset = rdf.dataset([quad1, quad2])
 
-      assert.equal(dataset.length, 2)
-      assert.equal(dataset.match(null, null, quad1.object).length, 1)
-      assert.equal(dataset.match(null, null, quad2.object).length, 1)
-      assert.equal(dataset.match(null, null, null, quad1.graph).length, 2)
+      assert.strictEqual(dataset.length, 2)
+      assert.strictEqual(dataset.match(null, null, quad1.object).length, 1)
+      assert.strictEqual(dataset.match(null, null, quad2.object).length, 1)
+      assert.strictEqual(dataset.match(null, null, null, quad1.graph).length, 2)
     })
 
     it('should replace the graph part of the quad if a second parameter is given', () => {
@@ -437,8 +437,8 @@ describe('DataFactory', () => {
 
       let dataset = rdf.dataset([quad], rdf.namedNode('http://example.org/graph-replaced'))
 
-      assert.equal(dataset.length, 1)
-      assert.equal(dataset.toArray().shift().graph.value, 'http://example.org/graph-replaced')
+      assert.strictEqual(dataset.length, 1)
+      assert.strictEqual(dataset.toArray().shift().graph.value, 'http://example.org/graph-replaced')
     })
 
     describe('.equals', () => {
@@ -456,8 +456,8 @@ describe('DataFactory', () => {
         let dataset1b = rdf.dataset([quad1b])
         let dataset2 = rdf.dataset([quad2])
 
-        assert.equal(dataset1a.equals(dataset1b), true)
-        assert.equal(dataset1a.equals(dataset2), false)
+        assert.strictEqual(dataset1a.equals(dataset1b), true)
+        assert.strictEqual(dataset1a.equals(dataset2), false)
       })
     })
 
@@ -468,7 +468,7 @@ describe('DataFactory', () => {
 
         let dataset = rdf.dataset([quad])
 
-        assert.equal(dataset.toCanonical(), '<http://example.org/subject> <http://example.org/predicate> _:c14n0 .\n', true)
+        assert.strictEqual(dataset.toCanonical(), '<http://example.org/subject> <http://example.org/predicate> _:c14n0 .\n', true)
       })
     })
 
@@ -482,7 +482,7 @@ describe('DataFactory', () => {
 
         let dataset = rdf.dataset([quad])
 
-        assert.equal(dataset.toString(), '<http://example.org/subject> <http://example.org/predicate> "object" <http://example.org/graph> .\n')
+        assert.strictEqual(dataset.toString(), '<http://example.org/subject> <http://example.org/predicate> "object" <http://example.org/graph> .\n')
       })
     })
 
@@ -496,7 +496,7 @@ describe('DataFactory', () => {
 
         let dataset = rdf.dataset([ quad ])
 
-        assert.deepEqual(dataset.toJSON(), [
+        assert.deepStrictEqual(dataset.toJSON(), [
           {
             subject: { value: 'http://example.org/subject', termType: 'NamedNode' },
             predicate: { value: 'http://example.org/predicate', termType: 'NamedNode' },

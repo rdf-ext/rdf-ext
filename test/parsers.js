@@ -6,16 +6,16 @@ const Parsers = require('..').Parsers
 
 describe('parsers', () => {
   it('should implement all required functions', function () {
-    assert.equal(typeof Parsers.prototype.find, 'function')
-    assert.equal(typeof Parsers.prototype.list, 'function')
-    assert.equal(typeof Parsers.prototype.import, 'function')
+    assert.strictEqual(typeof Parsers.prototype.find, 'function')
+    assert.strictEqual(typeof Parsers.prototype.list, 'function')
+    assert.strictEqual(typeof Parsers.prototype.import, 'function')
   })
 
   describe('.find', () => {
     it('should return null if no parser was found', function () {
       let parsers = new Parsers()
 
-      assert.equal(parsers.find('image/jpeg'), null)
+      assert.strictEqual(parsers.find('image/jpeg'), null)
     })
 
     it('should return the parser class for the given media type', function () {
@@ -27,7 +27,7 @@ describe('parsers', () => {
         'text/turtle': turtle
       })
 
-      assert.equal(parsers.find('text/turtle'), turtle)
+      assert.strictEqual(parsers.find('text/turtle'), turtle)
     })
   })
 
@@ -45,7 +45,7 @@ describe('parsers', () => {
         'text/turtle': {}
       })
 
-      assert.deepEqual(parsers.list(), ['application/ld+json', 'text/turtle'])
+      assert.deepStrictEqual(parsers.list(), ['application/ld+json', 'text/turtle'])
     })
   })
 
@@ -53,7 +53,7 @@ describe('parsers', () => {
     it('should return null if no parser was found', function () {
       let parsers = new Parsers()
 
-      assert.equal(parsers.import('image/jpeg', ''), null)
+      assert.strictEqual(parsers.import('image/jpeg', ''), null)
     })
 
     it('should call read on the parser class for the given media type', function () {

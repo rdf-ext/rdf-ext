@@ -6,16 +6,16 @@ const Serializers = require('..').Serializers
 
 describe('serializers', () => {
   it('should implement all required functions', function () {
-    assert.equal(typeof Serializers.prototype.find, 'function')
-    assert.equal(typeof Serializers.prototype.list, 'function')
-    assert.equal(typeof Serializers.prototype.import, 'function')
+    assert.strictEqual(typeof Serializers.prototype.find, 'function')
+    assert.strictEqual(typeof Serializers.prototype.list, 'function')
+    assert.strictEqual(typeof Serializers.prototype.import, 'function')
   })
 
   describe('.find', () => {
     it('should return null if no serializer was found', function () {
       let serializers = new Serializers()
 
-      assert.equal(serializers.find('image/jpeg'), null)
+      assert.strictEqual(serializers.find('image/jpeg'), null)
     })
 
     it('should return the serializer class for the given media type', function () {
@@ -27,7 +27,7 @@ describe('serializers', () => {
         'text/turtle': turtle
       })
 
-      assert.equal(serializer.find('text/turtle'), turtle)
+      assert.strictEqual(serializer.find('text/turtle'), turtle)
     })
   })
 
@@ -45,7 +45,7 @@ describe('serializers', () => {
         'text/turtle': {}
       })
 
-      assert.deepEqual(serializers.list(), ['application/ld+json', 'text/turtle'])
+      assert.deepStrictEqual(serializers.list(), ['application/ld+json', 'text/turtle'])
     })
   })
 
@@ -53,7 +53,7 @@ describe('serializers', () => {
     it('should return null if no serializer was found', function () {
       let serializers = new Serializers()
 
-      assert.equal(serializers.import('image/jpeg', ''), null)
+      assert.strictEqual(serializers.import('image/jpeg', ''), null)
     })
 
     it('should call read on the serializer class for the given media type', function () {
