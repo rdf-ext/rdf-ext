@@ -50,18 +50,18 @@ In general all modules are available at [npm](https://www.npmjs.com) and you can
 
 ### Parsers
 
-* [JSON-LD](https://github.com/rdf-ext/rdf-parser-jsonld) - Uses the reference implementation to supports all document forms
-* [Turtle & N-Triples](https://github.com/rdf-ext/rdf-parser-n3) - Uses [N3.js](https://github.com/RubenVerborgh/N3.js) for parsing
+* [JSON-LD](https://github.com/rdfjs/parser-jsonld) - Uses the reference implementation to supports all document forms
+* [Turtle & N-Triples](https://github.com/rdfjs/parser-n3) - Uses [N3.js](https://github.com/RubenVerborgh/N3.js) for parsing
 
-Also see [rdf-formats-common](https://github.com/rdf-ext/rdf-formats-common) if you want to get support for the most common formats.
+Also see [Common Formats](https://github.com/rdfjs/formats-common) if you want to get support for the most common formats.
 
 ### Serializers
 
-* [JSON-LD](https://github.com/rdf-ext/rdf-serializer-jsonld) - Outputs JSON-LD in flat document form
+* [JSON-LD](https://github.com/rdfjs/serializer-jsonld) - Outputs JSON-LD in flat document form
 * or [JSON-LD](https://github.com/rdf-ext/rdf-serializer-jsonld-ext) - Outputs JSON-LD with prefix support and more document forms
-* [N-Triples](https://github.com/rdf-ext/rdf-serializer-ntriples) - Outputs N-Triples
+* [N-Triples](https://github.com/rdfjs/serializer-ntriples) - Outputs N-Triples
 
-Also see [rdf-formats-common](https://github.com/rdf-ext/rdf-formats-common) if you want to get support for the most common formats.
+Also see [Common Formats](https://github.com/rdfjs/formats-common) if you want to get support for the most common formats.
 
 ### Stores
 
@@ -71,6 +71,6 @@ Also see [rdf-formats-common](https://github.com/rdf-ext/rdf-formats-common) if 
 
 ### Others
 
-- [Common Formats](https://github.com/rdf-ext/rdf-formats-common) - Loads parsers and serializers for the most common formats
+- [Common Formats](https://github.com/rdfjs/formats-common) - Loads parsers and serializers for the most common formats
 - [SimpleRDF](https://github.com/nicola/simplerdf/) - Simple but powerful graph to object mapping
 - [RDF body parser](https://github.com/rdf-ext/rdf-body-parser) - Node body parsing middleware, parses incoming RDF data and sends RDF data
