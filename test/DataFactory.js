@@ -399,12 +399,21 @@ describe('DataFactory', () => {
       assert.strictEqual(typeof rdf.dataset, 'function')
     })
 
-    it('should implement the extended Dataset interface', () => {
-      let dataset = rdf.dataset()
+    describe('implements the extended Dataset interface', () => {
+      it('should implement .equals', () => {
+        const dataset = rdf.dataset()
+        assert.strictEqual(typeof dataset.equals, 'function')
+      })
 
-      assert.strictEqual(typeof dataset.equals, 'function')
-      assert.strictEqual(typeof dataset.toCanonical, 'function')
-      assert.strictEqual(typeof dataset.toString, 'function')
+      it('should implement .toCanonical', () => {
+        const dataset = rdf.dataset()
+        assert.strictEqual(typeof dataset.toCanonical, 'function')
+      })
+
+      it('should implement .toString', () => {
+        const dataset = rdf.dataset()
+        assert.strictEqual(typeof dataset.toString, 'function')
+      })
     })
 
     it('should initialize the Dataset with the given quads', () => {
