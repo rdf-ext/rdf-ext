@@ -2,6 +2,7 @@
 
 const assert = require('assert')
 const rdf = require('../lib/DataFactory')
+const DatasetExt = require('../lib/Dataset')
 const standard = require('@rdfjs/data-model/test')
 
 describe('DataFactory', () => {
@@ -397,6 +398,16 @@ describe('DataFactory', () => {
   describe('.dataset', () => {
     it('should be a function', () => {
       assert.strictEqual(typeof rdf.dataset, 'function')
+    })
+
+    it('should return a DatasetExt instance', () => {
+      assert.strictEqual(rdf.dataset() instanceof DatasetExt, true)
+    })
+
+    it('should always return a DatasetExt instance', () => {
+      assert.strictEqual(rdf.dataset().clone() instanceof DatasetExt, true)
+      assert.strictEqual(rdf.dataset().merge(rdf.dataset()) instanceof DatasetExt, true)
+      assert.strictEqual(rdf.dataset().filter(() => true) instanceof DatasetExt, true)
     })
 
     describe('implements the extended Dataset interface', () => {
