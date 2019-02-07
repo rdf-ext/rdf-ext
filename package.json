@@ -24,7 +24,7 @@
   "dependencies": {
     "@rdfjs/data-model": "^1.1.0",
     "@rdfjs/to-ntriples": "^1.0.1",
-    "rdf-dataset-indexed": "^0.2.0",
+    "rdf-dataset-indexed": "^0.3.0",
     "rdf-normalize": "^1.0.0"
   },
   "devDependencies": {
