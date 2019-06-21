@@ -51,7 +51,7 @@ In general all modules are available at [npm](https://www.npmjs.com) and you can
 ### Parsers
 
 * [JSON-LD](https://github.com/rdf-ext/rdf-parser-jsonld) - Uses the reference implementation to supports all document forms
-* [Turtle & N-Triples](https://github.com/rdf-ext/rdf-parser-n3) - Uses [N3.js](https://github.com/RubenVerborgh/N3.js) for parsing
+* [Turtle & N-Triples](https://github.com/rdfjs/parser-n3) - Uses [N3.js](https://github.com/RubenVerborgh/N3.js) for parsing
 
 Also see [rdf-formats-common](https://github.com/rdf-ext/rdf-formats-common) if you want to get support for the most common formats.
 
