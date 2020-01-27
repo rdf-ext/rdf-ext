@@ -16,7 +16,7 @@ By including this package, you will get an implementation of:
 * A [RDF Dataset Normalization](https://json-ld.github.io/normalization/spec/), provided by [rdf-normalize](https://www.npmjs.com/package/rdf-normalize)
 
 This should be all needed for starting to work with RDF in JavaScript.
-If you interact with [named nodes](https://rdf.js.org/data-model-spec/#namednode-interface) directly we recommend [namespace](https://github.com/rdfjs-base/namespace), which gives a nice interface for creating named nodes. RFD-ext provides a package with [commonly used namespaces](https://github.com/rdf-ext/rdf-namespaces-common) prepopulated.
+If you interact with [named nodes](https://rdf.js.org/data-model-spec/#namednode-interface) directly we recommend [namespace](https://github.com/rdfjs-base/namespace), which gives a nice interface for creating named nodes.
 
 If you are looking for a more high-level interaction with RDF in JavaScript you might consider the graph traversal library [clownface](https://github.com/rdf-ext/clownface) and another abstraction on top of clownface called [RDFine](https://github.com/tpluscode/rdfine). RDF-Ext provides the technical foundation and is included in both projects.
 
@@ -94,4 +94,4 @@ If you want to get out of the box support for the most common formats, use [Comm
 - [Express-Handler](https://github.com/rdfjs-base/express-handler) - Handle incoming and outgoing RDF data in Express
 - [Fetch](https://github.com/rdfjs-base/fetch) - Uses [Fetch](https://developer.mozilla.org/docs/Web/API/Fetch_API) to send and receive RDF-Ext Graphs over HTTP
 - [Fetch lite](https://github.com/rdfjs-base/fetch-lite) - Same as above but does not include common parsers and serializers so it is lightweight
-- [Namespace](https://github.com/rdfjs-base/namespace) - The package exports a factory to create builders for Named Nodes. [rdf-namespaces-common](https://github.com/rdf-ext/rdf-namespaces-common) provides a prepopulated collection of common RDF Namespaces.
+- [Namespace](https://github.com/rdfjs-base/namespace) - The package exports a factory to create builders for Named Nodes.
