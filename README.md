@@ -82,6 +82,8 @@ If you want to get out of the box support for the most common formats, use [Comm
 
 ### Stores
 
+Implementations of the RDFJS [Store](http://rdf.js.org/stream-spec/#store-interface) interface.
+
 - [Dataset](http://github.com/rdf-ext/rdf-store-dataset) - Wrapper around an in memory Dataset
 - [SPARQL](http://github.com/rdf-ext/rdf-store-sparql) - Uses the SPARQL 1.1 Protocol
 - [Filesystem](https://github.com/rdf-ext/rdf-store-fs) - Filesystem based RDF Store that follows the RDF/JS: Stream interfaces specification.
