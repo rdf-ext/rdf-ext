@@ -2,7 +2,7 @@
   "name": "rdf-ext",
   "version": "1.3.0",
   "description": "Extended Linked Data module",
-  "main": "rdf-ext.js",
+  "main": "index.js",
   "scripts": {
     "test": "standard && mocha"
   },
