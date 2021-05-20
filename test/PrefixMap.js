@@ -1,8 +1,7 @@
-/* global describe, it */
-
 const assert = require('assert')
+const { EventEmitter } = require('events')
+const { describe, it } = require('mocha')
 const DataFactory = require('../lib/DataFactory')
-const EventEmitter = require('events').EventEmitter
 const PrefixMap = require('../lib/PrefixMap')
 
 describe('PrefixMap', function () {

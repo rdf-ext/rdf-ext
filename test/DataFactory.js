@@ -1,9 +1,8 @@
-/* global describe, it */
-
 const assert = require('assert')
+const standard = require('@rdfjs/data-model/test')
+const { describe, it } = require('mocha')
 const rdf = require('../lib/DataFactory')
 const DatasetExt = require('../lib/Dataset')
-const standard = require('@rdfjs/data-model/test')
 
 describe('DataFactory', () => {
   describe('test suite', () => {
@@ -190,12 +189,12 @@ describe('DataFactory', () => {
         const lang = 'cs'
         const term = rdf.literal(string, lang)
         const expected = {
-          'value': string,
-          'termType': 'Literal',
-          'language': lang,
-          'datatype': {
-            'termType': 'NamedNode',
-            'value': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#langString'
+          value: string,
+          termType: 'Literal',
+          language: lang,
+          datatype: {
+            termType: 'NamedNode',
+            value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#langString'
           }
         }
 
@@ -298,20 +297,20 @@ describe('DataFactory', () => {
   describe('.quad', () => {
     describe('.toCanonical', () => {
       it('should return a canonical representation', () => {
-        var subject = rdf.namedNode('http://example.org/subject')
-        var predicate = rdf.namedNode('http://example.org/predicate')
-        var object = rdf.namedNode('http://example.org/object')
-        var graph = rdf.namedNode('http://example.org/graph')
-        var quad = rdf.quad(subject, predicate, object, graph)
+        const subject = rdf.namedNode('http://example.org/subject')
+        const predicate = rdf.namedNode('http://example.org/predicate')
+        const object = rdf.namedNode('http://example.org/object')
+        const graph = rdf.namedNode('http://example.org/graph')
+        const quad = rdf.quad(subject, predicate, object, graph)
 
         assert.strictEqual(quad.toCanonical(), '<http://example.org/subject> <http://example.org/predicate> <http://example.org/object> <http://example.org/graph> .')
       })
 
       it('should skip the graph if it\'s a DefaultGraph', () => {
-        var subject = rdf.namedNode('http://example.org/subject')
-        var predicate = rdf.namedNode('http://example.org/predicate')
-        var object = rdf.namedNode('http://example.org/object')
-        var quad = rdf.quad(subject, predicate, object)
+        const subject = rdf.namedNode('http://example.org/subject')
+        const predicate = rdf.namedNode('http://example.org/predicate')
+        const object = rdf.namedNode('http://example.org/object')
+        const quad = rdf.quad(subject, predicate, object)
 
         assert.strictEqual(quad.toCanonical(), '<http://example.org/subject> <http://example.org/predicate> <http://example.org/object> .')
       })
@@ -319,20 +318,20 @@ describe('DataFactory', () => {
 
     describe('.toString', () => {
       it('should return a canonical representation', () => {
-        var subject = rdf.namedNode('http://example.org/subject')
-        var predicate = rdf.namedNode('http://example.org/predicate')
-        var object = rdf.namedNode('http://example.org/object')
-        var graph = rdf.namedNode('http://example.org/graph')
-        var quad = rdf.quad(subject, predicate, object, graph)
+        const subject = rdf.namedNode('http://example.org/subject')
+        const predicate = rdf.namedNode('http://example.org/predicate')
+        const object = rdf.namedNode('http://example.org/object')
+        const graph = rdf.namedNode('http://example.org/graph')
+        const quad = rdf.quad(subject, predicate, object, graph)
 
         assert.strictEqual(quad.toString(), '<http://example.org/subject> <http://example.org/predicate> <http://example.org/object> <http://example.org/graph> .')
       })
 
       it('should skip the graph if it\'s a DefaultGraph', () => {
-        var subject = rdf.namedNode('http://example.org/subject')
-        var predicate = rdf.namedNode('http://example.org/predicate')
-        var object = rdf.namedNode('http://example.org/object')
-        var quad = rdf.quad(subject, predicate, object)
+        const subject = rdf.namedNode('http://example.org/subject')
+        const predicate = rdf.namedNode('http://example.org/predicate')
+        const object = rdf.namedNode('http://example.org/object')
+        const quad = rdf.quad(subject, predicate, object)
 
         assert.strictEqual(quad.toString(), '<http://example.org/subject> <http://example.org/predicate> <http://example.org/object> .')
       })
@@ -340,20 +339,20 @@ describe('DataFactory', () => {
 
     describe('.toJSON', () => {
       it('should be a method', () => {
-        var subject = rdf.namedNode('http://example.org/subject')
-        var predicate = rdf.namedNode('http://example.org/predicate')
-        var object = rdf.namedNode('http://example.org/object')
-        var graph = rdf.namedNode('http://example.org/graph')
-        var quad = rdf.quad(subject, predicate, object, graph)
+        const subject = rdf.namedNode('http://example.org/subject')
+        const predicate = rdf.namedNode('http://example.org/predicate')
+        const object = rdf.namedNode('http://example.org/object')
+        const graph = rdf.namedNode('http://example.org/graph')
+        const quad = rdf.quad(subject, predicate, object, graph)
 
         assert.strictEqual(typeof quad.toJSON, 'function')
       })
       it('should return the JSON', () => {
-        var subject = rdf.namedNode('http://example.org/subject')
-        var predicate = rdf.namedNode('http://example.org/predicate')
-        var object = rdf.namedNode('http://example.org/object')
-        var graph = rdf.namedNode('http://example.org/graph')
-        var quad = rdf.quad(subject, predicate, object, graph)
+        const subject = rdf.namedNode('http://example.org/subject')
+        const predicate = rdf.namedNode('http://example.org/predicate')
+        const object = rdf.namedNode('http://example.org/object')
+        const graph = rdf.namedNode('http://example.org/graph')
+        const quad = rdf.quad(subject, predicate, object, graph)
 
         assert.deepStrictEqual(quad.toJSON(), {
           subject: { value: 'http://example.org/subject', termType: 'NamedNode' },
@@ -371,23 +370,23 @@ describe('DataFactory', () => {
     })
 
     it('should return an empty Dataset', () => {
-      let dataset = rdf.graph()
+      const dataset = rdf.graph()
 
       assert.strictEqual(dataset.length, 0)
     })
 
     it('should initialize the Dataset with the given triples', () => {
-      let triple1 = rdf.quad(
+      const triple1 = rdf.quad(
         rdf.namedNode('http://example.org/subject'),
         rdf.namedNode('http://example.org/predicate'),
         rdf.literal('object1'))
 
-      let triple2 = rdf.quad(
+      const triple2 = rdf.quad(
         rdf.namedNode('http://example.org/subject'),
         rdf.namedNode('http://example.org/predicate'),
         rdf.literal('object2'))
 
-      let dataset = rdf.graph([triple1, triple2])
+      const dataset = rdf.graph([triple1, triple2])
 
       assert.strictEqual(dataset.length, 2)
       assert.strictEqual(dataset.match(null, null, triple1.object).length, 1)
@@ -428,19 +427,19 @@ describe('DataFactory', () => {
     })
 
     it('should initialize the Dataset with the given quads', () => {
-      let quad1 = rdf.quad(
+      const quad1 = rdf.quad(
         rdf.namedNode('http://example.org/subject'),
         rdf.namedNode('http://example.org/predicate'),
         rdf.literal('object1'),
         rdf.namedNode('http://example.org/graph'))
 
-      let quad2 = rdf.quad(
+      const quad2 = rdf.quad(
         rdf.namedNode('http://example.org/subject'),
         rdf.namedNode('http://example.org/predicate'),
         rdf.literal('object2'),
         rdf.namedNode('http://example.org/graph'))
 
-      let dataset = rdf.dataset([quad1, quad2])
+      const dataset = rdf.dataset([quad1, quad2])
 
       assert.strictEqual(dataset.length, 2)
       assert.strictEqual(dataset.match(null, null, quad1.object).length, 1)
@@ -449,13 +448,13 @@ describe('DataFactory', () => {
     })
 
     it('should replace the graph part of the quad if a second parameter is given', () => {
-      let quad = rdf.quad(
+      const quad = rdf.quad(
         rdf.namedNode('http://example.org/subject'),
         rdf.namedNode('http://example.org/predicate'),
         rdf.literal('object1'),
         rdf.namedNode('http://example.org/graph'))
 
-      let dataset = rdf.dataset([quad], rdf.namedNode('http://example.org/graph-replaced'))
+      const dataset = rdf.dataset([quad], rdf.namedNode('http://example.org/graph-replaced'))
 
       assert.strictEqual(dataset.length, 1)
       assert.strictEqual(dataset.toArray().shift().graph.value, 'http://example.org/graph-replaced')
@@ -463,18 +462,18 @@ describe('DataFactory', () => {
 
     describe('.equals', () => {
       it('should compare the other graph for equality', () => {
-        let quad1a = rdf.quad(rdf.namedNode('http://example.org/subject'), rdf.namedNode('http://example.org/predicate'),
+        const quad1a = rdf.quad(rdf.namedNode('http://example.org/subject'), rdf.namedNode('http://example.org/predicate'),
           rdf.blankNode())
 
-        let quad1b = rdf.quad(rdf.namedNode('http://example.org/subject'), rdf.namedNode('http://example.org/predicate'),
+        const quad1b = rdf.quad(rdf.namedNode('http://example.org/subject'), rdf.namedNode('http://example.org/predicate'),
           rdf.blankNode())
 
-        let quad2 = rdf.quad(rdf.namedNode('http://example.org/subject'), rdf.namedNode('http://example.org/predicate'),
+        const quad2 = rdf.quad(rdf.namedNode('http://example.org/subject'), rdf.namedNode('http://example.org/predicate'),
           rdf.literal('c'))
 
-        let dataset1a = rdf.dataset([quad1a])
-        let dataset1b = rdf.dataset([quad1b])
-        let dataset2 = rdf.dataset([quad2])
+        const dataset1a = rdf.dataset([quad1a])
+        const dataset1b = rdf.dataset([quad1b])
+        const dataset2 = rdf.dataset([quad2])
 
         assert.strictEqual(dataset1a.equals(dataset1b), true)
         assert.strictEqual(dataset1a.equals(dataset2), false)
@@ -483,10 +482,10 @@ describe('DataFactory', () => {
 
     describe('.toCanonical', () => {
       it('should return the canonical representation', () => {
-        let quad = rdf.quad(rdf.namedNode('http://example.org/subject'), rdf.namedNode('http://example.org/predicate'),
+        const quad = rdf.quad(rdf.namedNode('http://example.org/subject'), rdf.namedNode('http://example.org/predicate'),
           rdf.blankNode())
 
-        let dataset = rdf.dataset([quad])
+        const dataset = rdf.dataset([quad])
 
         assert.strictEqual(dataset.toCanonical(), '<http://example.org/subject> <http://example.org/predicate> _:c14n0 .\n', true)
       })
@@ -494,13 +493,13 @@ describe('DataFactory', () => {
 
     describe('.toString', () => {
       it('should return N-Quads', () => {
-        let quad = rdf.quad(
+        const quad = rdf.quad(
           rdf.namedNode('http://example.org/subject'),
           rdf.namedNode('http://example.org/predicate'),
           rdf.literal('object'),
           rdf.namedNode('http://example.org/graph'))
 
-        let dataset = rdf.dataset([quad])
+        const dataset = rdf.dataset([quad])
 
         assert.strictEqual(dataset.toString(), '<http://example.org/subject> <http://example.org/predicate> "object" <http://example.org/graph> .\n')
       })
@@ -508,13 +507,13 @@ describe('DataFactory', () => {
 
     describe('.toJSON', () => {
       it('should return the JSON', () => {
-        let quad = rdf.quad(
+        const quad = rdf.quad(
           rdf.namedNode('http://example.org/subject'),
           rdf.namedNode('http://example.org/predicate'),
           rdf.literal('object'),
           rdf.namedNode('http://example.org/graph'))
 
-        let dataset = rdf.dataset([ quad ])
+        const dataset = rdf.dataset([quad])
 
         assert.deepStrictEqual(dataset.toJSON(), [
           {
