@@ -1,8 +1,7 @@
-/* global describe, it */
-
 const assert = require('assert')
-const EventEmitter = require('events').EventEmitter
-const Parsers = require('..').Parsers
+const { EventEmitter } = require('events')
+const { describe, it } = require('mocha')
+const { Parsers } = require('..')
 
 describe('parsers', () => {
   it('should implement all required functions', function () {
@@ -13,16 +12,16 @@ describe('parsers', () => {
 
   describe('.find', () => {
     it('should return null if no parser was found', function () {
-      let parsers = new Parsers()
+      const parsers = new Parsers()
 
       assert.strictEqual(parsers.find('image/jpeg'), null)
     })
 
     it('should return the parser class for the given media type', function () {
-      let jsonld = {}
-      let turtle = {}
+      const jsonld = {}
+      const turtle = {}
 
-      let parsers = new Parsers({
+      const parsers = new Parsers({
         'application/ld+json': jsonld,
         'text/turtle': turtle
       })
@@ -33,14 +32,14 @@ describe('parsers', () => {
 
   describe('.list', () => {
     it('should return an array', function () {
-      let parsers = new Parsers()
-      let mediaTypes = parsers.list()
+      const parsers = new Parsers()
+      const mediaTypes = parsers.list()
 
       assert(Array.isArray(mediaTypes))
     })
 
     it('should return all media types', function () {
-      let parsers = new Parsers({
+      const parsers = new Parsers({
         'application/ld+json': {},
         'text/turtle': {}
       })
@@ -51,28 +50,28 @@ describe('parsers', () => {
 
   describe('.import', () => {
     it('should return null if no parser was found', function () {
-      let parsers = new Parsers()
+      const parsers = new Parsers()
 
       assert.strictEqual(parsers.import('image/jpeg', ''), null)
     })
 
     it('should call read on the parser class for the given media type', function () {
       let touched = false
-      let jsonld = {}
-      let turtle = new EventEmitter()
+      const jsonld = {}
+      const turtle = new EventEmitter()
 
       turtle.import = () => {
         touched = true
       }
 
-      let parsers = new Parsers({
+      const parsers = new Parsers({
         'application/ld+json': jsonld,
         'text/turtle': turtle
       })
 
       parsers.import('text/turtle')
 
-      let result = new Promise((resolve) => {
+      const result = new Promise((resolve) => {
         turtle.on('end', () => {
           assert(touched)
 

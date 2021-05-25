@@ -1,8 +1,7 @@
-/* global describe, it */
-
 const assert = require('assert')
-const EventEmitter = require('events').EventEmitter
-const Serializers = require('..').Serializers
+const { EventEmitter } = require('events')
+const { describe, it } = require('mocha')
+const { Serializers } = require('..')
 
 describe('serializers', () => {
   it('should implement all required functions', function () {
@@ -13,16 +12,16 @@ describe('serializers', () => {
 
   describe('.find', () => {
     it('should return null if no serializer was found', function () {
-      let serializers = new Serializers()
+      const serializers = new Serializers()
 
       assert.strictEqual(serializers.find('image/jpeg'), null)
     })
 
     it('should return the serializer class for the given media type', function () {
-      let jsonld = {}
-      let turtle = {}
+      const jsonld = {}
+      const turtle = {}
 
-      let serializer = new Serializers({
+      const serializer = new Serializers({
         'application/ld+json': jsonld,
         'text/turtle': turtle
       })
@@ -33,14 +32,14 @@ describe('serializers', () => {
 
   describe('.list', () => {
     it('should return an array', function () {
-      let serializers = new Serializers()
-      let mediaTypes = serializers.list()
+      const serializers = new Serializers()
+      const mediaTypes = serializers.list()
 
       assert(Array.isArray(mediaTypes))
     })
 
     it('should return all media types', function () {
-      let serializers = new Serializers({
+      const serializers = new Serializers({
         'application/ld+json': {},
         'text/turtle': {}
       })
@@ -51,28 +50,28 @@ describe('serializers', () => {
 
   describe('.import', () => {
     it('should return null if no serializer was found', function () {
-      let serializers = new Serializers()
+      const serializers = new Serializers()
 
       assert.strictEqual(serializers.import('image/jpeg', ''), null)
     })
 
     it('should call read on the serializer class for the given media type', function () {
       let touched = false
-      let jsonld = {}
-      let turtle = new EventEmitter()
+      const jsonld = {}
+      const turtle = new EventEmitter()
 
       turtle.import = () => {
         touched = true
       }
 
-      let serializers = new Serializers({
+      const serializers = new Serializers({
         'application/ld+json': jsonld,
         'text/turtle': turtle
       })
 
       serializers.import('text/turtle')
 
-      let result = new Promise((resolve) => {
+      const result = new Promise((resolve) => {
         turtle.on('end', () => {
           assert(touched)
 
