@@ -23,12 +23,14 @@
   "homepage": "https://github.com/rdf-ext/rdf-ext",
   "dependencies": {
     "@rdfjs/data-model": "^1.1.0",
+    "@rdfjs/dataset": "^1.1.1",
     "@rdfjs/to-ntriples": "^1.0.1",
-    "rdf-dataset-indexed": "^0.4.0",
-    "rdf-normalize": "^1.0.0"
+    "rdf-normalize": "^1.0.0",
+    "readable-stream": "^3.6.0"
   },
   "devDependencies": {
     "c8": "^7.7.2",
+    "get-stream": "^6.0.1",
     "mocha": "^8.4.0",
     "standard": "^16.0.3"
   }
