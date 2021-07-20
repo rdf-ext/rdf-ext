@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/rdf-ext/rdf-ext",
   "dependencies": {
-    "@rdfjs/data-model": "^1.1.0",
+    "@rdfjs/data-model": "^1.3.3",
     "@rdfjs/dataset": "^1.1.1",
     "@rdfjs/to-ntriples": "^1.0.1",
     "rdf-normalize": "^1.0.0",
