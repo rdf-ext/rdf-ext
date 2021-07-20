@@ -1,12 +1,36 @@
-const streams = require('./lib/streams')
-const Parsers = require('./lib/parsers')
-const Serializers = require('./lib/serializers')
+import Environment from '@rdfjs/environment/Environment.js'
+import FetchFactory from '@rdfjs/environment/FetchFactory.js'
+import FormatsFactory from '@rdfjs/environment/FormatsFactory.js'
+import NamespaceFactory from '@rdfjs/environment/NamespaceFactory.js'
+import TermMapSetFactory from '@rdfjs/environment/TermMapSetFactory.js'
+import ClownfaceFactory from './ClownfaceFactory.js'
+import DataFactory from './DataFactory.js'
+import DatasetFactory from './DatasetFactory.js'
+import PrefixMapFactory from './PrefixMapFactory.js'
+import TraverserFactory from './TraverserFactory.js'
 
-const DataFactory = require('./lib/DataFactory')
+const defaultEnv = new Environment([
+  ClownfaceFactory,
+  DataFactory,
+  DatasetFactory,
+  FetchFactory,
+  FormatsFactory,
+  NamespaceFactory,
+  PrefixMapFactory,
+  TermMapSetFactory,
+  TraverserFactory
+])
 
-DataFactory.asEvent = streams.asEvent
-DataFactory.waitFor = streams.waitFor
-DataFactory.Parsers = Parsers
-DataFactory.Serializers = Serializers
-
-module.exports = DataFactory
+export default defaultEnv
+export {
+  ClownfaceFactory,
+  DataFactory,
+  DatasetFactory,
+  Environment,
+  FetchFactory,
+  FormatsFactory,
+  NamespaceFactory,
+  PrefixMapFactory,
+  TermMapSetFactory,
+  TraverserFactory
+}
