@@ -121,7 +121,7 @@ describe('Traverser', function () {
           [ns.b, ns.p1, ns.c],
           [ns.c, ns.p2, ns.d]
         ],
-        filter: quad => quad.predicate.equals(ns.p1),
+        filter: ({ quad }) => quad.predicate.equals(ns.p1),
         match: [
           [ns.a, ns.p1, ns.b],
           [ns.b, ns.p1, ns.c]
@@ -143,7 +143,7 @@ describe('Traverser', function () {
           [ns.b, ns.p1, ns.c],
           [ns.c, ns.p1, ns.d]
         ],
-        filter: quad => quad.predicate.equals(ns.p1),
+        filter: ({ quad }) => quad.predicate.equals(ns.p1),
         match: [
           [ns.b, ns.p1, ns.c],
           [ns.c, ns.p1, ns.d]
@@ -216,7 +216,7 @@ describe('Traverser', function () {
           [ns.b, ns.p1, ns.c],
           [ns.c, ns.p2, ns.d]
         ],
-        reduce: (quad, result) => {
+        reduce: ({ quad }, result) => {
           return `${result}${quad.toString()}\n`
         }
       })

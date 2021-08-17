@@ -19,24 +19,26 @@ class TraverserExample {
     this.backward = backward
 
     this.filterCalls = filterCalls.map(({ level, quad }) => {
-      return [
-        rdf.quad(quad[0], quad[1], quad[2], quad[3]),
-        { level }
-      ]
+      return {
+        level,
+        quad: rdf.quad(quad[0], quad[1], quad[2], quad[3])
+      }
     })
 
     this.forEachCalls = forEachCalls.map(({ level, quad }) => {
-      return [
-        rdf.quad(quad[0], quad[1], quad[2], quad[3]),
-        { level }
-      ]
+      return {
+        level,
+        quad: rdf.quad(quad[0], quad[1], quad[2], quad[3])
+      }
     })
 
     this.reduceCalls = reduceCalls.map(({ level, quad, result }) => {
       return [
-        rdf.quad(quad[0], quad[1], quad[2], quad[3]),
-        result,
-        { level }
+        {
+          level,
+          quad: rdf.quad(quad[0], quad[1], quad[2], quad[3])
+        },
+        result
       ]
     })
 
@@ -88,9 +90,9 @@ class TraverserExample {
     this.filterCalls.forEach((filterCall, index) => {
       const actualFilterCall = this.actualFilterCalls[index]
 
-      strictEqual(filterCall[0].equals(actualFilterCall[0]), true)
-      strictEqual(actualFilterCall[1].dataset, this.dataset)
-      strictEqual(actualFilterCall[1].level, filterCall[1].level)
+      strictEqual(actualFilterCall[0].quad.toString(), filterCall.quad.toString())
+      strictEqual(actualFilterCall[0].dataset, this.dataset)
+      strictEqual(actualFilterCall[0].level, filterCall.level)
     })
   }
 
@@ -100,9 +102,9 @@ class TraverserExample {
     this.forEachCalls.forEach((forEachCall, index) => {
       const actualForEachCall = this.actualForEachCalls[index]
 
-      strictEqual(forEachCall[0].equals(actualForEachCall[0]), true)
-      strictEqual(actualForEachCall[1].dataset, this.dataset)
-      strictEqual(actualForEachCall[1].level, forEachCall[1].level)
+      strictEqual(actualForEachCall[0].quad.toString(), forEachCall.quad.toString())
+      strictEqual(actualForEachCall[0].dataset, this.dataset)
+      strictEqual(actualForEachCall[0].level, forEachCall.level)
     })
   }
 
@@ -112,10 +114,10 @@ class TraverserExample {
     this.reduceCalls.forEach((reduceCall, index) => {
       const actualReduceCall = this.actualReduceCalls[index]
 
-      strictEqual(reduceCall[0].equals(actualReduceCall[0]), true)
+      strictEqual(actualReduceCall[0].quad.toString(), reduceCall[0].quad.toString(), true)
+      strictEqual(actualReduceCall[0].dataset, this.dataset)
+      strictEqual(actualReduceCall[0].level, reduceCall[0].level)
       deepStrictEqual(actualReduceCall[1], reduceCall[1])
-      strictEqual(actualReduceCall[2].dataset, this.dataset)
-      strictEqual(actualReduceCall[2].level, reduceCall[2].level)
     })
   }
 
@@ -134,7 +136,7 @@ function backwardStop () {
       [ns.b, ns.p2, ns.c],
       [ns.c, ns.p1, ns.d]
     ],
-    filter: quad => quad.predicate.equals(ns.p1),
+    filter: ({ quad }) => quad.predicate.equals(ns.p1),
     filterCalls: [{
       level: 0,
       quad: [ns.c, ns.p1, ns.d]
@@ -153,7 +155,7 @@ function callbackCall () {
       [ns.b, ns.p1, ns.c],
       [ns.c, ns.p2, ns.d]
     ],
-    filter: quad => quad.predicate.equals(ns.p1),
+    filter: ({ quad }) => quad.predicate.equals(ns.p1),
     forEachCalls: [{
       level: 0,
       quad: [ns.a, ns.p1, ns.b]
@@ -196,7 +198,7 @@ function forwardStop () {
       [ns.b, ns.p2, ns.c],
       [ns.c, ns.p2, ns.d]
     ],
-    filter: quad => quad.predicate.equals(ns.p1),
+    filter: ({ quad }) => quad.predicate.equals(ns.p1),
     filterCalls: [{
       level: 0,
       quad: [ns.a, ns.p1, ns.b]
