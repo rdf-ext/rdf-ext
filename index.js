@@ -1,13 +1,14 @@
 import Environment from '@rdfjs/environment/Environment.js'
-import FetchFactory from '@rdfjs/environment/FetchFactory.js'
 import FormatsFactory from '@rdfjs/environment/FormatsFactory.js'
-import NamespaceFactory from '@rdfjs/environment/NamespaceFactory.js'
-import TermMapSetFactory from '@rdfjs/environment/TermMapSetFactory.js'
+import FetchFactory from '@rdfjs/fetch-lite/Factory.js'
+import NamespaceFactory from '@rdfjs/namespace/Factory.js'
+import PrefixMapFactory from '@rdfjs/prefix-map/Factory.js'
+import TermMapFactory from '@rdfjs/term-map/Factory.js'
+import TermSetFactory from '@rdfjs/term-set/Factory.js'
+import TraverserFactory from '@rdfjs/traverser/Factory.js'
 import ClownfaceFactory from './ClownfaceFactory.js'
 import DataFactory from './DataFactory.js'
 import DatasetFactory from './DatasetFactory.js'
-import PrefixMapFactory from './PrefixMapFactory.js'
-import TraverserFactory from './TraverserFactory.js'
 
 const defaultEnv = new Environment([
   ClownfaceFactory,
@@ -17,7 +18,8 @@ const defaultEnv = new Environment([
   FormatsFactory,
   NamespaceFactory,
   PrefixMapFactory,
-  TermMapSetFactory,
+  TermMapFactory,
+  TermSetFactory,
   TraverserFactory
 ])
 
@@ -31,6 +33,7 @@ export {
   FormatsFactory,
   NamespaceFactory,
   PrefixMapFactory,
-  TermMapSetFactory,
+  TermMapFactory,
+  TermSetFactory,
   TraverserFactory
 }

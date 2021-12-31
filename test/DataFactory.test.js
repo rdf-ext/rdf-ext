@@ -1,12 +1,12 @@
-import standard from '@rdfjs/data-model/test/index.js'
-import { describe } from 'mocha'
+import testSuite from '@rdfjs/data-model/test/index.js'
+import mocha from 'mocha'
 import DataFactory from '../DataFactory.js'
 import { Environment } from '../index.js'
 
 const env = new Environment([DataFactory])
 
-describe('DataFactory', () => {
-  describe('test suite', () => {
-    standard(env)
+mocha.describe('DataFactory', () => {
+  mocha.describe('test suite', () => {
+    testSuite({ factory: env, mocha })
   })
 })

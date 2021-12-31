@@ -1,6 +1,6 @@
+import fromTerm from '@rdfjs/data-model/lib/fromTerm.js'
 import BlankNode from './lib/BlankNode.js'
 import DefaultGraph from './lib/DefaultGraph.js'
-import fromTerm from './lib/fromTerm.js'
 import Literal from './lib/Literal.js'
 import NamedNode from './lib/NamedNode.js'
 import Quad from './lib/Quad.js'

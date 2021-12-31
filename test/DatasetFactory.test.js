@@ -1,13 +1,15 @@
 import { strictEqual } from 'assert'
 import standard from '@rdfjs/dataset/test/index.js'
-import { describe, it } from 'mocha'
+import mocha from 'mocha'
 import rdf from '../index.js'
 import DatasetExt from '../lib/Dataset.js'
 import example from './support/exampleData.js'
 
+const { describe, it } = mocha
+
 describe('DatasetFactory', () => {
   describe('test suite', () => {
-    standard(rdf)
+    standard({ factory: rdf, mocha })
   })
 
   describe('.dataset', () => {

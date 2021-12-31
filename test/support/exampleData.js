@@ -16,10 +16,7 @@ const example = {
   graph: rdf.namedNode('http://example.org/graph'),
   graph1: rdf.namedNode('http://example.org/graph1'),
   graph2: rdf.namedNode('http://example.org/graph2'),
-  graph3: rdf.namedNode('http://example.org/graph3'),
-  prefix: rdf.namedNode('http://example.org/'),
-  prefix1: rdf.namedNode('http://example.org/1/'),
-  prefix2: rdf.namedNode('http://example.org/2/')
+  graph3: rdf.namedNode('http://example.org/graph3')
 }
 
 example.quad = rdf.quad(example.subject, example.predicate, example.object, example.graph)
