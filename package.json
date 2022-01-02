@@ -29,13 +29,13 @@
     "@rdfjs/environment": "^0.1.0",
     "@rdfjs/fetch-lite": "^3.1.0",
     "@rdfjs/namespace": "^2.0.0",
+    "@rdfjs/normalize": "^2.0.0",
     "@rdfjs/prefix-map": "^0.1.0",
     "@rdfjs/term-map": "^2.0.0",
     "@rdfjs/term-set": "^2.0.0",
     "@rdfjs/to-ntriples": "^2.0.0",
     "@rdfjs/traverser": "^0.1.0",
     "clownface": "^1.4.0",
-    "rdf-normalize": "^1.0.0",
     "readable-stream": "^3.6.0"
   },
   "devDependencies": {
