@@ -1,7 +1,7 @@
 {
   "name": "rdf-ext",
   "version": "1.3.5",
-  "description": "Extended Linked Data module",
+  "description": "RDF-Ext is a developer-friendly extension for RDF/JS",
   "type": "module",
   "main": "index.js",
   "scripts": {

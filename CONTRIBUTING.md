@@ -10,9 +10,9 @@ If you are not sure to which project your topic belongs, just open an issue in t
 
 ## Styleguide
 
-All projects managed in the RDF-Ext organisation use the [standard code style](http://standardjs.com/).
-Standard is also configured as `lint` script in every `package.json` file.
-So you can use `npm run lint` beside `standard` to check the style.
+All projects managed in the RDF-Ext organization use the [standard code style](http://standardjs.com/).
+Standard is also configured in the `test` script in every `package.json` file.
+So you can use `npm test` to check the style.
 
 ## Pull Requests
 
