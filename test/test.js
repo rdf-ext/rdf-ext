@@ -1,4 +1,4 @@
-import { strictEqual } from 'assert'
+import { doesNotThrow, strictEqual } from 'assert'
 import { describe, it } from 'mocha'
 import rdf from '../index.js'
 
@@ -49,5 +49,13 @@ describe('rdf-ext', () => {
 
   it('should implement the TraverserFactory interface', () => {
     strictEqual(typeof rdf.traverser, 'function')
+  })
+
+  it('should bind the factory methods', () => {
+    const { blankNode } = rdf
+
+    doesNotThrow(() => {
+      blankNode()
+    })
   })
 })

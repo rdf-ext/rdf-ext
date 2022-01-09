@@ -21,7 +21,7 @@ const defaultEnv = new Environment([
   TermMapFactory,
   TermSetFactory,
   TraverserFactory
-])
+], { bind: true })
 
 export default defaultEnv
 export {

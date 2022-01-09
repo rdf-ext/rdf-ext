@@ -62,7 +62,6 @@ DataFactory.exports = [
   'literal',
   'variable',
   'defaultGraph',
-  'triple',
   'quad',
   'fromTerm',
   'fromQuad'
