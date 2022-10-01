@@ -39,6 +39,11 @@ describe('rdf-ext', () => {
     strictEqual(typeof rdf.prefixMap, 'function')
   })
 
+  it('should implement the ScoreFactory interface', () => {
+    strictEqual(typeof rdf.score, 'object')
+    strictEqual(typeof rdf.score.sort, 'function')
+  })
+
   it('should implement the TermMapFactory interface', () => {
     strictEqual(typeof rdf.termMap, 'function')
   })

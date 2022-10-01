@@ -3,6 +3,7 @@ import FormatsFactory from '@rdfjs/environment/FormatsFactory.js'
 import FetchFactory from '@rdfjs/fetch-lite/Factory.js'
 import NamespaceFactory from '@rdfjs/namespace/Factory.js'
 import PrefixMapFactory from '@rdfjs/prefix-map/Factory.js'
+import ScoreFactory from '@rdfjs/score/Factory.js'
 import TermMapFactory from '@rdfjs/term-map/Factory.js'
 import TermSetFactory from '@rdfjs/term-set/Factory.js'
 import TraverserFactory from '@rdfjs/traverser/Factory.js'
@@ -18,6 +19,7 @@ const defaultEnv = new Environment([
   FormatsFactory,
   NamespaceFactory,
   PrefixMapFactory,
+  ScoreFactory,
   TermMapFactory,
   TermSetFactory,
   TraverserFactory
@@ -33,6 +35,7 @@ export {
   FormatsFactory,
   NamespaceFactory,
   PrefixMapFactory,
+  ScoreFactory,
   TermMapFactory,
   TermSetFactory,
   TraverserFactory
