@@ -31,6 +31,7 @@
     "@rdfjs/namespace": "^2.0.0",
     "@rdfjs/normalize": "^2.0.0",
     "@rdfjs/prefix-map": "^0.1.0",
+    "@rdfjs/score": "^0.1.1",
     "@rdfjs/term-map": "^2.0.0",
     "@rdfjs/term-set": "^2.0.0",
     "@rdfjs/to-ntriples": "^2.0.0",
