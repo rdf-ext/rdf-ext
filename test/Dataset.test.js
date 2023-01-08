@@ -1,7 +1,7 @@
 import { deepStrictEqual, rejects, strictEqual } from 'assert'
-import getStream from 'get-stream'
 import { describe, it } from 'mocha'
 import { Readable } from 'readable-stream'
+import chunks from 'stream-chunks/chunks.js'
 import rdf from '../index.js'
 import Dataset from '../lib/Dataset.js'
 import example from './support/exampleData.js'
@@ -272,7 +272,7 @@ describe('Dataset', () => {
 
       const stream = dataset.toStream()
 
-      const output = await getStream.array(stream)
+      const output = await chunks(stream)
 
       strictEqual(output.length, 2)
       strictEqual(dataset.has(output[0]), true)

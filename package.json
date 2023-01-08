@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/rdf-ext/rdf-ext.git"
+    "url": "https://github.com/rdf-ext/rdf-ext.git"
   },
   "keywords": [
     "rdf",
@@ -23,25 +23,25 @@
   },
   "homepage": "https://github.com/rdf-ext/rdf-ext",
   "dependencies": {
-    "@rdfjs/data-model": "^2.0.0",
-    "@rdfjs/dataset": "^2.0.0",
-    "@rdfjs/environment": "^0.1.0",
-    "@rdfjs/fetch-lite": "^3.1.0",
+    "@rdfjs/data-model": "^2.0.1",
+    "@rdfjs/dataset": "^2.0.1",
+    "@rdfjs/environment": "^0.1.2",
+    "@rdfjs/fetch-lite": "^3.2.1",
     "@rdfjs/namespace": "^2.0.0",
     "@rdfjs/normalize": "^2.0.0",
-    "@rdfjs/prefix-map": "^0.1.0",
+    "@rdfjs/prefix-map": "^0.1.1",
     "@rdfjs/score": "^0.1.1",
     "@rdfjs/term-map": "^2.0.0",
-    "@rdfjs/term-set": "^2.0.0",
+    "@rdfjs/term-set": "^2.0.1",
     "@rdfjs/to-ntriples": "^2.0.0",
-    "@rdfjs/traverser": "^0.1.0",
-    "clownface": "^1.4.0",
-    "readable-stream": "^3.6.0"
+    "@rdfjs/traverser": "^0.1.1",
+    "clownface": "^1.5.1",
+    "readable-stream": "^4.3.0"
   },
   "devDependencies": {
-    "c8": "^7.7.3",
-    "get-stream": "^6.0.1",
-    "mocha": "^9.0.2",
+    "c8": "^7.12.0",
+    "mocha": "^10.2.0",
+    "stream-chunks": "^1.0.0",
     "stricter-standard": "^0.2.0"
   }
 }
