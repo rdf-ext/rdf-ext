@@ -245,6 +245,59 @@ describe('Dataset', () => {
     })
   })
 
+  describe('.reduce', () => {
+    it('should be a method', () => {
+      const dataset = new Dataset()
+
+      strictEqual(typeof dataset.reduce, 'function')
+    })
+
+    it('should call the callback function with the result of the previous value as first argument', () => {
+      const dataset = new Dataset([example.quad1, example.quad2])
+
+      const result = dataset.reduce((value, quad) => value + quad.object.value, '')
+
+      strictEqual(result, '12')
+    })
+
+    it('should call the callback function for every quad with the quad as second argument', () => {
+      const objects = []
+      const dataset = new Dataset([example.quad1, example.quad2])
+
+      dataset.reduce((accumulator, quad) => objects.push(quad.object.value))
+
+      deepStrictEqual(objects, ['1', '2'])
+    })
+
+    it('should call the callback function with the index as third argument', () => {
+      const dataset = new Dataset([example.quad1, example.quad2])
+
+      const result = dataset.reduce((value, quad, index) => value + index, '')
+
+      strictEqual(result, '01')
+    })
+
+    it('should call the callback function with the dataset as fourth argument', () => {
+      const datasets = []
+      const dataset = new Dataset([example.quad1, example.quad2])
+
+      dataset.reduce((value, quad, index, dataset) => datasets.push(dataset))
+
+      strictEqual(datasets.length, 2)
+      strictEqual(datasets[0], dataset)
+      strictEqual(datasets[1], dataset)
+    })
+
+    it('should use the initial value', () => {
+      const objects = []
+      const dataset = new Dataset([example.quad1, example.quad2])
+
+      const result = dataset.reduce((value, quad) => value + objects.push(quad.object.value), '0')
+
+      strictEqual(result, '012')
+    })
+  })
+
   describe('.some', () => {
     it('should be a method', () => {
       const dataset = new Dataset()
