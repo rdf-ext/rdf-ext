@@ -1,10 +1,11 @@
 import { strictEqual } from 'assert'
+import NamespaceFactory from '@rdfjs/namespace/Factory.js'
 import { describe, it } from 'mocha'
 import ClownfaceFactory from '../ClownfaceFactory.js'
 import { DataFactory, DatasetFactory, Environment } from '../index.js'
 import NamedNode from '../lib/NamedNode.js'
 
-const env = new Environment([ClownfaceFactory, DataFactory, DatasetFactory])
+const env = new Environment([ClownfaceFactory, DataFactory, DatasetFactory, NamespaceFactory])
 
 describe('ClownfaceFactory', () => {
   it('should be a constructor', () => {
@@ -32,7 +33,7 @@ describe('ClownfaceFactory', () => {
     })
 
     it('should not try to create a dataset if the environment doesn\'t implement DatasetFactory', () => {
-      const env = new Environment([ClownfaceFactory, DataFactory])
+      const env = new Environment([ClownfaceFactory, DataFactory, NamespaceFactory])
       const ptr = env.clownface()
 
       strictEqual(typeof ptr.dataset, 'undefined')

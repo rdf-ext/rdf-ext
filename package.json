@@ -35,7 +35,7 @@
     "@rdfjs/term-set": "^2.0.1",
     "@rdfjs/to-ntriples": "^2.0.0",
     "@rdfjs/traverser": "^0.1.1",
-    "clownface": "^1.5.1",
+    "clownface": "^2.0.0",
     "readable-stream": "^4.3.0"
   },
   "devDependencies": {
