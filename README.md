@@ -1,6 +1,6 @@
 # rdf-ext
 
-[![build status](https://img.shields.io/github/actions/workflow/status/rdf-ext/rdf-ext/test.yaml?branch=dep)](https://github.com/rdf-ext/rdf-ext/actions/workflows/test.yaml)
+[![build status](https://img.shields.io/github/actions/workflow/status/rdf-ext/rdf-ext/test.yaml?branch=master)](https://github.com/rdf-ext/rdf-ext/actions/workflows/test.yaml)
 [![npm version](https://img.shields.io/npm/v/rdf-ext.svg)](https://www.npmjs.com/package/rdf-ext)
 
 RDF-Ext is a JavaScript library that extends the [RDF/JS](#rdf-js) specs to handle RDF data in a developer-friendly way.
