@@ -28,6 +28,7 @@ The following factories are included in the environment:
 - [DatasetFactory](https://github.com/rdfjs-base/dataset)
 - [FetchFactory](https://github.com/rdfjs-base/fetch-lite)
 - [FormatsFactory](https://github.com/rdfjs-base/formats-common)
+- [GrapoiFactory](https://github.com/rdf-ext/grapoi)
 - [NamespaceFactory](https://github.com/rdfjs-base/namespace)
 - [PrefixMapFactory](https://github.com/rdfjs-base/prefix-map)
 - [TermMapFactory](https://github.com/rdfjs-base/term-map/)
@@ -38,7 +39,6 @@ The following factories are included in the environment:
 
 The package contains experimental features which may break or be removed without being covered in the semantic versioning:
 
-- [ClownfaceFactory](https://github.com/rdf-ext/rdf-ext/blob/master/ClownfaceFactory.js)
 - [ScoreFactory](https://github.com/rdfjs-base/score/#factory)
 
 ## Documentation & examples

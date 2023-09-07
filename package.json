@@ -36,6 +36,7 @@
     "@rdfjs/to-ntriples": "^2.0.0",
     "@rdfjs/traverser": "^0.1.1",
     "clownface": "^1.5.1",
+    "grapoi": "^1.0.2",
     "readable-stream": "^4.3.0"
   },
   "devDependencies": {
