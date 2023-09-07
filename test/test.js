@@ -30,6 +30,10 @@ describe('rdf-ext', () => {
     strictEqual(typeof rdf.formats, 'object')
   })
 
+  it('should implement the GrapoiFactory interface', () => {
+    strictEqual(typeof rdf.grapoi, 'function')
+  })
+
   it('should implement the NamespaceFactory interface', () => {
     strictEqual(typeof rdf.namespace, 'function')
   })

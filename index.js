@@ -7,6 +7,7 @@ import ScoreFactory from '@rdfjs/score/Factory.js'
 import TermMapFactory from '@rdfjs/term-map/Factory.js'
 import TermSetFactory from '@rdfjs/term-set/Factory.js'
 import TraverserFactory from '@rdfjs/traverser/Factory.js'
+import GrapoiFactory from 'grapoi/Factory.js'
 import ClownfaceFactory from './ClownfaceFactory.js'
 import DataFactory from './DataFactory.js'
 import DatasetFactory from './DatasetFactory.js'
@@ -17,6 +18,7 @@ const defaultEnv = new Environment([
   DatasetFactory,
   FetchFactory,
   FormatsFactory,
+  GrapoiFactory,
   NamespaceFactory,
   PrefixMapFactory,
   ScoreFactory,
@@ -33,6 +35,7 @@ export {
   Environment,
   FetchFactory,
   FormatsFactory,
+  GrapoiFactory,
   NamespaceFactory,
   PrefixMapFactory,
   ScoreFactory,
