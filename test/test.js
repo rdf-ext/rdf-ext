@@ -3,10 +3,6 @@ import { describe, it } from 'mocha'
 import rdf from '../index.js'
 
 describe('rdf-ext', () => {
-  it('should implement the ClownfaceFactory interface', () => {
-    strictEqual(typeof rdf.clownface, 'function')
-  })
-
   it('should implement the DataModelFactory interface', () => {
     strictEqual(typeof rdf.blankNode, 'function')
     strictEqual(typeof rdf.defaultGraph, 'function')

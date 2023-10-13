@@ -8,12 +8,10 @@ import TermMapFactory from '@rdfjs/term-map/Factory.js'
 import TermSetFactory from '@rdfjs/term-set/Factory.js'
 import TraverserFactory from '@rdfjs/traverser/Factory.js'
 import GrapoiFactory from 'grapoi/Factory.js'
-import ClownfaceFactory from './ClownfaceFactory.js'
 import DataFactory from './DataFactory.js'
 import DatasetFactory from './DatasetFactory.js'
 
 const defaultEnv = new Environment([
-  ClownfaceFactory,
   DataFactory,
   DatasetFactory,
   FetchFactory,
@@ -29,7 +27,6 @@ const defaultEnv = new Environment([
 
 export default defaultEnv
 export {
-  ClownfaceFactory,
   DataFactory,
   DatasetFactory,
   Environment,
