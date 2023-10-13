@@ -18,6 +18,10 @@ class DataFactory {
   }
 
   namedNode (value) {
+    if (typeof value !== 'string') {
+      value = value.toString()
+    }
+
     return new NamedNode(value)
   }
 
