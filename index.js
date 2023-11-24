@@ -1,6 +1,5 @@
 import Environment from '@rdfjs/environment/Environment.js'
-import FormatsFactory from '@rdfjs/environment/FormatsFactory.js'
-import FetchFactory from '@rdfjs/fetch-lite/Factory.js'
+import IoFactory from '@rdfjs/io/Factory.js'
 import NamespaceFactory from '@rdfjs/namespace/Factory.js'
 import PrefixMapFactory from '@rdfjs/prefix-map/Factory.js'
 import ScoreFactory from '@rdfjs/score/Factory.js'
@@ -10,6 +9,8 @@ import TraverserFactory from '@rdfjs/traverser/Factory.js'
 import GrapoiFactory from 'grapoi/Factory.js'
 import DataFactory from './DataFactory.js'
 import DatasetFactory from './DatasetFactory.js'
+import FetchFactory from './FetchFactory.js'
+import FormatsFactory from './FormatsFactory.js'
 
 const defaultEnv = new Environment([
   DataFactory,
@@ -17,6 +18,7 @@ const defaultEnv = new Environment([
   FetchFactory,
   FormatsFactory,
   GrapoiFactory,
+  IoFactory,
   NamespaceFactory,
   PrefixMapFactory,
   ScoreFactory,
