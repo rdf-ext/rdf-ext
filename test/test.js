@@ -30,6 +30,19 @@ describe('rdf-ext', () => {
     strictEqual(typeof rdf.grapoi, 'function')
   })
 
+  it('should implement the IoFactory interface', () => {
+    strictEqual(typeof rdf.io.dataset, 'object')
+    strictEqual(typeof rdf.io.dataset.fromText, 'function')
+    strictEqual(typeof rdf.io.dataset.fromURL, 'function')
+    strictEqual(typeof rdf.io.dataset.toText, 'function')
+    strictEqual(typeof rdf.io.dataset.toURL, 'function')
+    strictEqual(typeof rdf.io.stream, 'object')
+    strictEqual(typeof rdf.io.stream.fromText, 'function')
+    strictEqual(typeof rdf.io.stream.fromURL, 'function')
+    strictEqual(typeof rdf.io.stream.toText, 'function')
+    strictEqual(typeof rdf.io.stream.toURL, 'function')
+  })
+
   it('should implement the NamespaceFactory interface', () => {
     strictEqual(typeof rdf.namespace, 'function')
   })
