@@ -35,7 +35,7 @@
     "@rdfjs/score": "^0.1.1",
     "@rdfjs/term-map": "^2.0.0",
     "@rdfjs/term-set": "^2.0.1",
-    "@rdfjs/to-ntriples": "^2.0.0",
+    "@rdfjs/to-ntriples": "^3.0.1",
     "@rdfjs/traverser": "^0.1.1",
     "file-fetch": "^2.0.0",
     "grapoi": "^1.0.2",
