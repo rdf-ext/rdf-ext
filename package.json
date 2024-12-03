@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "c8": "^10.1.2",
-    "mocha": "^10.2.0",
+    "mocha": "^11.0.1",
     "stream-chunks": "^1.0.0",
     "stricter-standard": "^0.3.1"
   },
