@@ -1,14 +1,17 @@
 name: Test
-on: push
+on:
+  - pull_request
+  - push
 jobs:
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         node:
           - '18'
           - '20'
           - '22'
+          - '23'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -16,4 +19,16 @@ jobs:
           node-version: ${{ matrix.node }}
       - run: npm install
       - run: npm test
-      - uses: codecov/codecov-action@v5
+      - uses: coverallsapp/github-action@v2
+        with:
+          flag-name: run Node v${{ matrix.node }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel: true
+  finally:
+    needs: test
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel-finished: true
