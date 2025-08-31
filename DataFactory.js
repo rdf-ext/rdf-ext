@@ -6,6 +6,7 @@ import NamedNode from './lib/NamedNode.js'
 import Quad from './lib/Quad.js'
 import Variable from './lib/Variable.js'
 
+const dirLangStringDatatype = new NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#dirLangString')
 const langStringDatatype = new NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#langString')
 const stringDatatype = new NamedNode('http://www.w3.org/2001/XMLSchema#string')
 
@@ -34,6 +35,12 @@ class DataFactory {
   literal (value, languageOrDatatype) {
     if (typeof languageOrDatatype === 'string') {
       return new Literal(value, languageOrDatatype, langStringDatatype)
+    } else if (typeof languageOrDatatype?.language === 'string') {
+      return new Literal(
+        value,
+        languageOrDatatype.language,
+        languageOrDatatype.direction ? dirLangStringDatatype : langStringDatatype,
+        languageOrDatatype.direction)
     } else {
       return new Literal(value, '', languageOrDatatype || stringDatatype)
     }
